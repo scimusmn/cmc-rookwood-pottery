@@ -1,11 +1,12 @@
 {
   "name": "app-template",
   "private": true,
-  "description": "Basic template for starting a new kiosk or web project",
+  "description": "Rookwood pottery interactive",
   "version": "1.0.0",
   "author": "@scimusmn",
   "dependencies": {
-    "@react-three/fiber": "^8.0.10",
+    "@react-three/drei": "^9.5.3",
+    "@react-three/fiber": "^8.0.12",
     "dotenv": "^14.3.2",
     "gatsby": "^4.6.0",
     "gatsby-plugin-image": "^2.2.0",

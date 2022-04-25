@@ -7,3 +7,15 @@ body {
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.selection-button {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+  padding: 6px 12px;
+  text-decoration: none;
+}
