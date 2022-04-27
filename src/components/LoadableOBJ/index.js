@@ -6,7 +6,7 @@ import { useFrame, useLoader } from '@react-three/fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 
-function LoadableOBJ({ objPath, mtlPath, objScale }) {
+function LoadableOBJ({ objPath, mtlPath, scale }) {
   const materials = useLoader(MTLLoader, mtlPath);
   const obj = useLoader(OBJLoader, objPath, (loader) => {
     materials.preload();
@@ -19,7 +19,7 @@ function LoadableOBJ({ objPath, mtlPath, objScale }) {
   });
 
   console.log(obj);
-  return <primitive object={obj} ref={mesh} scale={objScale} position={[0, -1, 0]} />;
+  return <primitive object={obj} ref={mesh} scale={scale} position={[0, -1, 0]} />;
 }
 
 export default LoadableOBJ;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import PotteryScene from '../../components/PotteryScene';
 
 export const pageQuery = graphql`
   query ($slug: String!) {
@@ -47,6 +48,7 @@ function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
   const { slug, homeTitle, modelSelections } = contentfulRookwoodPotteryInteractive;
 
+  console.log(modelSelections);
   const [selectedModel, setSelectedModel] = useState(null);
 
   return (
@@ -65,7 +67,17 @@ function RookwoodPotteryInteractive({ data }) {
         </button>
       ))}
       { selectedModel && (
-        <p>{selectedModel.name}</p>
+        <>
+          <button type="button" className="selection-button" onClick={() => setSelectedModel(null)}>
+            Back
+          </button>
+          <p>{selectedModel.name}</p>
+          <PotteryScene
+            objPath={selectedModel.modelObj.localFile.publicURL}
+            mtlPath={selectedModel.modelMtl.localFile.publicURL}
+            scale={selectedModel.modelScale}
+          />
+        </>
       ) }
     </>
   );
