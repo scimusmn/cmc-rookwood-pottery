@@ -1,14 +1,5 @@
 import React, { useRef, useState, Suspense } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import LoadableModel from '../components/LoadableModel';
-
-const mtlPath = '/assets/example/Poimandres.mtl';
-const objPath = '/assets/cat/cat.obj';
-
-const models = [
-  { name: 'Cat', objPath: '/assets/cat/cat.obj', mtlPath: '/assets/example/Poimandres.mtl' },
-  { name: 'Frog', objPath: '/assets/frog/Frog_LOD0.obj', mtlPath: '/assets/example/Poimandres.mtl' },
-];
+import { Canvas, useFrame } from '@react-three/fiber';
 
 function Box(props) {
   // This reference will give us direct access to the mesh so we can animate it
@@ -24,7 +15,7 @@ function Box(props) {
 
   return (
     <mesh
-    // eslint-disable-next-line
+      // eslint-disable-next-line
       {...props}
       ref={mesh}
       scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
@@ -46,7 +37,6 @@ function IndexPage() {
     <div style={{ position: 'relative', width: 900, height: 900 }}>
       <Canvas>
         <Suspense fallback={null}>
-          <LoadableModel modelPath={objPath} mtlPath={mtlPath} scale={3} />
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           <Box position={[-1.2, 0, 0]} />
