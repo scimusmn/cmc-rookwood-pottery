@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import FPSStats from 'react-fps-stats';
 import PotteryScene from '../../components/PotteryScene';
-import FPSStats from "react-fps-stats";
 
 export const pageQuery = graphql`
   query ($slug: String!) {
@@ -65,10 +65,10 @@ function RookwoodPotteryInteractive({ data }) {
           />
           <h3>{selection.name}</h3>
           <p>{selection.shortDescription.shortDescription}</p>
-          
+
         </button>
       ))}
-      <FPSStats  />
+      <FPSStats />
       { selectedModel && (
         <>
           <button type="button" className="selection-button" onClick={() => setSelectedModel(null)}>
@@ -76,7 +76,7 @@ function RookwoodPotteryInteractive({ data }) {
           </button>
           <p>{selectedModel.name}</p>
           <PotteryScene
-            objPath={selectedModel.modelObj.localFile.publicURL}
+            modelPath={selectedModel.modelObj.localFile.publicURL}
             mtlPath={selectedModel.modelMtl.localFile.publicURL}
             scale={selectedModel.modelScale}
           />

@@ -1,13 +1,13 @@
 import React, { useRef, useState, Suspense } from 'react';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import LoadableOBJ from '../components/LoadableOBJ';
+import LoadableModel from '../components/LoadableModel';
 
 const mtlPath = '/assets/example/Poimandres.mtl';
 const objPath = '/assets/cat/cat.obj';
 
 const models = [
-  {name:'Cat', objPath:'/assets/cat/cat.obj', mtlPath: '/assets/example/Poimandres.mtl'},
-  {name:'Frog', objPath:'/assets/frog/Frog_LOD0.obj', mtlPath: '/assets/example/Poimandres.mtl'},
+  { name: 'Cat', objPath: '/assets/cat/cat.obj', mtlPath: '/assets/example/Poimandres.mtl' },
+  { name: 'Frog', objPath: '/assets/frog/Frog_LOD0.obj', mtlPath: '/assets/example/Poimandres.mtl' },
 ];
 
 function Box(props) {
@@ -43,10 +43,10 @@ function Box(props) {
 
 function IndexPage() {
   return (
-    <div style={{ position: "relative", width: 900, height: 900 }}>
+    <div style={{ position: 'relative', width: 900, height: 900 }}>
       <Canvas>
         <Suspense fallback={null}>
-          <LoadableOBJ objPath={objPath} mtlPath={mtlPath} scale={3} />
+          <LoadableModel modelPath={objPath} mtlPath={mtlPath} scale={3} />
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           <Box position={[-1.2, 0, 0]} />
