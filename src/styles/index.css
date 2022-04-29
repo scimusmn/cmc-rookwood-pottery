@@ -22,7 +22,7 @@ body {
 
 .scene-container {
   background-color: goldenrod;
-  height: 900;
+  height: 600px;
   position: "relative",;
-  width: 900;
+  width: 900px;
 }
