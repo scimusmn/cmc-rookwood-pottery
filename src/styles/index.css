@@ -33,3 +33,10 @@ body {
   position: "relative";
   width: 100%;
 }
+
+.render-stats {
+  background-color: rgb(11 22 33 / 80%);
+  position: absolute;
+  right: 0;
+  top: 0;
+}

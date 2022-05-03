@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import FPSStats from 'react-fps-stats';
 import PotteryScene from '../../components/PotteryScene';
 
 export const pageQuery = graphql`
@@ -72,7 +71,6 @@ function RookwoodPotteryInteractive({ data }) {
       ) }
       { selectedModel && (
         <div className='pottery-screen'>
-          <FPSStats right="0px" left="auto" graphWidth={50} />
           <button type="button" className="selection-button" onClick={() => setSelectedModel(null)}>
             Back
           </button>

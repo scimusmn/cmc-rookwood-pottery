@@ -9,7 +9,7 @@ function PotteryScene({ modelPath, mtlPath, scale }) {
     <div className='scene-container' >
     <p>{ scale }</p>
     <Canvas>
-      {/* <RenderStats /> */}
+      <RenderStats />
       <Suspense fallback={null}>
         <OrbitControls minPolarAngle={Math.PI/2} maxPolarAngle={Math.PI/2} />
         <LoadableModel modelPath={modelPath} mtlPath={mtlPath} scale={scale} />
