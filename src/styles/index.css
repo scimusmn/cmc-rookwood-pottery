@@ -34,6 +34,11 @@ body {
   width: 100%;
 }
 
+.stats {
+  left: auto !important;
+  right: 0 !important;
+}
+
 .render-stats {
   background-color: rgb(11 22 33 / 80%);
   position: absolute;
