@@ -47,30 +47,32 @@ export const pageQuery = graphql`
 
 function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
-  const { slug, homeTitle, modelSelections } = contentfulRookwoodPotteryInteractive;
+  const { homeTitle, modelSelections } = contentfulRookwoodPotteryInteractive;
 
   console.log(modelSelections);
   const [selectedModel, setSelectedModel] = useState(null);
 
   return (
     <>
-      <pre>{slug}</pre>
-      <h1>{homeTitle}</h1>
-      {modelSelections.map((selection) => (
-        <button key={selection.id} type="button" className="selection-button" onClick={() => setSelectedModel(selection)}>
-          <GatsbyImage
-            image={getImage(selection.thumbnail.localFile)}
-            loading="eager"
-            alt={selection.shortDescription.shortDescription}
-          />
-          <h3>{selection.name}</h3>
-          <p>{selection.shortDescription.shortDescription}</p>
-
-        </button>
-      ))}
-      <FPSStats />
+      { !selectedModel && (
+        <div className='home-screen'>
+          <h1>{homeTitle}</h1>
+          {modelSelections.map((selection) => (
+            <button key={selection.id} type="button" className="selection-button" onClick={() => setSelectedModel(selection)}>
+              <GatsbyImage
+                image={getImage(selection.thumbnail.localFile)}
+                loading="eager"
+                alt={selection.shortDescription.shortDescription}
+              />
+              <h3>{selection.name}</h3>
+              <p>{selection.shortDescription.shortDescription}</p>
+            </button>
+          ))}
+        </div>
+      ) }
       { selectedModel && (
-        <>
+        <div className='pottery-screen'>
+          <FPSStats right="0px" left="auto" graphWidth={50} />
           <button type="button" className="selection-button" onClick={() => setSelectedModel(null)}>
             Back
           </button>
@@ -80,7 +82,7 @@ function RookwoodPotteryInteractive({ data }) {
             mtlPath={selectedModel.modelMtl.localFile.publicURL}
             scale={selectedModel.modelScale}
           />
-        </>
+        </div>
       ) }
     </>
   );
