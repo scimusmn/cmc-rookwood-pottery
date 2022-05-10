@@ -17,6 +17,7 @@ import { useGLTF, useTexture } from '@react-three/drei';
       '/assets/texture-frog-alt-1.png', 
       '/assets/texture-frog-alt-2.png', 
       '/assets/texture-frog-alt-3.png',
+      '/assets/texture-frog-alt-4.png',
     ]);
 
     useEffect(() => {
