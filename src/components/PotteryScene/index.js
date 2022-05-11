@@ -5,7 +5,7 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { DynamicModel } from '../DynamicModel';
 import { HTMLCanvasMaterial } from '../HTMLCanvasMaterial';
-import DrawableCanvas from '../DrawableCanvas';
+// import DrawableCanvas from '../DrawableCanvas';
 import RenderStats from '../RenderStats';
 
 function PotteryScene({ modelPath, mtlPath, scale, color, texture }) {
@@ -25,7 +25,7 @@ function PotteryScene({ modelPath, mtlPath, scale, color, texture }) {
         </Suspense>
       </Canvas>
       {/* <canvas ref={drawCanvasRef} height="128" width="128"/> */}
-      <DrawableCanvas height="128" width="128" />
+      {/* <DrawableCanvas height="128" width="128" /> */}
     </div>
   );
 }
