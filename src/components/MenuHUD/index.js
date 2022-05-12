@@ -20,6 +20,7 @@ function MenuHUD({ onSelectionCallback }) {
       <button onClick={() => handleSelection({ texture: 2 })} type="button">Texture 2</button>
       <button onClick={() => handleSelection({ texture: 3 })} type="button">Texture 3</button>
       <button onClick={() => handleSelection({ texture: 4 })} type="button">Texture 4 (rgb)</button>
+      <button onClick={() => handleSelection({ texture: 5 })} type="button">Texture 5 (skull)</button>
     </div>
   );
 }
