@@ -55,6 +55,8 @@
     "clean": "gatsby clean",
     "depcheck": "node -r esm scripts/depcheck.js",
     "develop": "gatsby develop --port 3000",
+    "export-space": "node scripts/contentful/export-space.js",
+    "populate-space": "node scripts/contentful/populate-space.js",
     "install:arduino-base": "node scripts/install-arduino-base.js",
     "install:contentful": "node -r esm scripts/contentful/install-contentful.js && node -r esm scripts/contentful/autogenerate-pages.js",
     "lint": "npm-run-all lint:*",
