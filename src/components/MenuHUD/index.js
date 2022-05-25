@@ -4,10 +4,14 @@ import SwatchButton from '../SwatchButton';
 
 function MenuHUD({ onSelectionCallback, hudOptions }) {
   const [selectedSwatch, setSelectedSwatch] = useState(null);
+  const [selectedColorOption, setSelectedColorOption] = useState(null);
+
+  const colorOptions = ['Tomato', 'teal', 'gold', 'DarkSeaGreen', 'DarkSlateGrey', 'DarkGoldenRod'];
 
   const handleSelection = (selection) => {
     console.log('handleSelection', selection);
     if (selection.swatchId) setSelectedSwatch(selection.swatchId);
+    if (selection.color) setSelectedColorOption(selection.color);
     onSelectionCallback(selection);
   };
 
@@ -17,26 +21,28 @@ function MenuHUD({ onSelectionCallback, hudOptions }) {
     <div className="menu-hud">
       <div className="target-mesh-swatches">
         { hudOptions && (
-          hudOptions.map((meshName) => {
-            console.log('meshName btn', meshName);
-            return (
-              <SwatchButton
-                swatchId={meshName}
-                label={meshName}
-                key={meshName}
-                selectionCallback={handleSelection}
-                selected={selectedSwatch === meshName}
-              />
-            );
-          })
+          hudOptions.map((meshName) => (
+            <SwatchButton
+              swatchId={meshName}
+              label={meshName}
+              key={meshName}
+              selectionCallback={handleSelection}
+              selected={selectedSwatch === meshName}
+            />
+          ))
         )}
       </div>
       <div className="color-swatches">
-        <SwatchButton color="Tomato" selectionCallback={handleSelection} />
-        <SwatchButton color="teal" selectionCallback={handleSelection} />
-        <SwatchButton color="gold" selectionCallback={handleSelection} />
-        <SwatchButton color="DarkSeaGreen" selectionCallback={handleSelection} />
-        <SwatchButton color="DarkSlateGrey" selectionCallback={handleSelection} />
+        { colorOptions && (
+          colorOptions.map((colorOpt) => (
+            <SwatchButton
+              key={colorOpt}
+              color={colorOpt}
+              selectionCallback={handleSelection}
+              selected={selectedColorOption === colorOpt}
+            />
+          ))
+        )}
       </div>
     </div>
   );

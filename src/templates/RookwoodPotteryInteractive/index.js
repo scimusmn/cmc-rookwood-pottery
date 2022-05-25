@@ -30,12 +30,12 @@ export const pageQuery = graphql`
             }
           }
         }
-        modelObj {
+        modelBefore {
           localFile {
             publicURL
           }
         }
-        modelMtl {
+        modelAfter {
           localFile {
             publicURL
           }
@@ -63,13 +63,10 @@ function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
   const { homeTitle, modelSelections, kilnOverlay } = contentfulRookwoodPotteryInteractive;
 
-  console.log('kilnOverlay', kilnOverlay);
-
   const [appState, setAppState] = useState(APP_STATE.HOME);
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedTargetMesh, setSelectedTargetMesh] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedTexture, setSelectedTexture] = useState(null);
   const [hudOptions, setHUDOptions] = useState(null);
 
   useEffect(() => {
@@ -89,7 +86,6 @@ function RookwoodPotteryInteractive({ data }) {
     // TODO: this shouldn't rely on swatchId
     if (selection.swatchId) setSelectedTargetMesh(selection.swatchId);
     if (selection.color) setSelectedColor(selection.color);
-    if (selection.texture) setSelectedTexture(selection.texture);
   };
 
   return (
@@ -114,20 +110,22 @@ function RookwoodPotteryInteractive({ data }) {
         <div className="pottery-screen">
           <MenuHUD onSelectionCallback={onHUDSelection} hudOptions={hudOptions} />
           <PotteryScene
-            modelPath={selectedModel.modelObj.localFile.publicURL}
-            mtlPath={selectedModel.modelMtl.localFile.publicURL}
+            modelPathBefore={selectedModel.modelBefore.localFile.publicURL}
+            modelPathAfter={selectedModel.modelAfter.localFile.publicURL}
             scale={selectedModel.modelScale}
             color={selectedColor}
-            texture={selectedTexture}
             targetMesh={selectedTargetMesh}
             onMeshTargetsReady={(meshTargets) => setHUDOptions(meshTargets)}
+            showFired={(appState === APP_STATE.KILN)}
           />
           <button type="button" className="btn home" onClick={() => setAppState(APP_STATE.HOME)}>
             Home
           </button>
-          {/* <button type="button" className="btn fire"
-          onClick={() => setAppState(APP_STATE.KILN)}> */}
-          <button type="button" className="btn fire">
+          <button
+            type="button"
+            className="btn fire"
+            onClick={() => setAppState(APP_STATE.KILN)}
+          >
             Fire
           </button>
         </div>

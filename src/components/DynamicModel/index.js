@@ -7,32 +7,86 @@ import { useGLTF, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function DynamicModel({
-  modelPath, scale, targetMesh, color, texture, onMeshTargetsReady,
+  modelPath, scale, targetMesh, color, visible, onMeshTargetsReady, edits, onUserEdits,
 }) {
   const { scene, nodes, materials } = useGLTF(modelPath);
 
-  console.log('dynamic model', modelPath, scale);
-  console.log('scene', scene);
-  console.log('nodes', nodes);
-  console.log('materials', materials);
+  // console.log('dynamic model', modelPath, scale);
+  // console.log('scene', scene);
+  // console.log('nodes', nodes);
+  // console.log('materials', materials);
+  // console.log('listing material names:', Object.keys(materials));
 
-  const textures = useTexture([
-    '/assets/texture-frog-alt-1.png',
-    '/assets/texture-frog-alt-2.png',
-    '/assets/texture-frog-alt-3.png',
-    '/assets/texture-frog-alt-4.png',
-    '/assets/tiger-skull-layer-1.png',
-  ]);
+  const mesh = useRef();
+  const currentColors = useRef({});
+  const currentDragColor = useRef(null);
+  const dragging = useRef(false);
+  const currentMaterials = useRef({});
 
-  function applySwatch(meshName, newColor) {
+  function onTouchDown(e) {
+    dragging.current = true;
+    e.stopPropagation();
+    onRaycast(e);
+  }
+
+  function onTouchUp(e) {
+    dragging.current = false;
+    e.stopPropagation();
+    const {object} = e;
+    // This color is now "permanent"
+    currentColors.current[object.name] = color;
+    if (onUserEdits) onUserEdits({colors: currentColors.current});
+  }
+
+  function onRaycast(e) {
+    // console.log('onRaycast', e);
+    const {object} = e;
+
+    // Prevents other meshes from returning a hit
+    // (we only need the closest mesh)
+    e.stopPropagation();
+
+    // applySwatch(object.name, 'white');
+    if (dragging.current === true && currentDragColor.current) {
+      applySwatch(object.name, currentDragColor.current);
+    }
+    
+  }
+
+  function onRaycastLeave(e) {
+    const {object} = e;
+
+    // Prevents other meshes from returning a hit
+    // (we only need the closest mesh)
+    e.stopPropagation();
+
+    if (dragging.current === true) {
+      // dragging.current = false;
+      applySwatch(object.name, currentColors.current[object.name]);
+    }
+  }
+
+  function applySwatch(meshName, newColor, useClone) {
     
     // Note: color is a string, not a THREE.Color object
     // should be a valid color string (https://threejs.org/docs/#api/en/math/Color.set)
     // e.g. '0x00ff00', 'red', or '#ff0000'
-    const newMaterial = new THREE.MeshPhongMaterial({
-      color: new THREE.Color(newColor),
-      shininess: 10,
-    });
+
+    // const newMaterial = new THREE.MeshPhongMaterial({
+    //   color: new THREE.Color(newColor),
+    //   shininess: 10,
+    // });
+
+    // TODO: should not clone everytime. Better to init one material
+    // for each mesh and clone it.
+    let newMaterial;
+    if (useClone) {
+      newMaterial = materials[Object.keys(materials)[0]].clone();
+      currentMaterials.current[meshName] = newMaterial;
+    } else {
+      newMaterial = currentMaterials.current[meshName];
+    }
+    newMaterial.color = new THREE.Color(newColor);
 
     setMaterialByMeshName(meshName, newMaterial, scene);
   }
@@ -40,7 +94,6 @@ export function DynamicModel({
   function setMaterialOfChildren(newMaterial, parentObject) {
     parentObject.traverse((object) => {
       if (object.isMesh) {
-        console.log("Swapping material for CHILD mesh '" + object.name + "'");
         object.material = newMaterial;
       }
     });
@@ -51,30 +104,30 @@ export function DynamicModel({
     // https://threejs.org/docs/#api/en/core/Object3D.getObjectByName
     parentScene.traverse((object) => {
       if (object.isMesh && object.name === meshName) {
-        console.log("Swapping material for mesh '" + object.name + "'");
         object.material = newMaterial;
         return;
       } else if (object.isGroup && object.name === meshName) {
-        console.log('forwarding to group: ' + object.name);
         setMaterialOfChildren(newMaterial, object);
       }
     });
   }
 
   useEffect(() => {
-    console.log("INIT EFFECT");
+    scene.traverse ( function (child) {
+        if (child instanceof THREE.Mesh) {
+            child.visible = true;
+        }
+    });
+  }, [visible]);
 
-    console.log('Listing mesh names:');
+  useEffect(() => {
     const meshTargets = [];
     const topLevelTargets = [];
     scene.traverse((object) => {
-      console.log('obj -->', object);
       if (object.id !== scene.id) {
         if (object.isMesh || object.isGroup) {
-          console.log('mesh/group -->', object.name);
           // Check if direct descendant of main scene
           if (object.parent.id === scene.id) {
-            console.log('* direct descendant');
             object.displayName = object.name.toUpperCase();
             topLevelTargets.push(object.name);
           }
@@ -85,78 +138,47 @@ export function DynamicModel({
 
     console.log('topLevelTargets', topLevelTargets);
     console.log('meshTargets', meshTargets);
-    onMeshTargetsReady(topLevelTargets);
+    if (onMeshTargetsReady) onMeshTargetsReady(topLevelTargets);
 
     // Hack to get around bug that pops up
     // after trying to apply swatch first time. 
     // For some reason, setting the swatch once
     // immediately after loading the model prevents
     // the bug from appearing on first swatch selection.
+    const defaultColor = 'gray';
     meshTargets.forEach(meshName => {
-      applySwatch(meshName, 'gray');
+      applySwatch(meshName, defaultColor, true);
+      currentColors.current[meshName] = defaultColor;
     });
-
-
   }, []);
 
   useEffect(() => {
-    console.log('targetMesh', targetMesh, color);
-    if (targetMesh && color) {
-      console.log('applying color');
-      applySwatch(targetMesh, color);
+    if (visible && edits && edits.colors) {
+      console.log('Applying color edits:', edits);
+      Object.keys(edits.colors).forEach(meshName => {
+        applySwatch(meshName, edits.colors[meshName], true);
+        currentColors.current[meshName] = edits.colors[meshName];
+      });
     }
-  }, [color]);
-
-  // useEffect(() => {
-  //   console.log('color', color);
-  //   if (color && color !== 'spin') {
-  //     const material = materials[Object.keys(materials)[0]];
-  //     material.color.r = color.r;
-  //     material.color.g = color.g;
-  //     material.color.b = color.b;
-  //   }
-  // }, [color]);
+  }, [edits, visible]);
 
   useEffect(() => {
-    console.log('texture', texture);
+    if (targetMesh && color) {
+      currentColors.current[targetMesh] = color;
+      applySwatch(targetMesh, color);
+    } 
+    currentDragColor.current = color;
+  }, [color]);
 
-    if (texture > 0) {
-      const newTexture = textures[texture - 1];
-      // These next two settings are quirks specific to GLTF + loading external textures.
-      // https://threejs.org/docs/#examples/en/loaders/GLTFLoader
-      // If texture is used for color information, set colorspace.
-      newTexture.encoding = THREE.sRGBEncoding;
-      // UVs use the convention that (0, 0) corresponds to the upper left corner of a texture.
-      newTexture.flipY = false;
-
-      // newTexture.needsUpdate = true;
-      const material = materials[Object.keys(materials)[0]];
-
-      // Tell material to use alpha blending
-      // material.transparent = true;
-      // material.alphaTest = 0.1;
-
-      material.map = newTexture;
-      console.log('material.map', material.map);
-
-      material.needsUpdate = true;
-      mesh.current.needsUpdate = true;
-
-    }
-  }, [texture]);
-
-  const mesh = useRef();
-  useFrame(() => {
-    // mesh.current.rotation.y += 0.01;
-    const material = materials[Object.keys(materials)[0]];
-    if (color && color === 'spin') {
-      material.color.r = 0.5 + Math.sin(Date.now() * 0.001) * 0.5;
-      material.color.g = 0.1 + Math.sin(Date.now() * 0.001) * 0.5;
-      material.color.b = 0.3 + Math.sin(Date.now() * 0.002) * 0.5;
-    }
-    // material.map = texture;
-    // if (texture) material.map = textures[texture - 1];
-  });
-
-  return <primitive object={scene} ref={mesh} scale={scale} position={[0, -1.5, 0]} />;
+  return <primitive 
+            object={scene} 
+            ref={mesh} 
+            onPointerDown={onTouchDown}
+            onPointerUp={onTouchUp}
+            onPointerEnter={onRaycast} 
+            onPointerLeave={onRaycastLeave} 
+            scale={scale} 
+            position={[0, -1.5, 0]} 
+            visible={visible}
+          />;
 }
