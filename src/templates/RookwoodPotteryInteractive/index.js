@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { Modal, Button } from 'react-bootstrap';
 import PotteryScene from '../../components/PotteryScene';
 import MenuHUD from '../../components/MenuHUD';
 import KilnSequence from '../../components/KilnSequence';
 import Video from '../../components/Video';
+import FadeShow from '../../components/FadeShow';
 import COLOR_LOOKUP from '../../data/ColorLookup';
 
 export const pageQuery = graphql`
@@ -92,6 +94,8 @@ function RookwoodPotteryInteractive({ data }) {
   const [selectedTargetMesh, setSelectedTargetMesh] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [hudOptions, setHUDOptions] = useState(null);
+  const [showLoadingModal, setShowLoadingModal] = useState(true);
+  const [showReadyModal, setShowReadyModal] = useState(false);
 
   useEffect(() => {
     if (selectedModel) setAppState(APP_STATE.SELECTION);
@@ -162,7 +166,7 @@ function RookwoodPotteryInteractive({ data }) {
         </div>
       ) }
       { appState === APP_STATE.STUDIO && (
-        <div className="pottery-screen">
+        <div className="hud-screen">
           <MenuHUD
             onSelectionCallback={onHUDSelection}
             colorOptions={COLOR_OPTIONS}
@@ -171,24 +175,10 @@ function RookwoodPotteryInteractive({ data }) {
           <button
             type="button"
             className="btn fire"
-            onClick={() => setAppState(APP_STATE.FIRING)}
+            onClick={() => setShowReadyModal(true)}
           >
             Fire
           </button>
-        </div>
-      ) }
-      { appState === APP_STATE.FIRING && (
-        <div className="firing-screen">
-          <button type="button" className="btn continue" onClick={() => setAppState(APP_STATE.RESULTS)}>
-            Continue
-          </button>
-          <h1>Here be the kiln!</h1>
-          {firingFactoids.map((factoid) => (
-            <li key={factoid.id} className="factoid">
-              { factoid }
-            </li>
-          ))}
-          <KilnSequence kilnOverlay={kilnOverlay} />
         </div>
       ) }
       { (appState === APP_STATE.STUDIO || appState === APP_STATE.FIRING) && (
@@ -205,6 +195,67 @@ function RookwoodPotteryInteractive({ data }) {
           <button type="button" className="btn home" onClick={() => setAppState(APP_STATE.ATTRACT)}>
             Home
           </button>
+          <Modal
+            key="loading"
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            show={showLoadingModal}
+          >
+            <Modal.Header>
+              <Modal.Title id="contained-modal-title-vcenter">
+                ALMOST READY
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h4>ALMOST READY</h4>
+              <p>
+                Another artist. . skdfj f.akdsj f.ajk asdf.a aj.sd faj sd,.faj.
+              </p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => setShowLoadingModal(false)}>LET&apos;S GO</Button>
+            </Modal.Footer>
+          </Modal>
+          <Modal
+            key="areyouready"
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            show={showReadyModal}
+          >
+            <Modal.Header>
+              <Modal.Title id="contained-modal-title-vcenter">
+                ARE YOU READY
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <h4>ARE YOU READY</h4>
+              <p>
+                Another artist. . skdfj f.akdsj f.ajk asdf.a aj.sd faj sd,.faj.
+              </p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => setShowReadyModal(false)}>NO</Button>
+              <Button
+                onClick={() => { setShowReadyModal(false); setAppState(APP_STATE.FIRING); }}
+              >
+                YES
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </div>
+      ) }
+      { appState === APP_STATE.FIRING && (
+        <div className="firing-screen">
+          <button type="button" className="btn continue" onClick={() => setAppState(APP_STATE.RESULTS)}>
+            CONTINUE
+          </button>
+          <div className="factoids-bar">
+            <h2>DID YOU KNOW?</h2>
+            <FadeShow elements={firingFactoids} delay={4000} />
+          </div>
+          <KilnSequence kilnOverlay={kilnOverlay} />
         </div>
       ) }
       { appState === APP_STATE.RESULTS && (
