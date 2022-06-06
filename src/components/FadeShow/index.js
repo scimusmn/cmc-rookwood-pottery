@@ -8,7 +8,6 @@ function FadeShow({ delay, elements }) {
   useInterval(() => {
     let nextIndex = fadeIndex + 1;
     if (nextIndex >= elements.length) nextIndex = 0;
-    console.log('nextIndex', fadeIndex, nextIndex, elements.length);
     setFadeIndex(nextIndex);
   }, delay);
 

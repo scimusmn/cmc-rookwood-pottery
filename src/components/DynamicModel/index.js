@@ -66,8 +66,6 @@ export function DynamicModel({
         visible: true
       });
 
-      
-
       // const materials = [ layeredMaterial, layeredMaterial2 ];
 
       // mesh.current.material = layeredMaterial;
@@ -92,7 +90,6 @@ export function DynamicModel({
   }
 
   function onRaycast(e) {
-    // console.log('onRaycast', e);
     const {object} = e;
 
     // Prevents other meshes from returning a hit
@@ -229,12 +226,12 @@ export function DynamicModel({
   return <primitive 
             object={scene} 
             ref={mesh} 
-            onPointerDown={onTouchDown}
-            onPointerUp={onTouchUp}
-            onPointerEnter={onRaycast} 
-            onPointerLeave={onRaycastLeave} 
+            onPointerDown={visible ? onTouchDown : null}
+            onPointerUp={visible ? onTouchUp : null}
+            onPointerEnter={visible ? onRaycast : null}
+            onPointerLeave={visible ? onRaycastLeave : null}
             scale={scale} 
-            position={[0, -1.5, 0]} 
+            position={[0, -3, 0]} 
             visible={visible}
           />;
 }

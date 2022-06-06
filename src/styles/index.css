@@ -30,7 +30,7 @@ body {
 }
 
 body {
-  background-color: darkslategrey;
+  background-color: #e5e5e5;
   font-family: Merriweather, serif;
   margin: 0;
   padding: 0;
@@ -38,6 +38,10 @@ body {
 
 h1 {
   font-family: Nord, sans-serif;
+}
+
+p {
+  color: #364015;
 }
 
 span {
@@ -101,12 +105,52 @@ span {
   position: absolute;
 }
 
+.selections-container .selection-button {
+  height: 460px;
+  width: 350px;
+}
+
+.selection-screen h2 {
+  left: 965px;
+  position: absolute;
+  top: 218px;
+}
+
+.selection-screen p {
+  left: 965px;
+  position: absolute;
+  top: 407px;
+  width: 567px;
+}
+
+.selection-screen .gatsby-image-wrapper {
+  height: 807px;
+  left: 335px;
+  position: absolute;
+  top: 164px;
+  width: 498px;
+}
+
+.selection-screen .btn.back {
+  font-size: 24px;
+  left: 97px;
+  position: absolute;
+  top: 55px;
+}
+
+.selection-screen .btn.select {
+  left: 965px;
+  position: absolute;
+  top: 911px;
+}
+
 .side-panel {
-  background-color: rgb(255 233 243 / 80%);
+  background-color: rgb(238 237 231 / 90%);
+  filter: drop-shadow(0 5px 12px rgb(54 64 21 / 33%));
   height: 100%;
   position: absolute;
   top: 0;
-  width: 29%;
+  width: 550px;
   z-index: 5;
 }
 
@@ -116,6 +160,18 @@ span {
 
 .side-panel.right {
   right: 0;
+}
+
+.side-panel p {
+  align-items: center;
+  display: flex;
+  font-size: 25px;
+  left: calc(50% - 279px / 2 - 37px);
+  line-height: 40px;
+  position: absolute;
+  text-align: center;
+  top: calc(50% - 120px / 2);
+  width: 280px;
 }
 
 .btn {

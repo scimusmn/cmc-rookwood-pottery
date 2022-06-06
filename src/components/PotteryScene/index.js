@@ -5,7 +5,7 @@ import { PointLightHelper, DirectionalLightHelper } from "three";
 import { OrbitControls, Html, useProgress, useHelper } from '@react-three/drei';
 import { DynamicModel } from '../DynamicModel';
 import { HTMLCanvasMaterial } from '../HTMLCanvasMaterial';
-// import { Outliner } from '../Outliner';
+import COLOR_LOOKUP from '../../data/ColorLookup';
 
 const SCENE_DEBUG_MODE = false;
 
@@ -56,6 +56,24 @@ function PotteryScene({ modelPathBefore, modelPathAfter, scale, targetMesh, colo
       }
 
     function onUserModelEdits(editsObj) {
+      // Replace before colors w after colors
+      if (editsObj.colors) {
+        Object.keys(editsObj.colors).forEach(key => {
+          const beforeColor = editsObj.colors[key];
+          let afterColor = null;
+          Object.keys(COLOR_LOOKUP).forEach(k => {
+            if (COLOR_LOOKUP[k].before === beforeColor) {
+              afterColor = COLOR_LOOKUP[k].after;
+            }
+          })
+          if (afterColor) {
+            editsObj.colors[key] = afterColor;
+          } else {
+            console.log('[WARNING] No after color for', beforeColor);
+          }
+        })
+      }
+
       setPreFireEdits(editsObj);
     }
 
@@ -63,7 +81,6 @@ function PotteryScene({ modelPathBefore, modelPathAfter, scale, targetMesh, colo
     <div className="scene-container">
       <Canvas ref={canvasRef} >
         <Suspense fallback={<ProgressLoader />}>
-          {/* <Outliner> */}
             <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} />
             <DynamicModel 
               key="before-model"
@@ -83,7 +100,6 @@ function PotteryScene({ modelPathBefore, modelPathAfter, scale, targetMesh, colo
               edits={preFireEdits}
             />
             <Lighting />
-          {/* </Outliner> */}
         </Suspense>
       </Canvas>
     </div>

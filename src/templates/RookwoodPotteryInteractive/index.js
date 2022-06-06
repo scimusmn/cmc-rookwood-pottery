@@ -32,11 +32,14 @@ export const pageQuery = graphql`
         shortDescription {
           shortDescription
         }
+        loadingPreamble {
+          loadingPreamble
+        }
         thumbnail {
           localFile {
             publicURL
             childImageSharp {
-              gatsbyImageData(width: 300, height: 300, layout: FIXED, placeholder: BLURRED)
+              gatsbyImageData(width: 350, height: 350, layout: FIXED, placeholder: BLURRED)
             }
           }
         }
@@ -73,7 +76,7 @@ const APP_STATE = {
   RESULTS: 6,
 };
 
-const COLOR_OPTIONS = Object.keys(COLOR_LOOKUP).map((key) => COLOR_LOOKUP[key].before);
+const COLOR_OPTIONS = Object.keys(COLOR_LOOKUP);
 
 function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
@@ -89,7 +92,7 @@ function RookwoodPotteryInteractive({ data }) {
     resultsSubhead,
   } = contentfulRookwoodPotteryInteractive;
 
-  const [appState, setAppState] = useState(APP_STATE.ATTRACT);
+  const [appState, setAppState] = useState(APP_STATE.SELECTION_GALLERY);
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedTargetMesh, setSelectedTargetMesh] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -142,7 +145,7 @@ function RookwoodPotteryInteractive({ data }) {
                   alt={selection.shortDescription.shortDescription}
                 />
                 <h3>{selection.name}</h3>
-                <p>{selection.shortDescription.shortDescription}</p>
+                {/* <p>{selection.shortDescription.shortDescription}</p> */}
               </button>
             ))}
           </div>
@@ -202,15 +205,10 @@ function RookwoodPotteryInteractive({ data }) {
             centered
             show={showLoadingModal}
           >
-            <Modal.Header>
-              <Modal.Title id="contained-modal-title-vcenter">
-                ALMOST READY
-              </Modal.Title>
-            </Modal.Header>
             <Modal.Body>
               <h4>ALMOST READY</h4>
               <p>
-                Another artist. . skdfj f.akdsj f.ajk asdf.a aj.sd faj sd,.faj.
+                { selectedModel.loadingPreamble.loadingPreamble }
               </p>
             </Modal.Body>
             <Modal.Footer>
@@ -224,15 +222,11 @@ function RookwoodPotteryInteractive({ data }) {
             centered
             show={showReadyModal}
           >
-            <Modal.Header>
-              <Modal.Title id="contained-modal-title-vcenter">
-                ARE YOU READY
-              </Modal.Title>
-            </Modal.Header>
             <Modal.Body>
               <h4>ARE YOU READY</h4>
               <p>
-                Another artist. . skdfj f.akdsj f.ajk asdf.a aj.sd faj sd,.faj.
+                Once you fire your piece, the design is baked in.
+                You can&paos;t make any more changes.
               </p>
             </Modal.Body>
             <Modal.Footer>
@@ -260,7 +254,7 @@ function RookwoodPotteryInteractive({ data }) {
       ) }
       { appState === APP_STATE.RESULTS && (
         <div className="results-screen">
-          <button type="button" className="btn home" onClick={() => setAppState(APP_STATE.ATTRACT)}>
+          <button type="button" className="btn home" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
             Start over
           </button>
           <h1>{resultsTitle}</h1>

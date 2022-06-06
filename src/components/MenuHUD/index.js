@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SwatchButton from '../SwatchButton';
+import COLOR_LOOKUP from '../../data/ColorLookup';
 
 function MenuHUD({ onSelectionCallback, colorOptions, hudOptions }) {
   const [selectedSwatch, setSelectedSwatch] = useState(null);
@@ -15,7 +16,7 @@ function MenuHUD({ onSelectionCallback, colorOptions, hudOptions }) {
   return (
     <div className="menu-hud">
       <div className="side-panel right">
-        <div className="target-mesh-swatches">
+        <div className="target-mesh-swatches" style={{ display: 'none' }}>
           { hudOptions && (
             hudOptions.map((meshName) => (
               <SwatchButton
@@ -30,12 +31,13 @@ function MenuHUD({ onSelectionCallback, colorOptions, hudOptions }) {
         </div>
         <div className="color-swatches">
           { colorOptions && (
-            colorOptions.map((colorOpt) => (
+            colorOptions.map((colorKey) => (
               <SwatchButton
-                key={colorOpt}
-                color={colorOpt}
+                key={colorKey}
+                color={COLOR_LOOKUP[colorKey].before}
+                label={COLOR_LOOKUP[colorKey].label}
                 selectionCallback={handleSelection}
-                selected={selectedColorOption === colorOpt}
+                selected={selectedColorOption === COLOR_LOOKUP[colorKey].before}
               />
             ))
           )}
