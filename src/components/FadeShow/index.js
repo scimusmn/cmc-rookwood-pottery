@@ -3,7 +3,7 @@ import useInterval from 'use-interval';
 import PropTypes from 'prop-types';
 
 function FadeShow({ delay, elements }) {
-  const [fadeIndex, setFadeIndex] = useState(0);
+  const [fadeIndex, setFadeIndex] = useState(Math.floor(Math.random() * elements.length));
 
   useInterval(() => {
     let nextIndex = fadeIndex + 1;

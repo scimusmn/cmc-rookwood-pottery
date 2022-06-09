@@ -48,6 +48,35 @@ span {
   font-family: Roboto, sans-serif;
 }
 
+.btn .primary {
+  align-items: center;
+  background-color: #364015;
+  border-bottom: 5px solid #ffb600;
+  box-shadow: 0 4px 13px 1px rgb(54 64 21 / 22%);
+  color: #e5e5e5;
+  display: flex;
+  font-family: Nord;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  height: 45px;
+  line-height: 123%;
+  text-align: center;
+}
+
+.btn .secondary {
+  background: #f1eee9;
+  border: 1px solid #364015;
+  box-shadow: 0 0 4px rgb(54 64 21 / 49%);
+  color: #364015;
+  font-family: Nord;
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 300;
+  height: 45px;
+  line-height: 123%;
+}
+
 .selection-button {
   background-color: #f5f5f5;
   border: 1px solid #ccc;
@@ -68,6 +97,25 @@ span {
   width: 90px;
 }
 
+.studio-screen .original-preview {
+  background: #f1eee9;
+  height: 185px;
+  left: 56px;
+  position: absolute;
+  text-align: center;
+  top: 895px;
+  width: 119px;
+}
+
+.studio-screen .original-preview p {
+  font-family: Merriweather, serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 123%;
+  margin-top: 30px;
+}
+
 .pottery-screen {
   height: 960px;
   position: absolute;
@@ -75,12 +123,12 @@ span {
 }
 
 .scene-container {
-  background-color: whitesmoke;
   height: 100%;
   left: 0;
   position: absolute;
   top: 0;
   width: 100%;
+  z-index: 2;
 }
 
 .stats {
@@ -201,11 +249,59 @@ span {
 }
 
 .kiln-sequence {
+  height: 100%;
   left: 0;
   pointer-events: none;
   position: absolute;
   top: 0;
+  width: 100%;
   z-index: 1;
+}
+
+@keyframes white-hot {
+  0% {
+    filter: blur(7px) brightness(200%);
+    opacity: 0.9;
+  }
+
+  15% {
+    filter: blur(4px) brightness(800%);
+    opacity: 0.99;
+  }
+
+  30% {
+    filter: blur(12px) brightness(300%);
+    opacity: 0.98;
+  }
+
+  45% {
+    filter: blur(13px) brightness(600%);
+    opacity: 0.93;
+  }
+
+  60% {
+    filter: blur(18px) brightness(900%);
+    opacity: 0.97;
+  }
+
+  75% {
+    filter: blur(8px) brightness(700%);
+    opacity: 0.95;
+  }
+
+  100% {
+    filter: blur(7px) brightness(200%);
+    opacity: 0.9;
+  }
+}
+
+.kiln-overlay {
+  animation: white-hot 3s ease-in-out infinite;
+  z-index: 99;
+}
+
+.kiln-overlay {
+  animation: white-hot 3s ease-in-out infinite;
 }
 
 .firing-screen {
@@ -281,6 +377,32 @@ span {
 .menu-hud .swatch-button {
   box-shadow: 0 1px 6px 2px rgb(15 12 74 / 15%);
   pointer-events: all;
+}
+
+.background {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.background .gatsby-image-wrapper {
+  left: -30px;
+}
+
+/* Layer that can be placed over background
+images to blur and gray out */
+.blur-overlay {
+  backdrop-filter: blur(20px);
+  background: rgb(134 134 134 / 37%);
+  height: 1080px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 9;
 }
 
 /* Modals */

@@ -55,7 +55,15 @@ export const pageQuery = graphql`
         }
         modelScale
       }
-      kilnOverlay {
+      studioBgImage {
+        localFile {
+          publicURL
+          childImageSharp {
+            gatsbyImageData(width: 1920, height: 1080, layout: FIXED, placeholder: BLURRED)
+          }
+        }
+      }
+      firingBgVideo {
         localFile {
           publicURL
         }
@@ -63,6 +71,14 @@ export const pageQuery = graphql`
       firingFactoids
       resultsTitle
       resultsSubhead
+      resultsBgImage {
+        localFile {
+          publicURL
+          childImageSharp {
+            gatsbyImageData(width: 1920, height: 1080, layout: FIXED, placeholder: BLURRED)
+          }
+        }
+      }
     }
   }
 `;
@@ -85,14 +101,16 @@ function RookwoodPotteryInteractive({ data }) {
     homeSubhead,
     homeBgVideo,
     modelSelections,
-    kilnOverlay,
     selectionPrompt,
+    studioBgImage,
     firingFactoids,
+    firingBgVideo,
     resultsTitle,
     resultsSubhead,
+    resultsBgImage,
   } = contentfulRookwoodPotteryInteractive;
 
-  const [appState, setAppState] = useState(APP_STATE.SELECTION_GALLERY);
+  const [appState, setAppState] = useState(APP_STATE.ATTRACT);
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedTargetMesh, setSelectedTargetMesh] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -114,153 +132,215 @@ function RookwoodPotteryInteractive({ data }) {
   }, [appState]);
 
   const onHUDSelection = (selection) => {
-    // TODO: this shouldn't rely on swatchId
     if (selection.swatchId) setSelectedTargetMesh(selection.swatchId);
     if (selection.color) setSelectedColor(selection.color);
   };
 
-  return (
-    <>
-      { appState === APP_STATE.ATTRACT && (
-        <div className="attract-screen">
-          <div className="side-panel left">
-            <h1>{homeTitle}</h1>
-            <p>{homeSubhead.homeSubhead}</p>
-            <button type="button" className="btn begin" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}> BEGIN </button>
-          </div>
-          <Video src={homeBgVideo.localFile.publicURL} active={false} />
+  const startFiringSequence = () => {
+    setShowReadyModal(false);
+    setAppState(APP_STATE.FIRING);
+    setTimeout(() => {
+      setAppState(APP_STATE.RESULTS);
+    }, 15 * 1000);
+  };
+
+  function renderAttract() {
+    return (
+      <div className="attract-screen">
+        <div className="side-panel left">
+          <h1>{homeTitle}</h1>
+          <p>{homeSubhead.homeSubhead}</p>
+          <button type="button" className="btn primary begin" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}> BEGIN </button>
         </div>
-      ) }
-      { appState === APP_STATE.SELECTION_GALLERY && (
-        <div className="selection-gallery-screen">
-          <div className="side-panel left">
-            <p>{selectionPrompt.selectionPrompt}</p>
-          </div>
-          <div className="selections-container">
-            {modelSelections.map((selection) => (
-              <button key={selection.id} type="button" className="selection-button" onClick={() => setSelectedModel(selection)}>
-                <GatsbyImage
-                  image={getImage(selection.thumbnail.localFile)}
-                  loading="eager"
-                  alt={selection.shortDescription.shortDescription}
-                />
-                <h3>{selection.name}</h3>
-                {/* <p>{selection.shortDescription.shortDescription}</p> */}
-              </button>
-            ))}
-          </div>
+        <Video src={homeBgVideo.localFile.publicURL} active={false} />
+      </div>
+    );
+  }
+
+  function renderSelectionGallery() {
+    return (
+      <div className="selection-gallery-screen">
+        <div className="side-panel left">
+          <p>{selectionPrompt.selectionPrompt}</p>
         </div>
-      ) }
-      { appState === APP_STATE.SELECTION && (
-        <div className="selection-screen">
-          <button type="button" className="btn back" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
-            BACK
-          </button>
+        <div className="selections-container">
+          {modelSelections.map((selection) => (
+            <button key={selection.id} type="button" className="selection-button" onClick={() => setSelectedModel(selection)}>
+              <GatsbyImage
+                image={getImage(selection.thumbnail.localFile)}
+                loading="eager"
+                alt={selection.shortDescription.shortDescription}
+              />
+              <h3>{selection.name}</h3>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  function renderSelection() {
+    return (
+      <div className="selection-screen">
+        <button type="button" className="btn secondary back" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
+          BACK
+        </button>
+        <GatsbyImage
+          image={getImage(selectedModel.thumbnail.localFile)}
+          loading="eager"
+          alt={selectedModel.shortDescription.shortDescription}
+        />
+        <h2>{selectedModel.name}</h2>
+        <p>{selectedModel.shortDescription.shortDescription}</p>
+        <button type="button" className="btn primary select" onClick={() => setAppState(APP_STATE.STUDIO)}>
+          SELECT
+        </button>
+      </div>
+    );
+  }
+
+  function renderStudio() {
+    return (
+      <div className="studio-screen">
+        <div className="background">
+          <div className="blur-overlay" />
+          <GatsbyImage
+            image={getImage(studioBgImage.localFile)}
+            loading="eager"
+            alt="studio background"
+            style={{ objectPosition: 'center', width: '120%' }}
+          />
+        </div>
+        <MenuHUD
+          onSelectionCallback={onHUDSelection}
+          colorOptions={COLOR_OPTIONS}
+          hudOptions={hudOptions}
+        />
+        <button
+          type="button"
+          className="btn fire"
+          onClick={() => setShowReadyModal(true)}
+        >
+          Fire
+        </button>
+        <button type="button" className="btn secondary home" onClick={() => setAppState(APP_STATE.ATTRACT)}>
+          HOME
+        </button>
+        <div className="original-preview">
           <GatsbyImage
             image={getImage(selectedModel.thumbnail.localFile)}
             loading="eager"
             alt={selectedModel.shortDescription.shortDescription}
+            imgStyle={{ objectFit: 'contain' }}
+            style={{
+              width: '83px', height: '83px', margin: '0 auto', top: '13px',
+            }}
           />
-          <h2>{selectedModel.name}</h2>
-          <p>{selectedModel.shortDescription.shortDescription}</p>
-          <button type="button" className="btn select" onClick={() => setAppState(APP_STATE.STUDIO)}>
-            SELECT
-          </button>
+          <p>Original</p>
         </div>
-      ) }
-      { appState === APP_STATE.STUDIO && (
-        <div className="hud-screen">
-          <MenuHUD
-            onSelectionCallback={onHUDSelection}
-            colorOptions={COLOR_OPTIONS}
-            hudOptions={hudOptions}
+        <Modal
+          key="loading"
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={showLoadingModal}
+        >
+          <Modal.Body>
+            <h4>ALMOST READY</h4>
+            <p>
+              { selectedModel.loadingPreamble.loadingPreamble }
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => setShowLoadingModal(false)}>LET&apos;S GO</Button>
+          </Modal.Footer>
+        </Modal>
+        <Modal
+          key="areyouready"
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={showReadyModal}
+        >
+          <Modal.Body>
+            <h4>ARE YOU READY</h4>
+            <p>
+              Once you fire your piece, the design is baked in.
+              You can&paos;t make any more changes.
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => setShowReadyModal(false)}>NO</Button>
+            <Button
+              onClick={() => { startFiringSequence(); }}
+            >
+              YES
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  }
+
+  function renderPottery() {
+    return (
+      <div className="pottery-screen">
+        <PotteryScene
+          modelPathBefore={selectedModel.modelBefore.localFile.publicURL}
+          modelPathAfter={selectedModel.modelAfter.localFile.publicURL}
+          scale={selectedModel.modelScale}
+          color={selectedColor}
+          targetMesh={selectedTargetMesh}
+          onMeshTargetsReady={(meshTargets) => setHUDOptions(meshTargets)}
+          showFired={(appState === APP_STATE.FIRING)}
+        />
+      </div>
+    );
+  }
+
+  function renderFiring() {
+    return (
+      <div className="firing-screen">
+        <div className="factoids-bar">
+          <h2>DID YOU KNOW?</h2>
+          <FadeShow elements={firingFactoids} delay={5000} />
+        </div>
+        <KilnSequence kilnOverlay={selectedModel.thumbnail} />
+        <Video src={firingBgVideo.localFile.publicURL} active />
+      </div>
+    );
+  }
+
+  function renderResults() {
+    return (
+      <div className="results-screen">
+        <div className="background">
+          <div className="blur-overlay" />
+          <GatsbyImage
+            image={getImage(resultsBgImage.localFile)}
+            loading="eager"
+            alt="studio background"
+            imgStyle={{ objectFit: 'contain' }}
           />
-          <button
-            type="button"
-            className="btn fire"
-            onClick={() => setShowReadyModal(true)}
-          >
-            Fire
-          </button>
         </div>
-      ) }
-      { (appState === APP_STATE.STUDIO || appState === APP_STATE.FIRING) && (
-        <div className="pottery-screen">
-          <PotteryScene
-            modelPathBefore={selectedModel.modelBefore.localFile.publicURL}
-            modelPathAfter={selectedModel.modelAfter.localFile.publicURL}
-            scale={selectedModel.modelScale}
-            color={selectedColor}
-            targetMesh={selectedTargetMesh}
-            onMeshTargetsReady={(meshTargets) => setHUDOptions(meshTargets)}
-            showFired={(appState === APP_STATE.FIRING)}
-          />
-          <button type="button" className="btn home" onClick={() => setAppState(APP_STATE.ATTRACT)}>
-            Home
-          </button>
-          <Modal
-            key="loading"
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            show={showLoadingModal}
-          >
-            <Modal.Body>
-              <h4>ALMOST READY</h4>
-              <p>
-                { selectedModel.loadingPreamble.loadingPreamble }
-              </p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={() => setShowLoadingModal(false)}>LET&apos;S GO</Button>
-            </Modal.Footer>
-          </Modal>
-          <Modal
-            key="areyouready"
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            show={showReadyModal}
-          >
-            <Modal.Body>
-              <h4>ARE YOU READY</h4>
-              <p>
-                Once you fire your piece, the design is baked in.
-                You can&paos;t make any more changes.
-              </p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={() => setShowReadyModal(false)}>NO</Button>
-              <Button
-                onClick={() => { setShowReadyModal(false); setAppState(APP_STATE.FIRING); }}
-              >
-                YES
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </div>
-      ) }
-      { appState === APP_STATE.FIRING && (
-        <div className="firing-screen">
-          <button type="button" className="btn continue" onClick={() => setAppState(APP_STATE.RESULTS)}>
-            CONTINUE
-          </button>
-          <div className="factoids-bar">
-            <h2>DID YOU KNOW?</h2>
-            <FadeShow elements={firingFactoids} delay={4000} />
-          </div>
-          <KilnSequence kilnOverlay={kilnOverlay} />
-        </div>
-      ) }
-      { appState === APP_STATE.RESULTS && (
-        <div className="results-screen">
-          <button type="button" className="btn home" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
-            Start over
-          </button>
-          <h1>{resultsTitle}</h1>
-          <p>{resultsSubhead}</p>
-        </div>
-      ) }
+        <button type="button" className="btn home" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
+          HOME
+        </button>
+        <h1>{resultsTitle}</h1>
+        <p>{resultsSubhead}</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      { appState === APP_STATE.ATTRACT && renderAttract() }
+      { appState === APP_STATE.SELECTION_GALLERY && renderSelectionGallery() }
+      { appState === APP_STATE.SELECTION && renderSelection() }
+      { appState === APP_STATE.STUDIO && renderStudio() }
+      { (appState === APP_STATE.STUDIO || appState === APP_STATE.FIRING) && renderPottery() }
+      { appState === APP_STATE.FIRING && renderFiring() }
+      { appState === APP_STATE.RESULTS && renderResults() }
     </>
   );
 }
