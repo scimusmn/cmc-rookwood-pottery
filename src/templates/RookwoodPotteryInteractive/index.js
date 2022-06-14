@@ -8,7 +8,7 @@ import MenuHUD from '../../components/MenuHUD';
 import KilnSequence from '../../components/KilnSequence';
 import Video from '../../components/Video';
 import FadeShow from '../../components/FadeShow';
-import COLOR_LOOKUP from '../../data/ColorLookup';
+import { getColorPalette } from '../../data/ColorLookup';
 
 export const pageQuery = graphql`
   query ($slug: String!) {
@@ -29,6 +29,7 @@ export const pageQuery = graphql`
       modelSelections {
         id
         name
+        historicalTag
         shortDescription {
           shortDescription
         }
@@ -63,6 +64,11 @@ export const pageQuery = graphql`
           }
         }
       }
+      turntableModel {
+        localFile {
+          publicURL
+        }
+      }
       firingBgVideo {
         localFile {
           publicURL
@@ -92,8 +98,6 @@ const APP_STATE = {
   RESULTS: 6,
 };
 
-const COLOR_OPTIONS = Object.keys(COLOR_LOOKUP);
-
 function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
   const {
@@ -103,6 +107,7 @@ function RookwoodPotteryInteractive({ data }) {
     modelSelections,
     selectionPrompt,
     studioBgImage,
+    turntableModel,
     firingFactoids,
     firingBgVideo,
     resultsTitle,
@@ -115,11 +120,18 @@ function RookwoodPotteryInteractive({ data }) {
   const [selectedTargetMesh, setSelectedTargetMesh] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [hudOptions, setHUDOptions] = useState(null);
+  const [hudColors, setHUDColors] = useState(null);
   const [showLoadingModal, setShowLoadingModal] = useState(true);
   const [showReadyModal, setShowReadyModal] = useState(false);
 
   useEffect(() => {
-    if (selectedModel) setAppState(APP_STATE.SELECTION);
+    if (selectedModel) {
+      setAppState(APP_STATE.SELECTION);
+      console.log('selectedModel', selectedModel);
+      const { name } = selectedModel;
+      const colorPalette = getColorPalette(name);
+      setHUDColors(colorPalette);
+    }
   }, [selectedModel]);
 
   useEffect(() => {
@@ -141,7 +153,7 @@ function RookwoodPotteryInteractive({ data }) {
     setAppState(APP_STATE.FIRING);
     setTimeout(() => {
       setAppState(APP_STATE.RESULTS);
-    }, 15 * 1000);
+    }, 20 * 1000);
   };
 
   function renderAttract() {
@@ -150,7 +162,9 @@ function RookwoodPotteryInteractive({ data }) {
         <div className="side-panel left">
           <h1>{homeTitle}</h1>
           <p>{homeSubhead.homeSubhead}</p>
-          <button type="button" className="btn primary begin" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}> BEGIN </button>
+          <button type="button" className="btn primary begin" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
+            <span>BEGIN</span>
+          </button>
         </div>
         <Video src={homeBgVideo.localFile.publicURL} active={false} />
       </div>
@@ -170,8 +184,14 @@ function RookwoodPotteryInteractive({ data }) {
                 image={getImage(selection.thumbnail.localFile)}
                 loading="eager"
                 alt={selection.shortDescription.shortDescription}
+                imgStyle={{ objectFit: 'contain' }}
+                style={{
+                  width: '340px', height: '340px', margin: '0 auto', padding: '0', left: '-3px',
+                }}
               />
-              <h3>{selection.name}</h3>
+              <div className="bottom-bar">
+                <h3>{selection.name}</h3>
+              </div>
             </button>
           ))}
         </div>
@@ -189,8 +209,13 @@ function RookwoodPotteryInteractive({ data }) {
           image={getImage(selectedModel.thumbnail.localFile)}
           loading="eager"
           alt={selectedModel.shortDescription.shortDescription}
+          imgStyle={{ objectFit: 'contain' }}
+          style={{
+            width: '540px', height: '810px', margin: '0 auto', padding: '0',
+          }}
         />
         <h2>{selectedModel.name}</h2>
+        <h3>{selectedModel.historicalTag}</h3>
         <p>{selectedModel.shortDescription.shortDescription}</p>
         <button type="button" className="btn primary select" onClick={() => setAppState(APP_STATE.STUDIO)}>
           SELECT
@@ -213,7 +238,7 @@ function RookwoodPotteryInteractive({ data }) {
         </div>
         <MenuHUD
           onSelectionCallback={onHUDSelection}
-          colorOptions={COLOR_OPTIONS}
+          colorOptions={hudColors}
           hudOptions={hudOptions}
         />
         <button
@@ -252,7 +277,9 @@ function RookwoodPotteryInteractive({ data }) {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => setShowLoadingModal(false)}>LET&apos;S GO</Button>
+            <button type="button" className="btn primary select" onClick={() => setShowLoadingModal(false)}>
+              LET&apos;S GO
+            </button>
           </Modal.Footer>
         </Modal>
         <Modal
@@ -270,12 +297,18 @@ function RookwoodPotteryInteractive({ data }) {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => setShowReadyModal(false)}>NO</Button>
+            {/* <Button onClick={() => setShowReadyModal(false)}>NO</Button>
             <Button
               onClick={() => { startFiringSequence(); }}
             >
               YES
-            </Button>
+            </Button> */}
+            <button type="button" className="btn primary" onClick={() => setShowReadyModal(false)}>
+              NO
+            </button>
+            <button type="button" className="btn primary" onClick={() => { startFiringSequence(); }}>
+              YES
+            </button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -284,10 +317,11 @@ function RookwoodPotteryInteractive({ data }) {
 
   function renderPottery() {
     return (
-      <div className="pottery-screen">
+      <div className={`pottery-screen ${appState === APP_STATE.FIRING ? 'firing' : ''}`}>
         <PotteryScene
           modelPathBefore={selectedModel.modelBefore.localFile.publicURL}
           modelPathAfter={selectedModel.modelAfter.localFile.publicURL}
+          turntableModelPath={turntableModel.localFile.publicURL}
           scale={selectedModel.modelScale}
           color={selectedColor}
           targetMesh={selectedTargetMesh}

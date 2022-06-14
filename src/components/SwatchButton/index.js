@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,6 +8,7 @@ function SwatchButton({
 }) {
   function handleSelection() {
     const selectionData = {};
+    console.log(color);
     if (swatchId) selectionData.swatchId = swatchId;
     if (color) selectionData.color = color;
     if (label) selectionData.label = label;
@@ -13,18 +16,22 @@ function SwatchButton({
   }
 
   return (
-    <button
-      className="swatch-button"
-      style={{
-        backgroundColor: color || 'white',
-        border: `1px solid ${color || 'gray'}`,
-        outline: selected ? '5px dashed yellow' : 'none',
-      }}
-      onClick={() => handleSelection()}
-      type="button"
-    >
-      {label}
-    </button>
+    <div className="swatch-container">
+      <button
+        className="swatch-button"
+        style={{
+          backgroundColor: color || 'white',
+          // outline: selected ? '5px dashed yellow' : 'none',
+          boxShadow: selected ? '0px 0px 16px rgba(54, 64, 21, 0.5)' : 'none',
+        }}
+        onClick={() => handleSelection()}
+        type="button"
+      />
+      <br />
+      <span onClick={() => handleSelection()}>
+        {label}
+      </span>
+    </div>
   );
 }
 

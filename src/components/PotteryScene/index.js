@@ -1,13 +1,17 @@
 /* eslint-disable */
-import React, { Suspense, useRef, useState } from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
-import { PointLightHelper, DirectionalLightHelper } from "three";
+import React, { Suspense, useRef, useState, useEffect } from 'react';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
+// import { PointLightHelper, DirectionalLightHelper } from "three";
 import { OrbitControls, Html, useProgress, useHelper } from '@react-three/drei';
 import { DynamicModel } from '../DynamicModel';
+import { WheelModel } from '../WheelModel';
 import { HTMLCanvasMaterial } from '../HTMLCanvasMaterial';
 import COLOR_LOOKUP from '../../data/ColorLookup';
 
 const SCENE_DEBUG_MODE = false;
+const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
+const SPIN_ANGLE = Math.PI / 2;
 
 function ProgressLoader() {
   const { progress } = useProgress();
@@ -44,60 +48,124 @@ function Lighting() {
   );
 }
 
-function PotteryScene({ modelPathBefore, modelPathAfter, scale, targetMesh, color, onMeshTargetsReady, showFired }) { 
-    
-    const canvasRef = useRef();
-    const mouse = useRef([0, 0]);
-    const [preFireEdits, setPreFireEdits] = useState(null);
+function SpinnerGroup({ 
+  modelPathBefore, 
+  modelPathAfter, 
+  turntableModelPath, 
+  scale, 
+  targetMesh, 
+  color, 
+  onMeshTargetsReady, 
+  showFired 
+}) { 
+  const [preFireEdits, setPreFireEdits] = useState(null);
+  const spinGroupRef = useRef();
 
-    function onCanvasMouseMove({ clientX: x, clientY: y }) {
-        // console.log('onCanvasMouseMove', x, y);
-        // mouse.current = [x, y];
-      }
+  console.log('SpinnerGroup', turntableModelPath);
 
-    function onUserModelEdits(editsObj) {
-      // Replace before colors w after colors
-      if (editsObj.colors) {
-        Object.keys(editsObj.colors).forEach(key => {
-          const beforeColor = editsObj.colors[key];
-          let afterColor = null;
-          Object.keys(COLOR_LOOKUP).forEach(k => {
-            if (COLOR_LOOKUP[k].before === beforeColor) {
-              afterColor = COLOR_LOOKUP[k].after;
-            }
-          })
-          if (afterColor) {
-            editsObj.colors[key] = afterColor;
-          } else {
-            console.log('[WARNING] No after color for', beforeColor);
+  useFrame((state, delta) => {
+    // spinGroupRef.current.rotation.x += 0.01;
+    spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.01);
+  });
+
+  function onUserModelEdits(editsObj) {
+    // Replace before colors w after colors
+    if (editsObj.colors) {
+      Object.keys(editsObj.colors).forEach(key => {
+        const beforeColor = editsObj.colors[key];
+        let afterColor = null;
+        Object.keys(COLOR_LOOKUP).forEach(k => {
+          if (COLOR_LOOKUP[k].before === beforeColor) {
+            afterColor = COLOR_LOOKUP[k].after;
           }
         })
-      }
+        if (afterColor) {
+          editsObj.colors[key] = afterColor;
+        } else {
+          console.log('[WARNING] No after color for', beforeColor);
+        }
+      })
+    }
+    setPreFireEdits(editsObj);
+  }
 
-      setPreFireEdits(editsObj);
+  return (
+    <group ref={spinGroupRef}>
+      <DynamicModel 
+        key="before-model"
+        modelPath={modelPathBefore} 
+        scale={scale} 
+        targetMesh={targetMesh} 
+        color={color} 
+        visible={!showFired}
+        onMeshTargetsReady={onMeshTargetsReady} 
+        onUserEdits={(e) => onUserModelEdits(e)} 
+      />
+      <DynamicModel 
+        key="after-model"
+        modelPath={modelPathAfter} 
+        scale={scale} 
+        visible={showFired}
+        edits={preFireEdits}
+      />
+      <WheelModel modelPath={turntableModelPath} />
+    </group>
+  );
+}
+
+function PotteryScene({ 
+  modelPathBefore, 
+  modelPathAfter, 
+  turntableModelPath, 
+  scale, 
+  targetMesh, 
+  color, 
+  onMeshTargetsReady, 
+  showFired 
+}) { 
+    const canvasRef = useRef();
+    const mouse = useRef([0, 0]);    
+
+    function onCanvasMouseMove({ clientX: x, clientY: y }) {
+      console.log('onCanvasMouseMove', x, y);
+      mouse.current = [x, y];
     }
 
   return (
     <div className="scene-container">
-      <Canvas ref={canvasRef} >
+      <Canvas ref={canvasRef} camera={{ fov: 75, position: [-7, 7, 7]}} >
+      {/* <Canvas ref={canvasRef} camera={ fov: 75, near: 0.1, far: 1000, position: [0, 0, 5] }> */}
         <Suspense fallback={<ProgressLoader />}>
-            <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} />
-            <DynamicModel 
-              key="before-model"
-              modelPath={modelPathBefore} 
+            {/* <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
+            {/* <group ref={spinGroupRef}>
+              <DynamicModel 
+                key="before-model"
+                modelPath={modelPathBefore} 
+                scale={scale} 
+                targetMesh={targetMesh} 
+                color={color} 
+                visible={!showFired}
+                onMeshTargetsReady={onMeshTargetsReady} 
+                onUserEdits={(e) => onUserModelEdits(e)} 
+              />
+              <DynamicModel 
+                key="after-model"
+                modelPath={modelPathAfter} 
+                scale={scale} 
+                visible={showFired}
+                edits={preFireEdits}
+              />
+              <WheelModel modelPath={turntableModelPath} />
+            </group> */}
+            <SpinnerGroup 
+              modelPathBefore={modelPathBefore} 
+              modelPathAfter={modelPathAfter} 
+              turntableModelPath={turntableModelPath} 
               scale={scale} 
               targetMesh={targetMesh} 
               color={color} 
-              visible={!showFired}
               onMeshTargetsReady={onMeshTargetsReady} 
-              onUserEdits={(e) => onUserModelEdits(e)} 
-            />
-            <DynamicModel 
-              key="after-model"
-              modelPath={modelPathAfter} 
-              scale={scale} 
-              visible={showFired}
-              edits={preFireEdits}
+              showFired={showFired}  
             />
             <Lighting />
         </Suspense>

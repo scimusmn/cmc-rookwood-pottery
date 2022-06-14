@@ -5,17 +5,22 @@ import React, { useRef, useEffect, useLayoutEffect } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useGLTF, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
+import COLOR_LOOKUP, { PRE_GLAZE_DEFAULT_COLOR } from '../../data/ColorLookup';
 
 export function DynamicModel({
-  modelPath, scale, targetMesh, color, visible, onMeshTargetsReady, edits, onUserEdits,
+  modelPath, 
+  scale, 
+  targetMesh, 
+  color, 
+  visible, 
+  onMeshTargetsReady, 
+  edits, 
+  onUserEdits,
 }) {
-  const { scene, nodes, materials } = useGLTF(modelPath);
 
-  // console.log('dynamic model', modelPath, scale);
-  // console.log('scene', scene);
-  // console.log('nodes', nodes);
-  // console.log('materials', materials);
-  // console.log('listing material names:', Object.keys(materials));
+  console.log('DynamicModel', modelPath);
+
+  const { scene, nodes, materials } = useGLTF(modelPath);
 
   const mesh = useRef();
   const currentColors = useRef({});
@@ -95,6 +100,8 @@ export function DynamicModel({
     // Prevents other meshes from returning a hit
     // (we only need the closest mesh)
     e.stopPropagation();
+
+    console.log('onRaycast', object.name);
 
     // applySwatch(object.name, 'white');
     if (dragging.current === true && currentDragColor.current) {
@@ -195,7 +202,7 @@ export function DynamicModel({
     // For some reason, setting the swatch once
     // immediately after loading the model prevents
     // the bug from appearing on first swatch selection.
-    const defaultColor = 'gray';
+    const defaultColor = PRE_GLAZE_DEFAULT_COLOR;
     meshTargets.forEach(meshName => {
       applySwatch(meshName, defaultColor, true);
       currentColors.current[meshName] = defaultColor;
@@ -231,7 +238,7 @@ export function DynamicModel({
             onPointerEnter={visible ? onRaycast : null}
             onPointerLeave={visible ? onRaycastLeave : null}
             scale={scale} 
-            position={[0, -3, 0]} 
+            position={[0, 0, 0]} 
             visible={visible}
           />;
 }

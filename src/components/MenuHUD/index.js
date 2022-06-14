@@ -16,6 +16,14 @@ function MenuHUD({ onSelectionCallback, colorOptions, hudOptions }) {
   return (
     <div className="menu-hud">
       <div className="side-panel right">
+        <h1>GLAZES</h1>
+        <p className="info">
+          <em>
+            <strong>Remember:</strong>
+            {' '}
+            glazes change when they’re fired.
+          </em>
+        </p>
         <div className="target-mesh-swatches" style={{ display: 'none' }}>
           { hudOptions && (
             hudOptions.map((meshName) => (
