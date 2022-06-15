@@ -8,7 +8,6 @@ function SwatchButton({
 }) {
   function handleSelection() {
     const selectionData = {};
-    console.log(color);
     if (swatchId) selectionData.swatchId = swatchId;
     if (color) selectionData.color = color;
     if (label) selectionData.label = label;
@@ -18,10 +17,9 @@ function SwatchButton({
   return (
     <div className="swatch-container">
       <button
-        className="swatch-button"
+        className={`swatch-button ${color === 'eraser' ? 'eraser' : ''}`}
         style={{
           backgroundColor: color || 'white',
-          // outline: selected ? '5px dashed yellow' : 'none',
           boxShadow: selected ? '0px 0px 16px rgba(54, 64, 21, 0.5)' : 'none',
         }}
         onClick={() => handleSelection()}

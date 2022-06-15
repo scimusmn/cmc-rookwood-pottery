@@ -16,6 +16,7 @@ function Video({ src, active }) {
   return (
     <video
       loop
+      muted
       preload="auto"
       ref={vidRef}
     >

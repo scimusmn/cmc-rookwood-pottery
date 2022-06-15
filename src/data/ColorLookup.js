@@ -110,6 +110,9 @@ const OBJECT_PALETTES = {
 
 const PRE_GLAZE_DEFAULT_COLOR = COLOR_LOOKUP.Off_white;
 
+// Unique color id for eraser exception
+const ERASER_COLOR_ID = 'eraser';
+
 function getColorPalette(objectName) {
   let lookupName = objectName.toUpperCase().replace(/ /g, '_');
   // Exception: keys cannot begin with a number
@@ -122,4 +125,9 @@ function getColorPalette(objectName) {
 }
 
 export default COLOR_LOOKUP;
-export { OBJECT_PALETTES, PRE_GLAZE_DEFAULT_COLOR, getColorPalette };
+export {
+  OBJECT_PALETTES,
+  PRE_GLAZE_DEFAULT_COLOR,
+  ERASER_COLOR_ID,
+  getColorPalette,
+};

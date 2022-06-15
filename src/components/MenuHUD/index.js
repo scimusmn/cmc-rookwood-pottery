@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import SwatchButton from '../SwatchButton';
-import COLOR_LOOKUP from '../../data/ColorLookup';
+import COLOR_LOOKUP, { ERASER_COLOR_ID } from '../../data/ColorLookup';
 
 function MenuHUD({ onSelectionCallback, colorOptions, hudOptions }) {
   const [selectedSwatch, setSelectedSwatch] = useState(null);
@@ -18,6 +18,7 @@ function MenuHUD({ onSelectionCallback, colorOptions, hudOptions }) {
       <div className="side-panel right">
         <h1>GLAZES</h1>
         <p className="info">
+          <span className="info-icon" />
           <em>
             <strong>Remember:</strong>
             {' '}
@@ -49,6 +50,14 @@ function MenuHUD({ onSelectionCallback, colorOptions, hudOptions }) {
               />
             ))
           )}
+        </div>
+        <div className="eraser-swatch">
+          <SwatchButton
+            color={ERASER_COLOR_ID}
+            label="Erasing sponge"
+            selectionCallback={handleSelection}
+            selected={selectedColorOption === ERASER_COLOR_ID}
+          />
         </div>
       </div>
     </div>

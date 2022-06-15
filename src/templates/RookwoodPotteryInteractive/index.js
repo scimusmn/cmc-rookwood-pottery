@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import PotteryScene from '../../components/PotteryScene';
 import MenuHUD from '../../components/MenuHUD';
 import KilnSequence from '../../components/KilnSequence';
@@ -123,6 +123,7 @@ function RookwoodPotteryInteractive({ data }) {
   const [hudColors, setHUDColors] = useState(null);
   const [showLoadingModal, setShowLoadingModal] = useState(true);
   const [showReadyModal, setShowReadyModal] = useState(false);
+  const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
 
   useEffect(() => {
     if (selectedModel) {
@@ -148,6 +149,13 @@ function RookwoodPotteryInteractive({ data }) {
     if (selection.color) setSelectedColor(selection.color);
   };
 
+  const startOver = () => {
+    setShowAreYouSureModal(false);
+    setAppState(APP_STATE.ATTRACT);
+    // TODO: Do we need to do any manual
+    // cleanup of pottery scene here?
+  };
+
   const startFiringSequence = () => {
     setShowReadyModal(false);
     setAppState(APP_STATE.FIRING);
@@ -166,7 +174,7 @@ function RookwoodPotteryInteractive({ data }) {
             <span>BEGIN</span>
           </button>
         </div>
-        <Video src={homeBgVideo.localFile.publicURL} active={false} />
+        <Video src={homeBgVideo.localFile.publicURL} active />
       </div>
     );
   }
@@ -246,9 +254,13 @@ function RookwoodPotteryInteractive({ data }) {
           className="btn fire"
           onClick={() => setShowReadyModal(true)}
         >
-          Fire
+          <div className="outer">
+            <div className="inner">
+              <span>FIRE</span>
+            </div>
+          </div>
         </button>
-        <button type="button" className="btn secondary home" onClick={() => setAppState(APP_STATE.ATTRACT)}>
+        <button type="button" className="btn secondary home" onClick={() => setShowAreYouSureModal(true)}>
           HOME
         </button>
         <div className="original-preview">
@@ -290,24 +302,40 @@ function RookwoodPotteryInteractive({ data }) {
           show={showReadyModal}
         >
           <Modal.Body>
-            <h4>ARE YOU READY</h4>
+            <h4>ARE YOU READY?</h4>
             <p>
               Once you fire your piece, the design is baked in.
-              You can&paos;t make any more changes.
+              You can&apos;t make any more&nbsp;changes.
             </p>
           </Modal.Body>
           <Modal.Footer>
-            {/* <Button onClick={() => setShowReadyModal(false)}>NO</Button>
-            <Button
-              onClick={() => { startFiringSequence(); }}
-            >
-              YES
-            </Button> */}
             <button type="button" className="btn primary" onClick={() => setShowReadyModal(false)}>
               NO
             </button>
-            <button type="button" className="btn primary" onClick={() => { startFiringSequence(); }}>
+            <button type="button" className="btn primary" onClick={() => startFiringSequence()}>
               YES
+            </button>
+          </Modal.Footer>
+        </Modal>
+        <Modal
+          key="areyousure"
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={showAreYouSureModal}
+        >
+          <Modal.Body>
+            <h4>ARE YOU SURE?</h4>
+            <p>
+              Do you really want to restart? Your artwork will be lost.
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <button type="button" className="btn primary" onClick={() => startOver()}>
+              YES
+            </button>
+            <button type="button" className="btn primary" onClick={() => setShowAreYouSureModal(false)}>
+              NO
             </button>
           </Modal.Footer>
         </Modal>
@@ -357,11 +385,13 @@ function RookwoodPotteryInteractive({ data }) {
             imgStyle={{ objectFit: 'contain' }}
           />
         </div>
-        <button type="button" className="btn home" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
+        <button type="button" className="btn secondary home" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
           HOME
         </button>
-        <h1>{resultsTitle}</h1>
-        <p>{resultsSubhead}</p>
+        <div className="factoids-bar">
+          <h2>{resultsTitle}</h2>
+          <FadeShow elements={[resultsSubhead]} delay={-1} />
+        </div>
       </div>
     );
   }

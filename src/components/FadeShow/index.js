@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 function FadeShow({ delay, elements }) {
   const [fadeIndex, setFadeIndex] = useState(Math.floor(Math.random() * elements.length));
 
-  useInterval(() => {
-    let nextIndex = fadeIndex + 1;
-    if (nextIndex >= elements.length) nextIndex = 0;
-    setFadeIndex(nextIndex);
-  }, delay);
+  if (delay > 0) {
+    useInterval(() => {
+      let nextIndex = fadeIndex + 1;
+      if (nextIndex >= elements.length) nextIndex = 0;
+      setFadeIndex(nextIndex);
+    }, delay);
+  }
 
   return (
     <div className="fade-show">

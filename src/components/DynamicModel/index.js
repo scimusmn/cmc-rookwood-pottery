@@ -5,7 +5,7 @@ import React, { useRef, useEffect, useLayoutEffect } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useGLTF, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
-import COLOR_LOOKUP, { PRE_GLAZE_DEFAULT_COLOR } from '../../data/ColorLookup';
+import COLOR_LOOKUP, { PRE_GLAZE_DEFAULT_COLOR, ERASER_COLOR_ID } from '../../data/ColorLookup';
 
 export function DynamicModel({
   modelPath, 
@@ -101,9 +101,6 @@ export function DynamicModel({
     // (we only need the closest mesh)
     e.stopPropagation();
 
-    console.log('onRaycast', object.name);
-
-    // applySwatch(object.name, 'white');
     if (dragging.current === true && currentDragColor.current) {
       applySwatch(object.name, currentDragColor.current);
     }
@@ -202,14 +199,10 @@ export function DynamicModel({
     // For some reason, setting the swatch once
     // immediately after loading the model prevents
     // the bug from appearing on first swatch selection.
-    const defaultColor = PRE_GLAZE_DEFAULT_COLOR;
     meshTargets.forEach(meshName => {
-      applySwatch(meshName, defaultColor, true);
-      currentColors.current[meshName] = defaultColor;
+      applySwatch(meshName, PRE_GLAZE_DEFAULT_COLOR, true);
+      currentColors.current[meshName] = PRE_GLAZE_DEFAULT_COLOR;
     });
-
-    // applyTexture(0);
-    // applyTexture(1);
   }, []);
 
   useEffect(() => {
@@ -223,11 +216,18 @@ export function DynamicModel({
   }, [edits, visible]);
 
   useEffect(() => {
+    // This conditional is no longer used, but keeping 
+    // in case we need to use it again. (pre-targeting specific meshes)
     if (targetMesh && color) {
       currentColors.current[targetMesh] = color;
       applySwatch(targetMesh, color);
     } 
-    currentDragColor.current = color;
+    // Set new active color to apply 
+    let newColor = color;
+    // Eraser exception repaints to default glase color
+    if (newColor === ERASER_COLOR_ID) newColor = PRE_GLAZE_DEFAULT_COLOR.before;
+    currentDragColor.current = newColor;
+    console.log('currentDragColor.current', currentDragColor.current);
   }, [color]);
 
   return <primitive 

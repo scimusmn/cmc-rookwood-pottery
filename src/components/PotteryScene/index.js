@@ -65,7 +65,7 @@ function SpinnerGroup({
 
   useFrame((state, delta) => {
     // spinGroupRef.current.rotation.x += 0.01;
-    spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.01);
+    spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.002);
   });
 
   function onUserModelEdits(editsObj) {
@@ -133,30 +133,11 @@ function PotteryScene({
 
   return (
     <div className="scene-container">
-      <Canvas ref={canvasRef} camera={{ fov: 75, position: [-7, 7, 7]}} >
+      <Canvas ref={canvasRef} camera={{ fov: 75, position: [-15, 44, 0]}} >
       {/* <Canvas ref={canvasRef} camera={ fov: 75, near: 0.1, far: 1000, position: [0, 0, 5] }> */}
         <Suspense fallback={<ProgressLoader />}>
+            <OrbitControls target={[0, 2, 0]}/>
             {/* <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
-            {/* <group ref={spinGroupRef}>
-              <DynamicModel 
-                key="before-model"
-                modelPath={modelPathBefore} 
-                scale={scale} 
-                targetMesh={targetMesh} 
-                color={color} 
-                visible={!showFired}
-                onMeshTargetsReady={onMeshTargetsReady} 
-                onUserEdits={(e) => onUserModelEdits(e)} 
-              />
-              <DynamicModel 
-                key="after-model"
-                modelPath={modelPathAfter} 
-                scale={scale} 
-                visible={showFired}
-                edits={preFireEdits}
-              />
-              <WheelModel modelPath={turntableModelPath} />
-            </group> */}
             <SpinnerGroup 
               modelPathBefore={modelPathBefore} 
               modelPathAfter={modelPathAfter} 
