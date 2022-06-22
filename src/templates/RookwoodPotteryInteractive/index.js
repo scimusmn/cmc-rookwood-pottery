@@ -351,7 +351,7 @@ function RookwoodPotteryInteractive({ data }) {
           modelPathAfter={selectedModel.modelAfter.localFile.publicURL}
           turntableModelPath={turntableModel.localFile.publicURL}
           scale={selectedModel.modelScale}
-          color={selectedColor}
+          activeColor={selectedColor}
           targetMesh={selectedTargetMesh}
           onMeshTargetsReady={(meshTargets) => setHUDOptions(meshTargets)}
           showFired={(appState === APP_STATE.FIRING)}

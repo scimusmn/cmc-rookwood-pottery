@@ -5,6 +5,7 @@ import * as THREE from 'three';
 // import { PointLightHelper, DirectionalLightHelper } from "three";
 import { OrbitControls, Html, useProgress, useHelper } from '@react-three/drei';
 import { DynamicModel } from '../DynamicModel';
+import { AtomizerModel } from '../AtomizerModel';
 import { WheelModel } from '../WheelModel';
 import { HTMLCanvasMaterial } from '../HTMLCanvasMaterial';
 import COLOR_LOOKUP from '../../data/ColorLookup';
@@ -54,7 +55,7 @@ function SpinnerGroup({
   turntableModelPath, 
   scale, 
   targetMesh, 
-  color, 
+  activeColor, 
   onMeshTargetsReady, 
   showFired 
 }) { 
@@ -65,7 +66,7 @@ function SpinnerGroup({
 
   useFrame((state, delta) => {
     // spinGroupRef.current.rotation.x += 0.01;
-    spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.002);
+    spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.005);
   });
 
   function onUserModelEdits(editsObj) {
@@ -90,17 +91,24 @@ function SpinnerGroup({
   }
 
   return (
-    <group ref={spinGroupRef}>
-      <DynamicModel 
+    <group ref={spinGroupRef} position={[0,0,0]}>
+      <AtomizerModel 
+        key="before-model"
+        modelPath={modelPathBefore} 
+        activeColor={activeColor} 
+        visible={!showFired}
+        onUserEdits={(e) => onUserModelEdits(e)} 
+      />
+      {/* <DynamicModel 
         key="before-model"
         modelPath={modelPathBefore} 
         scale={scale} 
         targetMesh={targetMesh} 
-        color={color} 
+        activeColor={activeColor} 
         visible={!showFired}
         onMeshTargetsReady={onMeshTargetsReady} 
         onUserEdits={(e) => onUserModelEdits(e)} 
-      />
+      /> */}
       <DynamicModel 
         key="after-model"
         modelPath={modelPathAfter} 
@@ -108,7 +116,7 @@ function SpinnerGroup({
         visible={showFired}
         edits={preFireEdits}
       />
-      <WheelModel modelPath={turntableModelPath} />
+      <WheelModel modelPath={turntableModelPath} /> 
     </group>
   );
 }
@@ -119,7 +127,7 @@ function PotteryScene({
   turntableModelPath, 
   scale, 
   targetMesh, 
-  color, 
+  activeColor, 
   onMeshTargetsReady, 
   showFired 
 }) { 
@@ -133,10 +141,19 @@ function PotteryScene({
 
   return (
     <div className="scene-container">
-      <Canvas ref={canvasRef} camera={{ fov: 75, position: [-15, 44, 0]}} >
+      <Canvas ref={canvasRef} 
+        camera={{ 
+          fov: 75, 
+          position: [-1.5, 0.75, 0]
+        }} 
+        onCreated={({ gl }) => {
+          gl.physicallyCorrectLights = true;
+          gl.gammaOutput = true;
+        }}
+      >
       {/* <Canvas ref={canvasRef} camera={ fov: 75, near: 0.1, far: 1000, position: [0, 0, 5] }> */}
         <Suspense fallback={<ProgressLoader />}>
-            <OrbitControls target={[0, 2, 0]}/>
+            <OrbitControls target={[0, 0.75, 0]} />
             {/* <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
             <SpinnerGroup 
               modelPathBefore={modelPathBefore} 
@@ -144,7 +161,7 @@ function PotteryScene({
               turntableModelPath={turntableModelPath} 
               scale={scale} 
               targetMesh={targetMesh} 
-              color={color} 
+              activeColor={activeColor} 
               onMeshTargetsReady={onMeshTargetsReady} 
               showFired={showFired}  
             />
