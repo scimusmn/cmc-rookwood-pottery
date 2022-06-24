@@ -11,7 +11,7 @@ export function DynamicModel({
   modelPath, 
   scale, 
   targetMesh, 
-  color, 
+  activeColor, 
   visible, 
   onMeshTargetsReady, 
   edits, 
@@ -28,61 +28,11 @@ export function DynamicModel({
   const dragging = useRef(false);
   const currentMaterials = useRef({});
 
-  const textures = useTexture([
-    '/assets/lines.png',
-    '/assets/rings.png',
-    '/assets/triangles.png',
-  ]);
-
-  function applyTexture(textureIndex) {
-      const newTexture = textures[0];
-      const newTexture2 = textures[1];
-
-      // These next two settings are quirks specific to GLTF + loading external textures.
-      // https://threejs.org/docs/#examples/en/loaders/GLTFLoader
-      // If texture is used for color information, set colorspace.
-      newTexture.encoding = THREE.sRGBEncoding;
-      // UVs use the convention that (0, 0) corresponds to the upper left corner of a texture.
-      newTexture.flipY = false;
-
-      // newTexture.needsUpdate = true;
-      const material = materials[Object.keys(materials)[0]];
-      material.color = 'red';
-
-      material.map = newTexture;
-      material.needsUpdate = true;
-
-      // Tell material to use alpha blending
-      // material.transparent = true;
-      // material.alphaTest = 0.1;
-
-      const layeredMaterial = new THREE.MeshPhongMaterial( {
-        map: newTexture,
-        // alphaTest: 0.1,
-        // transparent: true,
-        visible: true
-      });
-
-      const layeredMaterial2 = new THREE.MeshPhongMaterial( {
-        map: newTexture2,
-        alphaTest: 0.5,
-        transparent: true,
-        color: 'green',
-        visible: true
-      });
-
-      // const materials = [ layeredMaterial, layeredMaterial2 ];
-
-      // mesh.current.material = layeredMaterial;
-
-      // layeredMaterial.needsUpdate = true;
-      // mesh.current.needsUpdate = true;
-  }
-
   function onTouchDown(e) {
+    console.log('∂ onTouchDown');
     dragging.current = true;
-    e.stopPropagation();
     onRaycast(e);
+    e.stopPropagation();
   }
 
   function onTouchUp(e) {
@@ -90,7 +40,7 @@ export function DynamicModel({
     e.stopPropagation();
     const {object} = e;
     // This color is now "permanent"
-    currentColors.current[object.name] = color;
+    currentColors.current[object.name] = activeColor;
     if (onUserEdits) onUserEdits({colors: currentColors.current});
   }
 
@@ -101,6 +51,7 @@ export function DynamicModel({
     // (we only need the closest mesh)
     e.stopPropagation();
 
+    console.log('onRaycast', dragging.current, currentDragColor.current);
     if (dragging.current === true && currentDragColor.current) {
       applySwatch(object.name, currentDragColor.current);
     }
@@ -121,6 +72,8 @@ export function DynamicModel({
   }
 
   function applySwatch(meshName, newColor, useClone) {
+
+    console.log('applySwatch', meshName, newColor, useClone);
     
     // Note: color is a string, not a THREE.Color object
     // should be a valid color string (https://threejs.org/docs/#api/en/math/Color.set)
@@ -218,17 +171,17 @@ export function DynamicModel({
   useEffect(() => {
     // This conditional is no longer used, but keeping 
     // in case we need to use it again. (pre-targeting specific meshes)
-    if (targetMesh && color) {
-      currentColors.current[targetMesh] = color;
-      applySwatch(targetMesh, color);
+    if (targetMesh && activeColor) {
+      currentColors.current[targetMesh] = activeColor;
+      applySwatch(targetMesh, activeColor);
     } 
     // Set new active color to apply 
-    let newColor = color;
+    let newColor = activeColor;
     // Eraser exception repaints to default glase color
     if (newColor === ERASER_COLOR_ID) newColor = PRE_GLAZE_DEFAULT_COLOR.before;
     currentDragColor.current = newColor;
     console.log('currentDragColor.current', currentDragColor.current);
-  }, [color]);
+  }, [activeColor]);
 
   return <primitive 
             object={scene} 

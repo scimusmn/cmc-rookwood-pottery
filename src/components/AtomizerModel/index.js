@@ -9,7 +9,6 @@ import COLOR_LOOKUP, { PRE_GLAZE_DEFAULT_COLOR, ERASER_COLOR_ID } from '../../da
 
 export function AtomizerModel({
   modelPath, 
-  scale, 
   activeColor, 
   visible, 
   edits, 
@@ -18,9 +17,8 @@ export function AtomizerModel({
 
   console.log('AtomizerModel', modelPath);
 
-  const [allowControls, setAllowControls] = useState(true);
-  const [cols, setCols] = useState(5);
-  const [rows, setRows] = useState(5);
+  const ATOMIZER_CANVAS_COLS = 55;
+  const ATOMIZER_CANVAS_ROWS = 1;
 
   const canvasRef = useRef(document.createElement("canvas"));
   const textureRef = useRef(null);
@@ -32,12 +30,21 @@ export function AtomizerModel({
   const currentDragColor = useRef(null);
   const dragging = useRef(false);
   const currentMaterials = useRef({});
+  const latestRayEvt = useRef(null);
+  const atomizerPts =  useRef([]);
+
+  useFrame((state, delta) => {
+    // console.log('f', dragging.current);
+    if (dragging.current === true && latestRayEvt.current) {
+      sprayAtomizer(latestRayEvt.current);
+    }
+  });
 
   useLayoutEffect(() => {
     const canvas = canvasRef.current;
 
     canvas.width = 512;
-    canvas.height = 512;
+    canvas.height = 1024;
 
     const context = canvas.getContext("2d");
     if (context) {
@@ -47,99 +54,113 @@ export function AtomizerModel({
     }
   }, []);
 
-  function sprayAtomizer({uv}) {
-    if (!dragging.current) {
-      return;
+  function drawToCanvas({y, color}) {
+
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+
+    console.log('d', color);
+
+    if (context) {
+
+      // MULTI-HORIZONTAL LINE
+      const lineCount = 3;
+      for (let i = 0; i < lineCount; i++) {
+        context.lineWidth = 1 + Math.ceil(Math.random() * 5);
+        context.strokeStyle = color + '15'; // Append low-opacity hex
+        context.beginPath();
+        let yOffset = (Math.random() * 1.5 + 1);
+        yOffset = yOffset * yOffset;
+        if (Math.random() < 0.5) yOffset *= -1;
+        context.moveTo(0, y + yOffset);
+        context.lineTo(canvas.width, y + yOffset);
+        context.stroke();
+      }
+
+      textureRef.current.needsUpdate = true;
+
     }
+  }
+
+  function sprayAtomizer({uv}) {
     if (uv) {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
-
-      console.log("uv spray point:", uv.x, uv.y);
 
       // De-normalize to canvas dimensions
       let x = uv.x * canvas.width;
       let y = (1 - uv.y) * canvas.height;
 
-      console.log("xy canvas:", x, y);
-
       // Shift to paint on "real" texture tile (to be repeated)
-      x *= cols;
-      y *= rows;
+      x *= ATOMIZER_CANVAS_COLS;
+      y *= ATOMIZER_CANVAS_ROWS;
 
       // Shift to paint on "real" texture tile (to be repeated)
       x = x % canvas.width;
       y = y % canvas.height;
 
-      console.log("xy untiled:", x, y);
+      const color = (currentDragColor.current ||"#ff0000" );
 
-      const splatRadius = 50;
+      // Save low-res drawing data to recreate on other model
+      const sprayData = {y, color};
+      atomizerPts.current.push(sprayData);
 
-      if (context) {
-
-        // SPLAT DOTS
-        context.beginPath();
-        context.arc(
-          x,
-          y,
-          splatRadius,
-          0,
-          2 * Math.PI
-        );
-        context.fillStyle = "rgba(255, 25, 0, 0.5)";
-        context.fill();
-
-        // HORIZONTAL LINE
-        // context.lineWidth = 3;
-        // context.strokeStyle = "rgba(255, 25, 0, 0.5)";
-        // // context.strokeStyle = currentDragColor.current;
-        // context.beginPath();
-        // context.moveTo(0, y);
-        // context.lineTo(canvas.width, y);
-        // context.stroke();
-
-        textureRef.current.needsUpdate = true;
-
-      }
+      drawToCanvas(sprayData);
 
     }
   }
 
   function onTouchDown(e) {
+    // console.log('onTouchDown', e);
     dragging.current = true;
+    latestRayEvt.current = e;
     sprayAtomizer(e);
     e.stopPropagation();
     // onRaycast(e);
   }
 
   function onTouchUp(e) {
+    // console.log('onTouchUp', e);
     dragging.current = false;
+    latestRayEvt.current = null;
     e.stopPropagation();
     const {object} = e;
+    console.log(atomizerPts.current);
     // This color is now "permanent"
     currentColors.current[object.name] = activeColor;
-    if (onUserEdits) onUserEdits({colors: currentColors.current});
+    if (onUserEdits && visible) onUserEdits({colors: currentColors.current, atomizerPoints: atomizerPts.current});
+  }
+
+  function onTouchEnter(e) {
+    // console.log('onTouchEnter', e);
+    onRaycast(e);
+    e.stopPropagation();
+  }
+
+  function onTouchLeave(e) {
+    // console.log('onTouchLeave', e);
+    latestRayEvt.current = null;
+    onRaycastLeave(e);
+    e.stopPropagation();
+  }
+
+  function onTouchMove(e) {
+    // console.log('onTouchMove', e);
+    if ( dragging.current === true ) {
+      latestRayEvt.current = e;
+    }
+    e.stopPropagation();
   }
 
   function onRaycast(e) {
     const {object} = e;
-
-    // Prevents other meshes from returning a hit
-    // (we only need the closest mesh)
-    e.stopPropagation();
-
     if (dragging.current === true && currentDragColor.current) {
       // applySwatch(object.name, currentDragColor.current);
     }
-    
   }
 
   function onRaycastLeave(e) {
     const {object} = e;
-
-    // Prevents other meshes from returning a hit
-    // (we only need the closest mesh)
-    e.stopPropagation();
 
     if (dragging.current === true) {
       // dragging.current = false;
@@ -177,49 +198,17 @@ export function AtomizerModel({
     // Clone existing material to re-apply with canvas
     const newMaterial = materials[Object.keys(materials)[0]].clone();
 
-    console.log('addAtomizerCanvas==',  canvasRef.current);
-
-
-    // const canvas = canvasRef.current;
-    // const context = canvas.getContext("2d");
-    // context.beginPath();
-    // context.arc(
-    //   100,
-    //   100,
-    //   100,
-    //   0,
-    //   2 * Math.PI
-    // );
-    // context.fillStyle = "rgba(255, 25, 0, 0.5)";
-    // context.fill();
-
     const canvasTexture = new THREE.CanvasTexture(canvasRef.current);
-    canvasTexture.repeat= new THREE.Vector2(cols, rows);
+    canvasTexture.repeat= new THREE.Vector2(ATOMIZER_CANVAS_COLS, ATOMIZER_CANVAS_ROWS);
     canvasTexture.wrapS = THREE.RepeatWrapping;
     canvasTexture.wrapT = THREE.RepeatWrapping;
     newMaterial.map = canvasTexture;
 
     textureRef.current = canvasTexture;
-    
-  //   <canvasTexture
-  //   ref={textureRef}
-  //   attach="map"
-  //   image={canvasRef.current}
-  //   repeat={new THREE.Vector2(cols, rows)}
-  //   wrapS={THREE.RepeatWrapping}
-  //   wrapT={THREE.RepeatWrapping}
-  // />
-
-    //
-    // CanvasTexture( canvas : HTMLElement, mapping : Constant, wrapS : Constant, wrapT : Constant, magFilter : Constant, minFilter : Constant, format : Constant, type : Constant, anisotropy : Number )
-    //
-
-    // newMaterial.color = new THREE.Color(newColor);
 
     scene.traverse((object) => {
-      console.log('cnv traverse', object.name);
       if (object.isMesh && object.name === meshName) {
-        console.log('adding canvas to', meshName);
+        console.log('Adding atomizer canvas to mesh:', meshName);
         object.material = newMaterial;
         return;
       }
@@ -289,18 +278,25 @@ export function AtomizerModel({
   // Apply user-made edits 
   // (usually coming from previous version of model)
   useEffect(() => {
-    if (visible && edits && edits.colors) {
-      Object.keys(edits.colors).forEach(meshName => {
-        // applySwatch(meshName, edits.colors[meshName], true);
-        currentColors.current[meshName] = edits.colors[meshName];
-      });
+    if (visible && edits) {
+      if (edits.colors) {
+        Object.keys(edits.colors).forEach(meshName => {
+          // applySwatch(meshName, edits.colors[meshName], true);
+          currentColors.current[meshName] = edits.colors[meshName];
+        });
+      }
+      if (edits.atomizerPoints) {
+        edits.atomizerPoints.forEach(drawData => {
+          drawToCanvas(drawData);
+        });
+      }
     }
   }, [edits, visible]);
 
   useEffect(() => {
-    // Set new active color to apply 
+    // Set active color for atomizer and paint-by-number 
     let newColor = activeColor;
-    // Eraser exception repaints to default glase color
+    // Eraser exception
     if (newColor === ERASER_COLOR_ID) newColor = PRE_GLAZE_DEFAULT_COLOR.before;
     currentDragColor.current = newColor;
   }, [activeColor]);
@@ -308,41 +304,11 @@ export function AtomizerModel({
   return (
     <primitive
       onPointerDown={visible ? onTouchDown : null}
+      onPointerUp={visible ? onTouchUp : null}
+      onPointerEnter={visible ? onTouchEnter : null}
+      onPointerLeave={visible ? onTouchLeave : null}
+      onPointerMove={visible ? onTouchMove : null}
       object={scene}
+      visible={visible}
     /> );
-
-  // return <primitive 
-  //           object={scene} 
-  //           ref={mesh} 
-  //           onPointerDown={visible ? onTouchDown : null}
-  //           onPointerUp={visible ? onTouchUp : null}
-  //           onPointerEnter={visible ? onRaycast : null}
-  //           onPointerLeave={visible ? onRaycastLeave : null}
-  //           scale={scale} 
-  //           position={[0, 0, 0]} 
-  //           visible={visible}
-  //         />;
-
-  // return <primitive 
-  //           object={scene} 
-  //           ref={mesh} 
-  //           onPointerDown={visible ? onTouchDown : null}
-  //           onPointerUp={visible ? onTouchUp : null}
-  //           onPointerEnter={visible ? onRaycast : null}
-  //           onPointerLeave={visible ? onRaycastLeave : null}
-  //           scale={scale} 
-  //           position={[0, 0, 0]} 
-  //           visible={visible}
-  //         >
-  //           <meshStandardMaterial attach="material" metalness={0} roughness={1}>
-  //           <canvasTexture
-  //             ref={textureRef}
-  //             attach="map"
-  //             image={canvasRef.current}
-  //             repeat={new THREE.Vector2(cols, rows)}
-  //             wrapS={THREE.RepeatWrapping}
-  //             wrapT={THREE.RepeatWrapping}
-  //           />
-  //           </meshStandardMaterial>
-  //         </primitive>;
 }

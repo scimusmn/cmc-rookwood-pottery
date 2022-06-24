@@ -62,14 +62,12 @@ function SpinnerGroup({
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
 
-  console.log('SpinnerGroup', turntableModelPath);
-
   useFrame((state, delta) => {
-    // spinGroupRef.current.rotation.x += 0.01;
     spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.005);
   });
 
   function onUserModelEdits(editsObj) {
+    console.log('onUserModelEdits', editsObj, showFired);
     // Replace before colors w after colors
     if (editsObj.colors) {
       Object.keys(editsObj.colors).forEach(key => {
@@ -83,7 +81,23 @@ function SpinnerGroup({
         if (afterColor) {
           editsObj.colors[key] = afterColor;
         } else {
-          console.log('[WARNING] No after color for', beforeColor);
+          console.log('[WARNING] No after color for pbn', beforeColor);
+        }
+      })
+    }
+    if (editsObj.atomizerPoints) {
+      editsObj.atomizerPoints.forEach(atomizerPoint => {
+        const beforeColor = atomizerPoint.color;
+        let afterColor = null;
+        Object.keys(COLOR_LOOKUP).forEach(k => {
+          if (COLOR_LOOKUP[k].before === beforeColor) {
+            afterColor = COLOR_LOOKUP[k].after;
+          }
+        })
+        if (afterColor) {
+          atomizerPoint.color = afterColor;
+        } else {
+          console.log('[WARNING] No after color for atomizer', beforeColor);
         }
       })
     }
@@ -109,13 +123,20 @@ function SpinnerGroup({
         onMeshTargetsReady={onMeshTargetsReady} 
         onUserEdits={(e) => onUserModelEdits(e)} 
       /> */}
-      <DynamicModel 
+      <AtomizerModel 
         key="after-model"
         modelPath={modelPathAfter} 
         scale={scale} 
         visible={showFired}
         edits={preFireEdits}
       />
+      {/* <DynamicModel 
+        key="after-model"
+        modelPath={modelPathAfter} 
+        scale={scale} 
+        visible={showFired}
+        edits={preFireEdits}
+      /> */}
       <WheelModel modelPath={turntableModelPath} /> 
     </group>
   );
@@ -132,7 +153,10 @@ function PotteryScene({
   showFired 
 }) { 
     const canvasRef = useRef();
-    const mouse = useRef([0, 0]);    
+    const mouse = useRef([0, 0]);   
+    
+    const CAM_POSITION_TILES = [-1.5, 1.25, 0];
+    const CAM_POSITION_VASES = [-1.5, 1.25, 0];
 
     function onCanvasMouseMove({ clientX: x, clientY: y }) {
       console.log('onCanvasMouseMove', x, y);
@@ -144,7 +168,7 @@ function PotteryScene({
       <Canvas ref={canvasRef} 
         camera={{ 
           fov: 75, 
-          position: [-1.5, 0.75, 0]
+          position: CAM_POSITION_VASES,
         }} 
         onCreated={({ gl }) => {
           gl.physicallyCorrectLights = true;
@@ -153,7 +177,7 @@ function PotteryScene({
       >
       {/* <Canvas ref={canvasRef} camera={ fov: 75, near: 0.1, far: 1000, position: [0, 0, 5] }> */}
         <Suspense fallback={<ProgressLoader />}>
-            <OrbitControls target={[0, 0.75, 0]} />
+            {/* <OrbitControls target={[0, 0.75, 0]} /> */}
             {/* <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
             <SpinnerGroup 
               modelPathBefore={modelPathBefore} 
