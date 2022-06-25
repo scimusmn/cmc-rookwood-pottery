@@ -387,7 +387,7 @@ function RookwoodPotteryInteractive({ data }) {
             imgStyle={{ objectFit: 'contain' }}
           />
         </div>
-        <button type="button" className="btn secondary home" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
+        <button type="button" className="btn secondary home" onClick={() => setAppState(APP_STATE.ATTRACT)}>
           HOME
         </button>
         <div className="factoids-bar">

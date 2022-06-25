@@ -2,18 +2,16 @@
 import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-// import { PointLightHelper, DirectionalLightHelper } from "three";
+import { PointLightHelper, DirectionalLightHelper } from "three";
 import { OrbitControls, Html, useProgress, useHelper } from '@react-three/drei';
-import { DynamicModel } from '../DynamicModel';
 import { AtomizerModel } from '../AtomizerModel';
 import { WheelModel } from '../WheelModel';
-import { HTMLCanvasMaterial } from '../HTMLCanvasMaterial';
 import COLOR_LOOKUP from '../../data/ColorLookup';
 import FINISHED_PIECES from '../../data/RookwoodPieces';
 
-const SCENE_DEBUG_MODE = false;
+const SCENE_DEBUG_MODE = true;
 const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
-const SPIN_ANGLE = Math.PI / 2;
+const SPIN_SPEED = 0.01;
 
 function ProgressLoader() {
   const { progress } = useProgress();
@@ -66,7 +64,11 @@ function SpinnerGroup({
   const spinGroupRef = useRef();
 
   useFrame((state, delta) => {
-    spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.0005);
+    if (!showCompare){
+      spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
+    } else {
+      spinGroupRef.current.rotation.set( 0, 0, 0 );
+    }
   });
 
   function onUserModelEdits(editsObj) {
@@ -133,48 +135,27 @@ function SpinnerGroup({
         activeColor={activeColor} 
         visible={!showFired}
         atomizerEnabled={(getIsAtomizerPiece(pieceName)) ? true : false}
-        onUserEdits={(e) => onUserModelEdits(e)} 
+        onUserEdits={(e) => onUserModelEdits(e)}
       />
       <AtomizerModel 
         key="after-model"
         modelPath={modelPathAfter} 
         scale={scale} 
         visible={showFired}
-        atomizerEnabled={false}
+        atomizerEnabled={(getIsAtomizerPiece(pieceName)) ? true : false}
         edits={preFireEdits}
-        position={showCompare ? [1, 0, 0] : null}
+        position={showCompare ? [0, 0, -1] : null}
+        spinSpeed={showCompare ? SPIN_SPEED : 0}
       />
       <AtomizerModel 
         key="after-ideal-model"
         modelPath={modelPathAfter} 
         visible={showCompare}
-        atomizerEnabled={false}
+        atomizerEnabled={(getIsAtomizerPiece(pieceName)) ? true : false}
         edits={getIdealEdits(pieceName)}
-        position={[-1, 0, 0]}
+        position={[0, 0, 1]}
+        spinSpeed={showCompare ? SPIN_SPEED : 0}
       />
-      {/* <DynamicModel 
-        key="before-model"
-        modelPath={modelPathBefore} 
-        targetMesh={targetMesh} 
-        activeColor={activeColor} 
-        visible={!showFired}
-        onMeshTargetsReady={onMeshTargetsReady} 
-        onUserEdits={(e) => onUserModelEdits(e)} 
-      />
-      <DynamicModel 
-        key="after-model"
-        modelPath={modelPathAfter} 
-        visible={showFired}
-        edits={preFireEdits}
-        position={(showCompare ? [1, 0, 0] : null)}
-      />
-      <DynamicModel 
-        key="after-ideal-model"
-        modelPath={modelPathAfter} 
-        visible={showCompare}
-        edits={getIdealEdits(pieceName)}
-        position={[-1, 0, 0]}
-      /> */}
       <WheelModel modelPath={turntableModelPath} /> 
     </group>
   );

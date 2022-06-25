@@ -15,9 +15,12 @@ export function AtomizerModel({
   onUserEdits,
   position,
   atomizerEnabled,
+  spinSpeed
 }) {
 
   console.log('AtomizerModel', modelPath);
+
+  const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
 
   const ATOMIZER_CANVAS_COLS = 1;
   const ATOMIZER_CANVAS_ROWS = 1;
@@ -41,13 +44,16 @@ export function AtomizerModel({
   const latestRayEvt = useRef(null);
   const atomizerPts =  useRef([]);
 
-  if (atomizerEnabled) {
-    useFrame((state, delta) => {
-      if ( dragging.current === true && latestRayEvt.current ) {
-        sprayAtomizer(latestRayEvt.current);
-      }
-    });
-  }
+  useFrame((state, delta) => {
+    if ( dragging.current 
+      && atomizerEnabled 
+      && latestRayEvt.current ) {
+      sprayAtomizer(latestRayEvt.current);
+    }
+    if (spinSpeed !== undefined && spinSpeed !== 0) {
+      meshRef.current.rotateOnAxis(SPIN_AXIS, spinSpeed);
+    }
+  });
 
   useLayoutEffect(() => {
     if (atomizerEnabled) {
@@ -102,6 +108,9 @@ export function AtomizerModel({
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
+    const rgb = hexToRgb(color);
+    const colorStr = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.05)`;
+
     if (context) {
 
       // MULTI-HORIZONTAL LINE
@@ -119,10 +128,10 @@ export function AtomizerModel({
       // }
 
       // MULTI-CIRCLE SPRAY
-      const dropletCount = 30;
-      const sprayRadius = 150;
+      const dropletCount = 15;
+      const sprayRadius = 175;
       for (let i = 0; i < dropletCount; i++) {
-        const dropletRadius = 15 + Math.random() * 10;
+        const dropletRadius = 75 + Math.random() * 25;
         let r = sprayRadius * Math.sqrt(Math.random()); // Even distribution
         const theta = Math.random() * 2 * Math.PI;
         const xOffset = r * Math.cos(theta);
@@ -135,17 +144,16 @@ export function AtomizerModel({
           0,
           2 * Math.PI
         );
-        context.fillStyle = 'rgba(255,0,0,0.2)'; // Append low-opacity hex
-        // context.fillStyle = color + '11'; // Append low-opacity hex
+        context.fillStyle = colorStr;
         context.fill();
       }
 
       // Draw green debug rectangle
-      context.beginPath();
-      context.lineWidth = "4";
-      context.strokeStyle = "green";
-      context.rect(x - 100, y - 100, 200, 200);
-      context.stroke();
+      // context.beginPath();
+      // context.lineWidth = "4";
+      // context.strokeStyle = "green";
+      // context.rect(x - 100, y - 100, 200, 200);
+      // context.stroke();
 
       textureRef.current.needsUpdate = true;
 
@@ -169,7 +177,7 @@ export function AtomizerModel({
       x = x % canvas.width;
       y = y % canvas.height;
 
-      const color = (currentDragColor.current ||"#ff0000" );
+      const color = (currentDragColor.current || "#ff0000" );
 
       // Save low-res drawing data to recreate on other model
       // TODO: x,y values should be rounded or reduced in decimal places to save memory
@@ -179,6 +187,21 @@ export function AtomizerModel({
       drawToCanvas(sprayData);
 
     }
+  }
+
+  function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+      return r + r + g + g + b + b;
+    });
+  
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
   }
 
   function onTouchDown(e) {
@@ -315,13 +338,14 @@ export function AtomizerModel({
   // (usually coming from previous version of model)
   useEffect(() => {
     if (visible && edits) {
-      if (edits.colors) {
+      if (edits.colors && !atomizerEnabled) {
         Object.keys(edits.colors).forEach(meshName => {
+          console.log('#$%#$%#$%', meshName, edits.colors[meshName]);
           applySwatch(meshName, edits.colors[meshName], true);
           currentColors.current[meshName] = edits.colors[meshName];
         });
       }
-      if (edits.atomizerPoints) {
+      if (edits.atomizerPoints && atomizerEnabled) {
         edits.atomizerPoints.forEach(drawData => {
           drawToCanvas(drawData);
         });
