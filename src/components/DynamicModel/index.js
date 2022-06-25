@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* Disabled ESLINT to get around blocking eslint warnings
 tied to imports from the three/examples folder. - tn  */
-import React, { useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useRef, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { useGLTF, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
@@ -16,11 +16,16 @@ export function DynamicModel({
   onMeshTargetsReady, 
   edits, 
   onUserEdits,
+  position,
 }) {
 
   console.log('DynamicModel', modelPath);
 
   const { scene, nodes, materials } = useGLTF(modelPath);
+
+  // We need to use a clone of the scene (mesh) so ThreeJS
+  // will allow more than one instance to render in scene.
+  const copiedScene = useMemo(() => scene.clone(), [scene]);
 
   const mesh = useRef();
   const currentColors = useRef({});
@@ -95,7 +100,7 @@ export function DynamicModel({
     }
     newMaterial.color = new THREE.Color(newColor);
 
-    setMaterialByMeshName(meshName, newMaterial, scene);
+    setMaterialByMeshName(meshName, newMaterial, copiedScene);
   }
 
   function setMaterialOfChildren(newMaterial, parentObject) {
@@ -120,7 +125,7 @@ export function DynamicModel({
   }
 
   useEffect(() => {
-    scene.traverse ( function (child) {
+    copiedScene.traverse ( function (child) {
         if (child instanceof THREE.Mesh) {
             child.visible = true;
         }
@@ -130,11 +135,11 @@ export function DynamicModel({
   useEffect(() => {
     const meshTargets = [];
     const topLevelTargets = [];
-    scene.traverse((object) => {
-      if (object.id !== scene.id) {
+    copiedScene.traverse((object) => {
+      if (object.id !== copiedScene.id) {
         if (object.isMesh || object.isGroup) {
           // Check if direct descendant of main scene
-          if (object.parent.id === scene.id) {
+          if (object.parent.id === copiedScene.id) {
             object.displayName = object.name.toUpperCase();
             topLevelTargets.push(object.name);
           }
@@ -184,14 +189,14 @@ export function DynamicModel({
   }, [activeColor]);
 
   return <primitive 
-            object={scene} 
+            object={copiedScene} 
             ref={mesh} 
             onPointerDown={visible ? onTouchDown : null}
             onPointerUp={visible ? onTouchUp : null}
             onPointerEnter={visible ? onRaycast : null}
             onPointerLeave={visible ? onRaycastLeave : null}
             scale={scale} 
-            position={[0, 0, 0]} 
+            position={position || [0, 0, 0]} 
             visible={visible}
           />;
 }

@@ -21,6 +21,7 @@ function SwatchButton({
         style={{
           backgroundColor: color || 'white',
           boxShadow: selected ? '0px 0px 16px rgba(54, 64, 21, 0.5)' : 'none',
+          borderWidth: selected ? '4px' : '1.5px',
         }}
         onClick={() => handleSelection()}
         type="button"

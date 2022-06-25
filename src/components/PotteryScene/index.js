@@ -9,6 +9,7 @@ import { AtomizerModel } from '../AtomizerModel';
 import { WheelModel } from '../WheelModel';
 import { HTMLCanvasMaterial } from '../HTMLCanvasMaterial';
 import COLOR_LOOKUP from '../../data/ColorLookup';
+import FINISHED_PIECES from '../../data/RookwoodPieces';
 
 const SCENE_DEBUG_MODE = false;
 const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
@@ -50,6 +51,7 @@ function Lighting() {
 }
 
 function SpinnerGroup({ 
+  pieceName,
   modelPathBefore, 
   modelPathAfter, 
   turntableModelPath, 
@@ -57,13 +59,14 @@ function SpinnerGroup({
   targetMesh, 
   activeColor, 
   onMeshTargetsReady, 
-  showFired 
+  showFired,
+  showCompare
 }) { 
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
 
   useFrame((state, delta) => {
-    spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.005);
+    spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.0005);
   });
 
   function onUserModelEdits(editsObj) {
@@ -104,6 +107,24 @@ function SpinnerGroup({
     setPreFireEdits(editsObj);
   }
 
+  function getIsAtomizerPiece(pieceName) {
+    if (pieceName.toLowerCase().includes('tile')) return false;
+    return true;
+  }
+
+  function getIdealEdits(pieceName) {
+    console.log('pieceName', pieceName);
+    let lookupName = pieceName.toUpperCase().replace(/ /g, '_');
+    // Exception: keys cannot begin with a number
+    if (lookupName === '1926_LEGACY_PANEL_VASE') lookupName = 'PANEL_VASE_1926';
+    if (FINISHED_PIECES[lookupName]) {
+      return (FINISHED_PIECES[lookupName]);
+    } else {
+      console.log('[WARNING] Finshed piece data not found:', lookupName);
+      return FINISHED_PIECES.ASHBEE_FLORA_TILE;
+    }
+  }
+
   return (
     <group ref={spinGroupRef} position={[0,0,0]}>
       <AtomizerModel 
@@ -111,31 +132,48 @@ function SpinnerGroup({
         modelPath={modelPathBefore} 
         activeColor={activeColor} 
         visible={!showFired}
+        atomizerEnabled={(getIsAtomizerPiece(pieceName)) ? true : false}
         onUserEdits={(e) => onUserModelEdits(e)} 
       />
-      {/* <DynamicModel 
-        key="before-model"
-        modelPath={modelPathBefore} 
-        scale={scale} 
-        targetMesh={targetMesh} 
-        activeColor={activeColor} 
-        visible={!showFired}
-        onMeshTargetsReady={onMeshTargetsReady} 
-        onUserEdits={(e) => onUserModelEdits(e)} 
-      /> */}
       <AtomizerModel 
         key="after-model"
         modelPath={modelPathAfter} 
         scale={scale} 
         visible={showFired}
+        atomizerEnabled={false}
         edits={preFireEdits}
+        position={showCompare ? [1, 0, 0] : null}
+      />
+      <AtomizerModel 
+        key="after-ideal-model"
+        modelPath={modelPathAfter} 
+        visible={showCompare}
+        atomizerEnabled={false}
+        edits={getIdealEdits(pieceName)}
+        position={[-1, 0, 0]}
       />
       {/* <DynamicModel 
+        key="before-model"
+        modelPath={modelPathBefore} 
+        targetMesh={targetMesh} 
+        activeColor={activeColor} 
+        visible={!showFired}
+        onMeshTargetsReady={onMeshTargetsReady} 
+        onUserEdits={(e) => onUserModelEdits(e)} 
+      />
+      <DynamicModel 
         key="after-model"
         modelPath={modelPathAfter} 
-        scale={scale} 
         visible={showFired}
         edits={preFireEdits}
+        position={(showCompare ? [1, 0, 0] : null)}
+      />
+      <DynamicModel 
+        key="after-ideal-model"
+        modelPath={modelPathAfter} 
+        visible={showCompare}
+        edits={getIdealEdits(pieceName)}
+        position={[-1, 0, 0]}
       /> */}
       <WheelModel modelPath={turntableModelPath} /> 
     </group>
@@ -143,6 +181,7 @@ function SpinnerGroup({
 }
 
 function PotteryScene({ 
+  pieceName,
   modelPathBefore, 
   modelPathAfter, 
   turntableModelPath, 
@@ -150,7 +189,8 @@ function PotteryScene({
   targetMesh, 
   activeColor, 
   onMeshTargetsReady, 
-  showFired 
+  showFired,
+  showCompare
 }) { 
     const canvasRef = useRef();
     const mouse = useRef([0, 0]);   
@@ -180,6 +220,7 @@ function PotteryScene({
             {/* <OrbitControls target={[0, 0.75, 0]} /> */}
             {/* <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
             <SpinnerGroup 
+              pieceName={pieceName}
               modelPathBefore={modelPathBefore} 
               modelPathAfter={modelPathAfter} 
               turntableModelPath={turntableModelPath} 
@@ -188,6 +229,7 @@ function PotteryScene({
               activeColor={activeColor} 
               onMeshTargetsReady={onMeshTargetsReady} 
               showFired={showFired}  
+              showCompare={showCompare}
             />
             <Lighting />
         </Suspense>
