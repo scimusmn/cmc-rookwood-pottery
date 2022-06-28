@@ -226,7 +226,7 @@ function PotteryScene({
 }
 
 PotteryScene.getIsAtomizerPiece = function(pieceName) {
-  if (pieceName.toLowerCase().includes('tile')) return false;
+  if (pieceName.toLowerCase().includes('tile') || pieceName.toLowerCase().includes('pine')) return false;
   return true;
 }
 
