@@ -11,7 +11,7 @@ import FINISHED_PIECES from '../../data/RookwoodPieces';
 
 const SCENE_DEBUG_MODE = false;
 const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
-const SPIN_SPEED = 0.2;
+const SPIN_SPEED = 0.01;
 
 function ProgressLoader() {
   const { progress } = useProgress();
