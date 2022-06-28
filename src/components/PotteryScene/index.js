@@ -1,17 +1,17 @@
 /* eslint-disable */
-import React, { Suspense, useRef, useState, useEffect } from 'react';
+import React, { Suspense, useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-// import { PointLightHelper, DirectionalLightHelper } from "three";
+import { PointLightHelper, DirectionalLightHelper } from "three";
 import { OrbitControls, Html, useProgress, useHelper } from '@react-three/drei';
-import { DynamicModel } from '../DynamicModel';
+import { AtomizerModel } from '../AtomizerModel';
 import { WheelModel } from '../WheelModel';
-import { HTMLCanvasMaterial } from '../HTMLCanvasMaterial';
 import COLOR_LOOKUP from '../../data/ColorLookup';
+import FINISHED_PIECES from '../../data/RookwoodPieces';
 
 const SCENE_DEBUG_MODE = false;
 const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
-const SPIN_ANGLE = Math.PI / 2;
+const SPIN_SPEED = 0.2;
 
 function ProgressLoader() {
   const { progress } = useProgress();
@@ -39,7 +39,7 @@ function Lighting() {
         position={[3, 2.5, -5]}
         ref={dirLight1}
         color={'#fafbff'}
-        lookAt={[0, 0, 0]}
+        lookAt={[0, 1, 0]}
         penumbra={2}
         castShadow
         intensity={3}
@@ -49,26 +49,41 @@ function Lighting() {
 }
 
 function SpinnerGroup({ 
+  pieceName,
   modelPathBefore, 
   modelPathAfter, 
   turntableModelPath, 
   scale, 
   targetMesh, 
-  color, 
+  activeColor, 
   onMeshTargetsReady, 
-  showFired 
+  showFired,
+  showCompare
 }) { 
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
 
-  console.log('SpinnerGroup', turntableModelPath);
+  const CAM_LOOKAT_TILES = new THREE.Vector3(0, 0, 0.5);
+  const CAM_LOOKAT_VASES = new THREE.Vector3(0, 0.5, 0.5);
 
   useFrame((state, delta) => {
-    // spinGroupRef.current.rotation.x += 0.01;
-    spinGroupRef.current.rotateOnAxis(SPIN_AXIS, 0.002);
+    if (!showCompare){
+      spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
+    } else {
+      spinGroupRef.current.rotation.set( 0, 0, 0 );
+    }
+  });
+
+  useThree((state) => {
+    state.camera.lookAt(
+      PotteryScene.getIsAtomizerPiece(pieceName) ? CAM_LOOKAT_VASES : CAM_LOOKAT_TILES
+    )
+    state.camera.up = new THREE.Vector3(0, 1, 0);
+    state.camera.updateProjectionMatrix();
   });
 
   function onUserModelEdits(editsObj) {
+    console.log('onUserModelEdits', editsObj, showFired);
     // Replace before colors w after colors
     if (editsObj.colors) {
       Object.keys(editsObj.colors).forEach(key => {
@@ -82,49 +97,93 @@ function SpinnerGroup({
         if (afterColor) {
           editsObj.colors[key] = afterColor;
         } else {
-          console.log('[WARNING] No after color for', beforeColor);
+          console.log('[WARNING] No after color for pbn', beforeColor);
+        }
+      })
+    }
+    if (editsObj.atomizerPoints) {
+      editsObj.atomizerPoints.forEach(atomizerPoint => {
+        const beforeColor = atomizerPoint.color;
+        let afterColor = null;
+        Object.keys(COLOR_LOOKUP).forEach(k => {
+          if (COLOR_LOOKUP[k].before === beforeColor) {
+            afterColor = COLOR_LOOKUP[k].after;
+          }
+        })
+        if (afterColor) {
+          atomizerPoint.color = afterColor;
+        } else {
+          console.log('[WARNING] No after color for atomizer', beforeColor);
         }
       })
     }
     setPreFireEdits(editsObj);
   }
 
+  function getIdealEdits(pieceName) {
+    console.log('pieceName', pieceName);
+    let lookupName = pieceName.toUpperCase().replace(/ /g, '_');
+    // Exception: keys cannot begin with a number
+    if (lookupName === '1926_LEGACY_PANEL_VASE') lookupName = 'PANEL_VASE_1926';
+    if (FINISHED_PIECES[lookupName]) {
+      return (FINISHED_PIECES[lookupName]);
+    } else {
+      console.log('[WARNING] Finshed piece data not found:', lookupName);
+      return FINISHED_PIECES.ASHBEE_FLORA_TILE;
+    }
+  }
+
   return (
-    <group ref={spinGroupRef}>
-      <DynamicModel 
+    <group ref={spinGroupRef} position={[0,0,0]}>
+      <AtomizerModel 
         key="before-model"
         modelPath={modelPathBefore} 
-        scale={scale} 
-        targetMesh={targetMesh} 
-        color={color} 
+        activeColor={activeColor} 
         visible={!showFired}
-        onMeshTargetsReady={onMeshTargetsReady} 
-        onUserEdits={(e) => onUserModelEdits(e)} 
+        atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
+        onUserEdits={(e) => onUserModelEdits(e)}
       />
-      <DynamicModel 
+      <AtomizerModel 
         key="after-model"
         modelPath={modelPathAfter} 
         scale={scale} 
         visible={showFired}
+        atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
         edits={preFireEdits}
+        position={showCompare ? [0, 0, -1] : null}
+        spinSpeed={showCompare ? SPIN_SPEED : 0}
       />
-      <WheelModel modelPath={turntableModelPath} />
+      <AtomizerModel 
+        key="after-ideal-model"
+        modelPath={modelPathAfter} 
+        visible={showCompare}
+        atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
+        edits={getIdealEdits(pieceName)}
+        position={[0, 0, 1]}
+        spinSpeed={showCompare ? SPIN_SPEED : 0}
+      />
+      <WheelModel modelPath={turntableModelPath} /> 
     </group>
   );
 }
 
 function PotteryScene({ 
+  pieceName,
   modelPathBefore, 
   modelPathAfter, 
   turntableModelPath, 
   scale, 
   targetMesh, 
-  color, 
+  activeColor, 
   onMeshTargetsReady, 
-  showFired 
+  showFired,
+  showCompare
 }) { 
     const canvasRef = useRef();
-    const mouse = useRef([0, 0]);    
+    const mouse = useRef([0, 0]);   
+    
+    const CAM_POSITION_TILES = [-6, 5, 0];
+    const CAM_POSITION_VASES = [-8, 2, 0];
 
     function onCanvasMouseMove({ clientX: x, clientY: y }) {
       console.log('onCanvasMouseMove', x, y);
@@ -133,26 +192,42 @@ function PotteryScene({
 
   return (
     <div className="scene-container">
-      <Canvas ref={canvasRef} camera={{ fov: 75, position: [-15, 44, 0]}} >
+      <Canvas ref={canvasRef} 
+        camera={{ 
+          fov: 15, 
+          position: (PotteryScene.getIsAtomizerPiece(pieceName) ? CAM_POSITION_VASES : CAM_POSITION_TILES),
+        }} 
+        onCreated={({ gl }) => {
+          gl.physicallyCorrectLights = true;
+          gl.gammaOutput = true;
+        }}
+      >
       {/* <Canvas ref={canvasRef} camera={ fov: 75, near: 0.1, far: 1000, position: [0, 0, 5] }> */}
         <Suspense fallback={<ProgressLoader />}>
-            <OrbitControls target={[0, 2, 0]}/>
+            {/* <OrbitControls target={[0, 0.75, 0]} /> */}
             {/* <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
             <SpinnerGroup 
+              pieceName={pieceName}
               modelPathBefore={modelPathBefore} 
               modelPathAfter={modelPathAfter} 
               turntableModelPath={turntableModelPath} 
               scale={scale} 
               targetMesh={targetMesh} 
-              color={color} 
+              activeColor={activeColor} 
               onMeshTargetsReady={onMeshTargetsReady} 
               showFired={showFired}  
+              showCompare={showCompare}
             />
             <Lighting />
         </Suspense>
       </Canvas>
     </div>
   );
+}
+
+PotteryScene.getIsAtomizerPiece = function(pieceName) {
+  if (pieceName.toLowerCase().includes('tile')) return false;
+  return true;
 }
 
 export default PotteryScene;

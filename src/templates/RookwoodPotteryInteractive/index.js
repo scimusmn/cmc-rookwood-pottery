@@ -161,7 +161,7 @@ function RookwoodPotteryInteractive({ data }) {
     setAppState(APP_STATE.FIRING);
     setTimeout(() => {
       setAppState(APP_STATE.RESULTS);
-    }, 20 * 1000);
+    }, 7 * 1000);
   };
 
   function renderAttract() {
@@ -347,14 +347,16 @@ function RookwoodPotteryInteractive({ data }) {
     return (
       <div className={`pottery-screen ${appState === APP_STATE.FIRING ? 'firing' : ''}`}>
         <PotteryScene
+          pieceName={selectedModel.name}
           modelPathBefore={selectedModel.modelBefore.localFile.publicURL}
           modelPathAfter={selectedModel.modelAfter.localFile.publicURL}
           turntableModelPath={turntableModel.localFile.publicURL}
           scale={selectedModel.modelScale}
-          color={selectedColor}
+          activeColor={selectedColor}
           targetMesh={selectedTargetMesh}
           onMeshTargetsReady={(meshTargets) => setHUDOptions(meshTargets)}
-          showFired={(appState === APP_STATE.FIRING)}
+          showFired={(appState === APP_STATE.FIRING || appState === APP_STATE.RESULTS)}
+          showCompare={(appState === APP_STATE.RESULTS)}
         />
       </div>
     );
@@ -385,7 +387,7 @@ function RookwoodPotteryInteractive({ data }) {
             imgStyle={{ objectFit: 'contain' }}
           />
         </div>
-        <button type="button" className="btn secondary home" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
+        <button type="button" className="btn secondary home" onClick={() => setAppState(APP_STATE.ATTRACT)}>
           HOME
         </button>
         <div className="factoids-bar">
@@ -402,7 +404,10 @@ function RookwoodPotteryInteractive({ data }) {
       { appState === APP_STATE.SELECTION_GALLERY && renderSelectionGallery() }
       { appState === APP_STATE.SELECTION && renderSelection() }
       { appState === APP_STATE.STUDIO && renderStudio() }
-      { (appState === APP_STATE.STUDIO || appState === APP_STATE.FIRING) && renderPottery() }
+      { (appState === APP_STATE.STUDIO
+        || appState === APP_STATE.FIRING
+        || appState === APP_STATE.RESULTS
+      ) && renderPottery() }
       { appState === APP_STATE.FIRING && renderFiring() }
       { appState === APP_STATE.RESULTS && renderResults() }
     </>

@@ -21,7 +21,7 @@ export function WheelModel({
   return <primitive 
             object={scene} 
             ref={mesh} 
-            scale={0.1} 
+            scale={0.015} 
             position={[0, 0, 0]} 
           />;
 }
