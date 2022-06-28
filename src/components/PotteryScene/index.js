@@ -54,17 +54,29 @@ function SpinnerGroup({
   modelPathAfter, 
   turntableModelPath, 
   scale, 
-  targetMesh, 
   activeColor, 
-  onMeshTargetsReady, 
   showFired,
   showCompare
 }) { 
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
 
-  const CAM_LOOKAT_TILES = new THREE.Vector3(0, 0, 0.5);
-  const CAM_LOOKAT_VASES = new THREE.Vector3(0, 0.5, 0.5);
+  // Camera configuration - Flats (tiles)
+  const CAM_POSITION_FLATS = new THREE.Vector3(-6.5, 5.5, 0.5);
+  const CAM_LOOKAT_FLATS = new THREE.Vector3(0, 0, 0.5);
+
+  // Camera configuration - Vases
+  const CAM_POSITION_VASES = new THREE.Vector3(-8, 1.75, 0.5);
+  const CAM_LOOKAT_VASES = new THREE.Vector3(0, 0.6, 0.5);
+
+  // Camera configuration - Compare screen
+  const CAM_POSITION_COMPARE = new THREE.Vector3(-9, 1.75, 0);
+  const CAM_LOOKAT_COMPARE = new THREE.Vector3(0, 0.6, 0);
+
+  // const CAM_POSITION_FLAT_COMPARE = new THREE.Vector3(-9, 1.75, 0);
+  // const CAM_LOOKAT_FLAT_COMPARE = new THREE.Vector3(0, 0.6, 0);
+
+  const FLAT_ROTATION_COMPARE = [Math.PI/2, 0, Math.PI/2];
 
   useFrame((state, delta) => {
     if (!showCompare){
@@ -75,9 +87,17 @@ function SpinnerGroup({
   });
 
   useThree((state) => {
-    state.camera.lookAt(
-      PotteryScene.getIsAtomizerPiece(pieceName) ? CAM_LOOKAT_VASES : CAM_LOOKAT_TILES
-    )
+    let camPos;
+    let camLook;
+    if (!showCompare) {
+      camPos = PotteryScene.getIsFlatPiece(pieceName) ? CAM_POSITION_FLATS : CAM_POSITION_VASES;
+      camLook = PotteryScene.getIsFlatPiece(pieceName) ? CAM_LOOKAT_FLATS : CAM_LOOKAT_VASES;
+    } else {
+      camPos = CAM_POSITION_COMPARE;
+      camLook = CAM_LOOKAT_COMPARE;
+    }
+    state.camera.position.set(camPos.x, camPos.y, camPos.z);
+    state.camera.lookAt(camLook);
     state.camera.up = new THREE.Vector3(0, 1, 0);
     state.camera.updateProjectionMatrix();
   });
@@ -120,8 +140,11 @@ function SpinnerGroup({
     setPreFireEdits(editsObj);
   }
 
+  function getModelPosition(modelName) {
+
+  }
+
   function getIdealEdits(pieceName) {
-    console.log('pieceName', pieceName);
     let lookupName = pieceName.toUpperCase().replace(/ /g, '_');
     // Exception: keys cannot begin with a number
     if (lookupName === '1926_LEGACY_PANEL_VASE') lookupName = 'PANEL_VASE_1926';
@@ -134,7 +157,7 @@ function SpinnerGroup({
   }
 
   return (
-    <group ref={spinGroupRef} position={[0,0,0]}>
+    <group ref={spinGroupRef} position={(showFired && !showCompare) ? [0, 0, -9] : null}>
       <AtomizerModel 
         key="before-model"
         modelPath={modelPathBefore} 
@@ -150,7 +173,8 @@ function SpinnerGroup({
         visible={showFired}
         atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
         edits={preFireEdits}
-        position={showCompare ? [0, 0, -1] : null}
+        position={showCompare ? [0, (showCompare && PotteryScene.getIsFlatPiece(pieceName) ? 0.82 : 0), -0.75] : null}
+        rotation={(showCompare && PotteryScene.getIsFlatPiece(pieceName)) ? FLAT_ROTATION_COMPARE : null}
         spinSpeed={showCompare ? SPIN_SPEED : 0}
       />
       <AtomizerModel 
@@ -159,10 +183,11 @@ function SpinnerGroup({
         visible={showCompare}
         atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
         edits={getIdealEdits(pieceName)}
-        position={[0, 0, 1]}
+        position={[0, (showCompare && PotteryScene.getIsFlatPiece(pieceName) ? 0.82 : 0), 0.75]}
+        rotation={(showCompare && PotteryScene.getIsFlatPiece(pieceName)) ? FLAT_ROTATION_COMPARE : null}
         spinSpeed={showCompare ? SPIN_SPEED : 0}
       />
-      <WheelModel modelPath={turntableModelPath} /> 
+      <WheelModel modelPath={turntableModelPath} visible={!showCompare} /> 
     </group>
   );
 }
@@ -181,9 +206,6 @@ function PotteryScene({
 }) { 
     const canvasRef = useRef();
     const mouse = useRef([0, 0]);   
-    
-    const CAM_POSITION_TILES = [-6, 5, 0];
-    const CAM_POSITION_VASES = [-8, 2, 0];
 
     function onCanvasMouseMove({ clientX: x, clientY: y }) {
       console.log('onCanvasMouseMove', x, y);
@@ -195,7 +217,6 @@ function PotteryScene({
       <Canvas ref={canvasRef} 
         camera={{ 
           fov: 15, 
-          position: (PotteryScene.getIsAtomizerPiece(pieceName) ? CAM_POSITION_VASES : CAM_POSITION_TILES),
         }} 
         onCreated={({ gl }) => {
           gl.physicallyCorrectLights = true;
@@ -223,6 +244,11 @@ function PotteryScene({
       </Canvas>
     </div>
   );
+}
+
+PotteryScene.getIsFlatPiece = function(pieceName) {
+  if (pieceName.toLowerCase().includes('tile')) return true;
+  return false;
 }
 
 PotteryScene.getIsAtomizerPiece = function(pieceName) {

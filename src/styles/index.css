@@ -442,64 +442,10 @@ span {
   z-index: 5;
 }
 
-.firing-screen .kiln-overlay {
-  animation: white-hot 3s ease-in-out infinite;
-  pointer-events: none;
-  position: absolute;
-  z-index: 5;
-}
-
-@keyframes white-hot {
-  0% {
-    filter: blur(7px) brightness(200%);
-    opacity: 0.9;
-  }
-
-  15% {
-    filter: blur(4px) brightness(800%);
-    opacity: 0.99;
-  }
-
-  30% {
-    filter: blur(12px) brightness(300%);
-    opacity: 0.98;
-  }
-
-  45% {
-    filter: blur(13px) brightness(600%);
-    opacity: 0.93;
-  }
-
-  60% {
-    filter: blur(18px) brightness(900%);
-    opacity: 0.97;
-  }
-
-  75% {
-    filter: blur(8px) brightness(700%);
-    opacity: 0.95;
-  }
-
-  100% {
-    filter: blur(7px) brightness(200%);
-    opacity: 0.9;
-  }
-}
-
-.firing-screen {
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-}
-
-.firing-screen button {
-  z-index: 9;
-}
-
 .factoids-bar {
   background-color: #f0eee8;
   bottom: 0%;
+  box-shadow: 0 0 15px -3px rgb(54 64 21 / 55%);
   height: 154px;
   position: absolute;
   width: 100%;
@@ -542,6 +488,32 @@ span {
 .factoids-bar .fade-show-element.show {
   opacity: 1;
   transition-delay: 0.5s;
+}
+
+.results-screen .original-preview {
+  background: #f1eee9;
+  height: 57px;
+  position: absolute;
+  text-align: center;
+  top: 875px;
+  width: 190px;
+}
+
+.results-screen .original-preview.your {
+  left: 500px;
+}
+
+.results-screen .original-preview.orig {
+  left: 1220px;
+}
+
+.results-screen .original-preview p {
+  font-family: Merriweather, serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 123%;
+  margin-top: 12px;
 }
 
 .menu-hud {

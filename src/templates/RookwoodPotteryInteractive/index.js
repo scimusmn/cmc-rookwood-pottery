@@ -5,7 +5,6 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Modal } from 'react-bootstrap';
 import PotteryScene from '../../components/PotteryScene';
 import MenuHUD from '../../components/MenuHUD';
-import KilnSequence from '../../components/KilnSequence';
 import Video from '../../components/Video';
 import FadeShow from '../../components/FadeShow';
 import { getColorPalette } from '../../data/ColorLookup';
@@ -151,7 +150,8 @@ function RookwoodPotteryInteractive({ data }) {
 
   const startOver = () => {
     setShowAreYouSureModal(false);
-    setAppState(APP_STATE.ATTRACT);
+    // setAppState(APP_STATE.ATTRACT);
+    window.location.reload();
     // TODO: Do we need to do any manual
     // cleanup of pottery scene here?
   };
@@ -369,7 +369,6 @@ function RookwoodPotteryInteractive({ data }) {
           <h2>DID YOU KNOW?</h2>
           <FadeShow elements={firingFactoids} delay={5000} />
         </div>
-        <KilnSequence kilnOverlay={selectedModel.thumbnail} />
         <Video src={firingBgVideo.localFile.publicURL} active />
       </div>
     );
@@ -387,12 +386,18 @@ function RookwoodPotteryInteractive({ data }) {
             imgStyle={{ objectFit: 'contain' }}
           />
         </div>
-        <button type="button" className="btn secondary home" onClick={() => setAppState(APP_STATE.ATTRACT)}>
+        <button type="button" className="btn secondary home" onClick={() => startOver()}>
           HOME
         </button>
         <div className="factoids-bar">
           <h2>{resultsTitle}</h2>
           <FadeShow elements={[resultsSubhead]} delay={-1} />
+        </div>
+        <div className="original-preview your">
+          <p>Your piece</p>
+        </div>
+        <div className="original-preview orig">
+          <p>Original</p>
         </div>
       </div>
     );

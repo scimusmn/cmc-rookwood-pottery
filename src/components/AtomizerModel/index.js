@@ -14,6 +14,7 @@ export function AtomizerModel({
   edits, 
   onUserEdits,
   position,
+  rotation,
   atomizerEnabled,
   spinSpeed
 }) {
@@ -21,6 +22,7 @@ export function AtomizerModel({
   console.log('AtomizerModel', modelPath);
 
   const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
+  const SPIN_AXIS_FLAT = new THREE.Vector3(0, 0, 1);
 
   const ATOMIZER_CANVAS_COLS = 1;
   const ATOMIZER_CANVAS_ROWS = 1;
@@ -51,7 +53,12 @@ export function AtomizerModel({
       sprayAtomizer(latestRayEvt.current);
     }
     if (spinSpeed !== undefined && spinSpeed !== 0) {
-      meshRef.current.rotateOnAxis(SPIN_AXIS, spinSpeed);
+      if (!rotation) {
+        meshRef.current.rotateOnAxis(SPIN_AXIS, spinSpeed);
+      } else {
+        rotation
+        meshRef.current.rotateOnAxis(SPIN_AXIS_FLAT, spinSpeed);
+      }
     }
   });
 
@@ -340,7 +347,6 @@ export function AtomizerModel({
     if (visible && edits) {
       if (edits.colors && !atomizerEnabled) {
         Object.keys(edits.colors).forEach(meshName => {
-          console.log('#$%#$%#$%', meshName, edits.colors[meshName]);
           applySwatch(meshName, edits.colors[meshName], true);
           currentColors.current[meshName] = edits.colors[meshName];
         });
@@ -371,6 +377,7 @@ export function AtomizerModel({
       object={clonedScene}
       visible={visible}
       position={position || [0, 0, 0]}
+      rotation={rotation || [0, 0, 0]}
       ref={meshRef}
     /> );
 }
