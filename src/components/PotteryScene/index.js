@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { Suspense, useRef, useState, useEffect } from 'react';
+import React, { Suspense, useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { PointLightHelper, DirectionalLightHelper } from "three";
@@ -9,9 +9,9 @@ import { WheelModel } from '../WheelModel';
 import COLOR_LOOKUP from '../../data/ColorLookup';
 import FINISHED_PIECES from '../../data/RookwoodPieces';
 
-const SCENE_DEBUG_MODE = true;
+const SCENE_DEBUG_MODE = false;
 const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
-const SPIN_SPEED = 0.01;
+const SPIN_SPEED = 0.2;
 
 function ProgressLoader() {
   const { progress } = useProgress();
@@ -39,7 +39,7 @@ function Lighting() {
         position={[3, 2.5, -5]}
         ref={dirLight1}
         color={'#fafbff'}
-        lookAt={[0, 0, 0]}
+        lookAt={[0, 1, 0]}
         penumbra={2}
         castShadow
         intensity={3}
@@ -63,12 +63,23 @@ function SpinnerGroup({
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
 
+  const CAM_LOOKAT_TILES = new THREE.Vector3(0, 0, 0.5);
+  const CAM_LOOKAT_VASES = new THREE.Vector3(0, 0.5, 0.5);
+
   useFrame((state, delta) => {
     if (!showCompare){
       spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
     } else {
       spinGroupRef.current.rotation.set( 0, 0, 0 );
     }
+  });
+
+  useThree((state) => {
+    state.camera.lookAt(
+      PotteryScene.getIsAtomizerPiece(pieceName) ? CAM_LOOKAT_VASES : CAM_LOOKAT_TILES
+    )
+    state.camera.up = new THREE.Vector3(0, 1, 0);
+    state.camera.updateProjectionMatrix();
   });
 
   function onUserModelEdits(editsObj) {
@@ -109,11 +120,6 @@ function SpinnerGroup({
     setPreFireEdits(editsObj);
   }
 
-  function getIsAtomizerPiece(pieceName) {
-    if (pieceName.toLowerCase().includes('tile')) return false;
-    return true;
-  }
-
   function getIdealEdits(pieceName) {
     console.log('pieceName', pieceName);
     let lookupName = pieceName.toUpperCase().replace(/ /g, '_');
@@ -134,7 +140,7 @@ function SpinnerGroup({
         modelPath={modelPathBefore} 
         activeColor={activeColor} 
         visible={!showFired}
-        atomizerEnabled={(getIsAtomizerPiece(pieceName)) ? true : false}
+        atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
         onUserEdits={(e) => onUserModelEdits(e)}
       />
       <AtomizerModel 
@@ -142,7 +148,7 @@ function SpinnerGroup({
         modelPath={modelPathAfter} 
         scale={scale} 
         visible={showFired}
-        atomizerEnabled={(getIsAtomizerPiece(pieceName)) ? true : false}
+        atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
         edits={preFireEdits}
         position={showCompare ? [0, 0, -1] : null}
         spinSpeed={showCompare ? SPIN_SPEED : 0}
@@ -151,7 +157,7 @@ function SpinnerGroup({
         key="after-ideal-model"
         modelPath={modelPathAfter} 
         visible={showCompare}
-        atomizerEnabled={(getIsAtomizerPiece(pieceName)) ? true : false}
+        atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
         edits={getIdealEdits(pieceName)}
         position={[0, 0, 1]}
         spinSpeed={showCompare ? SPIN_SPEED : 0}
@@ -176,8 +182,8 @@ function PotteryScene({
     const canvasRef = useRef();
     const mouse = useRef([0, 0]);   
     
-    const CAM_POSITION_TILES = [-1.5, 1.25, 0];
-    const CAM_POSITION_VASES = [-1.5, 1.25, 0];
+    const CAM_POSITION_TILES = [-6, 5, 0];
+    const CAM_POSITION_VASES = [-8, 2, 0];
 
     function onCanvasMouseMove({ clientX: x, clientY: y }) {
       console.log('onCanvasMouseMove', x, y);
@@ -188,8 +194,8 @@ function PotteryScene({
     <div className="scene-container">
       <Canvas ref={canvasRef} 
         camera={{ 
-          fov: 75, 
-          position: CAM_POSITION_VASES,
+          fov: 15, 
+          position: (PotteryScene.getIsAtomizerPiece(pieceName) ? CAM_POSITION_VASES : CAM_POSITION_TILES),
         }} 
         onCreated={({ gl }) => {
           gl.physicallyCorrectLights = true;
@@ -217,6 +223,11 @@ function PotteryScene({
       </Canvas>
     </div>
   );
+}
+
+PotteryScene.getIsAtomizerPiece = function(pieceName) {
+  if (pieceName.toLowerCase().includes('tile')) return false;
+  return true;
 }
 
 export default PotteryScene;
