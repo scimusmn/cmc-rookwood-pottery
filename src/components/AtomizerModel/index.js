@@ -24,9 +24,6 @@ export function AtomizerModel({
   const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
   const SPIN_AXIS_FLAT = new THREE.Vector3(0, 0, 1);
 
-  const ATOMIZER_CANVAS_COLS = 1;
-  const ATOMIZER_CANVAS_ROWS = 1;
-
   const textureRef = useRef(null);
 
   let canvasRef;
@@ -120,22 +117,8 @@ export function AtomizerModel({
 
     if (context) {
 
-      // MULTI-HORIZONTAL LINE
-      // const lineCount = 3;
-      // for (let i = 0; i < lineCount; i++) {
-      //   context.lineWidth = 1 + Math.ceil(Math.random() * 5);
-      //   context.strokeStyle = color + '15'; // Append low-opacity hex
-      //   context.beginPath();
-      //   let yOffset = (Math.random() * 1.5 + 1);
-      //   yOffset = yOffset * yOffset;
-      //   if (Math.random() < 0.5) yOffset *= -1;
-      //   context.moveTo(0, y + yOffset);
-      //   context.lineTo(canvas.width, y + yOffset);
-      //   context.stroke();
-      // }
-
       // MULTI-CIRCLE SPRAY
-      const dropletCount = 15;
+      const dropletCount = 9;
       const sprayRadius = 175;
       for (let i = 0; i < dropletCount; i++) {
         const dropletRadius = 75 + Math.random() * 25;
@@ -155,45 +138,27 @@ export function AtomizerModel({
         context.fill();
       }
 
-      // Draw green debug rectangle
-      // context.beginPath();
-      // context.lineWidth = "4";
-      // context.strokeStyle = "green";
-      // context.rect(x - 100, y - 100, 200, 200);
-      // context.stroke();
-
       textureRef.current.needsUpdate = true;
 
     }
   }
 
   function sprayAtomizer({uv}) {
-    if (uv) {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
+    // De-normalize to canvas dimensions
+    let x = uv.x * canvasRef.current.width;
+    let y = (1 - uv.y) * canvasRef.current.height;
 
-      // De-normalize to canvas dimensions
-      let x = uv.x * canvas.width;
-      let y = (1 - uv.y) * canvas.height;
+    // Save low-res drawing data to recreate on other model
+    // x,y values rounded to two decimal places to save memory
+    x = Math.round(x * 100) / 100;
+    y = Math.round(y * 100) / 100;
 
-      // Shift to paint on "real" texture tile (to be repeated)
-      x *= ATOMIZER_CANVAS_COLS;
-      y *= ATOMIZER_CANVAS_ROWS;
+    const color = (currentDragColor.current || "#ff0000" );
+    
+    const sprayData = {x, y, color};
+    atomizerPts.current.push(sprayData);
 
-      // Shift to paint on "real" texture tile (to be repeated)
-      x = x % canvas.width;
-      y = y % canvas.height;
-
-      const color = (currentDragColor.current || "#ff0000" );
-
-      // Save low-res drawing data to recreate on other model
-      // TODO: x,y values should be rounded or reduced in decimal places to save memory
-      const sprayData = {x, y, color};
-      atomizerPts.current.push(sprayData);
-
-      drawToCanvas(sprayData);
-
-    }
+    drawToCanvas(sprayData);
   }
 
   function hexToRgb(hex) {
@@ -296,11 +261,7 @@ export function AtomizerModel({
     const newMaterial = materials[Object.keys(materials)[0]].clone();
 
     const canvasTexture = new THREE.CanvasTexture(canvasRef.current);
-    canvasTexture.repeat= new THREE.Vector2(ATOMIZER_CANVAS_COLS, ATOMIZER_CANVAS_ROWS);
-    canvasTexture.wrapS = THREE.RepeatWrapping;
-    canvasTexture.wrapT = THREE.RepeatWrapping;
     newMaterial.map = canvasTexture;
-
     textureRef.current = canvasTexture;
 
     clonedScene.traverse((object) => {
