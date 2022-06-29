@@ -432,14 +432,30 @@ span {
   width: 241.04px;
 }
 
-.firing-screen .kiln-sequence {
-  height: 100%;
-  left: 0;
-  pointer-events: none;
+.firing-screen .firing-progress {
+  background-image: url(./icons/flame.svg);
+  background-position: center 26%;
+  background-repeat: no-repeat;
+  left: 50%;
+  margin: 0 auto;
+  margin-top: 230px;
   position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 5;
+  text-align: center;
+  transform: translateX(-50%);
+  width: 400px;
+}
+
+.firing-screen .ring-container div {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.firing-screen .firing-progress h1 {
+  color: #f1eee9;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 48px;
+  margin-top: 45px;
 }
 
 .factoids-bar {
@@ -655,6 +671,20 @@ images to blur and gray out */
   top: 0;
   width: 100%;
   z-index: 9;
+}
+
+/* Layer that can be placed over background
+images to darken and de-emphasize */
+.darken-overlay {
+  backdrop-filter: blur(15px);
+  background: rgb(23 23 23 / 51%);
+  height: 1080px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  /* z-index: 9; */
 }
 
 /* Modals */

@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Modal } from 'react-bootstrap';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import PotteryScene from '../../components/PotteryScene';
 import MenuHUD from '../../components/MenuHUD';
 import Video from '../../components/Video';
@@ -97,6 +98,8 @@ const APP_STATE = {
   RESULTS: 6,
 };
 
+const FIRING_DURATION_SECS = 7.5;
+
 function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
   const {
@@ -127,7 +130,6 @@ function RookwoodPotteryInteractive({ data }) {
   useEffect(() => {
     if (selectedModel) {
       setAppState(APP_STATE.SELECTION);
-      console.log('selectedModel', selectedModel);
       const { name } = selectedModel;
       const colorPalette = getColorPalette(name);
       setHUDColors(colorPalette);
@@ -161,7 +163,7 @@ function RookwoodPotteryInteractive({ data }) {
     setAppState(APP_STATE.FIRING);
     setTimeout(() => {
       setAppState(APP_STATE.RESULTS);
-    }, 7 * 1000);
+    }, FIRING_DURATION_SECS * 1000);
   };
 
   function renderAttract() {
@@ -365,9 +367,25 @@ function RookwoodPotteryInteractive({ data }) {
   function renderFiring() {
     return (
       <div className="firing-screen">
+        <div className="darken-overlay" />
+        <div className="firing-progress">
+          <div className="ring-container">
+            <CountdownCircleTimer
+              isPlaying
+              duration={FIRING_DURATION_SECS}
+              colors={['#FFB600']}
+              size={345}
+              strokeWidth={14}
+              strokeLinecap="square"
+              trailStrokeWidth={6}
+              trailColor="#A1A1A1"
+            />
+          </div>
+          <h1>YOUR PIECE IS BEING FIRED</h1>
+        </div>
         <div className="factoids-bar">
           <h2>DID YOU KNOW?</h2>
-          <FadeShow elements={firingFactoids} delay={5000} />
+          <FadeShow elements={firingFactoids} delay={6000} />
         </div>
         <Video src={firingBgVideo.localFile.publicURL} active />
       </div>
