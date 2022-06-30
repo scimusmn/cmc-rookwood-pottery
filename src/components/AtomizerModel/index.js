@@ -53,7 +53,6 @@ export function AtomizerModel({
       if (!rotation) {
         meshRef.current.rotateOnAxis(SPIN_AXIS, spinSpeed);
       } else {
-        rotation
         meshRef.current.rotateOnAxis(SPIN_AXIS_FLAT, spinSpeed);
       }
     }
@@ -65,6 +64,8 @@ export function AtomizerModel({
 
       canvas.width = 4096;
       canvas.height = 4096;
+      // canvas.width = 1024 * 2;
+      // canvas.height = 1024 * 2;
 
       const context = canvas.getContext("2d");
       if (context) {
@@ -100,8 +101,8 @@ export function AtomizerModel({
     } else {
       // Setting default color of all meshes once on load.
       meshTargets.forEach(meshName => {
-        applySwatch(meshName, PRE_GLAZE_DEFAULT_COLOR, true);
-        currentColors.current[meshName] = PRE_GLAZE_DEFAULT_COLOR;
+        applySwatch(meshName, PRE_GLAZE_DEFAULT_COLOR.before, true);
+        currentColors.current[meshName] = PRE_GLAZE_DEFAULT_COLOR.before;
       });
     }
 
@@ -154,7 +155,7 @@ export function AtomizerModel({
     y = Math.round(y * 100) / 100;
 
     const color = (currentDragColor.current || "#ff0000" );
-    
+
     const sprayData = {x, y, color};
     atomizerPts.current.push(sprayData);
 
@@ -177,7 +178,7 @@ export function AtomizerModel({
   }
 
   function onTouchDown(e) {
-    // console.log('onTouchDown', e);
+    console.log('onTouchDown', e);
     dragging.current = true;
     latestRayEvt.current = e;
     if (atomizerEnabled) {
@@ -193,14 +194,15 @@ export function AtomizerModel({
     dragging.current = false;
     latestRayEvt.current = null;
     const {object} = e;
+    e.stopPropagation();
     // This color is now "permanent"
     currentColors.current[object.name] = activeColor;
     if (onUserEdits && visible) onUserEdits({colors: currentColors.current, atomizerPoints: atomizerPts.current});
-    e.stopPropagation();
+    
   }
 
   function onTouchEnter(e) {
-    // console.log('onTouchEnter', e);
+    console.log('onTouchEnter', e);
     if (!atomizerEnabled) {
       onRaycast(e);
     }
@@ -215,11 +217,11 @@ export function AtomizerModel({
   }
 
   function onTouchMove(e) {
-    // console.log('onTouchMove', e);
+    console.log('onTouchMove', dragging.current);
     if ( dragging.current === true ) {
-      latestRayEvt.current = e;
+      // latestRayEvt.current = e;
     }
-    e.stopPropagation();
+    // e.stopPropagation();
   }
 
   function onRaycast(e) {
@@ -305,6 +307,7 @@ export function AtomizerModel({
   // Apply user-made edits 
   // (usually coming from previous version of model)
   useEffect(() => {
+    console.log('useEffect: edits -', visible, edits);
     if (visible && edits) {
       if (edits.colors && !atomizerEnabled) {
         Object.keys(edits.colors).forEach(meshName => {
@@ -331,14 +334,14 @@ export function AtomizerModel({
   return (
     <primitive
       onPointerDown={visible ? onTouchDown : null}
-      onPointerUp={visible ? onTouchUp : null}
-      onPointerEnter={visible ? onTouchEnter : null}
-      onPointerLeave={visible ? onTouchLeave : null}
+      // onPointerUp={visible ? onTouchUp : null}
+      // onPointerEnter={visible ? onTouchEnter : null}
+      // onPointerLeave={visible ? onTouchLeave : null}
       onPointerMove={visible ? onTouchMove : null}
       object={clonedScene}
       visible={visible}
-      position={position || [0, 0, 0]}
-      rotation={rotation || [0, 0, 0]}
+      // position={position || [0, 0, 0]}
+      // rotation={rotation || [0, 0, 0]}
       ref={meshRef}
     /> );
 }

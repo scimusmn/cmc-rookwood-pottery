@@ -40,7 +40,7 @@ export const pageQuery = graphql`
           localFile {
             publicURL
             childImageSharp {
-              gatsbyImageData(width: 350, height: 350, layout: FIXED, placeholder: BLURRED)
+              gatsbyImageData(width: 960, layout: CONSTRAINED, placeholder: BLURRED)
             }
           }
         }
@@ -98,7 +98,7 @@ const APP_STATE = {
   RESULTS: 6,
 };
 
-const FIRING_DURATION_SECS = 7.5;
+const FIRING_DURATION_SECS = 6;
 
 function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
@@ -118,6 +118,7 @@ function RookwoodPotteryInteractive({ data }) {
   } = contentfulRookwoodPotteryInteractive;
 
   const [appState, setAppState] = useState(APP_STATE.ATTRACT);
+  const [showFadeOut, setShowFadeOut] = useState(true);
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedTargetMesh, setSelectedTargetMesh] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -126,6 +127,10 @@ function RookwoodPotteryInteractive({ data }) {
   const [showLoadingModal, setShowLoadingModal] = useState(true);
   const [showReadyModal, setShowReadyModal] = useState(false);
   const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
+
+  useEffect(() => {
+    setShowFadeOut(false);
+  }, []);
 
   useEffect(() => {
     if (selectedModel) {
@@ -150,12 +155,12 @@ function RookwoodPotteryInteractive({ data }) {
     if (selection.color) setSelectedColor(selection.color);
   };
 
-  const startOver = () => {
+  const fadeToBlackReset = () => {
     setShowAreYouSureModal(false);
-    // setAppState(APP_STATE.ATTRACT);
-    window.location.reload();
-    // TODO: Do we need to do any manual
-    // cleanup of pottery scene here?
+    setShowFadeOut(true);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1100);
   };
 
   const startFiringSequence = () => {
@@ -194,9 +199,9 @@ function RookwoodPotteryInteractive({ data }) {
                 image={getImage(selection.thumbnail.localFile)}
                 loading="eager"
                 alt={selection.shortDescription.shortDescription}
-                imgStyle={{ objectFit: 'contain' }}
+                imgStyle={{ objectFit: 'cover' }}
                 style={{
-                  width: '340px', height: '340px', margin: '0 auto', padding: '0', left: '-3px',
+                  position: 'static',
                 }}
               />
               <div className="bottom-bar">
@@ -263,7 +268,8 @@ function RookwoodPotteryInteractive({ data }) {
           </div>
         </button>
         <button type="button" className="btn secondary home" onClick={() => setShowAreYouSureModal(true)}>
-          HOME
+          <span className="icon-home" />
+          <span className="label">HOME</span>
         </button>
         <div className="original-preview">
           <GatsbyImage
@@ -333,7 +339,7 @@ function RookwoodPotteryInteractive({ data }) {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" className="btn primary" onClick={() => startOver()}>
+            <button type="button" className="btn primary" onClick={() => fadeToBlackReset()}>
               YES
             </button>
             <button type="button" className="btn primary" onClick={() => setShowAreYouSureModal(false)}>
@@ -385,7 +391,7 @@ function RookwoodPotteryInteractive({ data }) {
         </div>
         <div className="factoids-bar">
           <h2>DID YOU KNOW?</h2>
-          <FadeShow elements={firingFactoids} delay={6000} />
+          <FadeShow elements={firingFactoids} delay={99999999} />
         </div>
         <Video src={firingBgVideo.localFile.publicURL} active />
       </div>
@@ -404,8 +410,9 @@ function RookwoodPotteryInteractive({ data }) {
             imgStyle={{ objectFit: 'contain' }}
           />
         </div>
-        <button type="button" className="btn secondary home" onClick={() => startOver()}>
-          HOME
+        <button type="button" className="btn secondary home" onClick={() => fadeToBlackReset()}>
+          <span className="icon-home" />
+          <span className="label">HOME</span>
         </button>
         <div className="factoids-bar">
           <h2>{resultsTitle}</h2>
@@ -423,16 +430,19 @@ function RookwoodPotteryInteractive({ data }) {
 
   return (
     <>
-      { appState === APP_STATE.ATTRACT && renderAttract() }
-      { appState === APP_STATE.SELECTION_GALLERY && renderSelectionGallery() }
-      { appState === APP_STATE.SELECTION && renderSelection() }
-      { appState === APP_STATE.STUDIO && renderStudio() }
-      { (appState === APP_STATE.STUDIO
-        || appState === APP_STATE.FIRING
-        || appState === APP_STATE.RESULTS
-      ) && renderPottery() }
-      { appState === APP_STATE.FIRING && renderFiring() }
-      { appState === APP_STATE.RESULTS && renderResults() }
+      <div className="screens">
+        { appState === APP_STATE.ATTRACT && renderAttract() }
+        { appState === APP_STATE.SELECTION_GALLERY && renderSelectionGallery() }
+        { appState === APP_STATE.SELECTION && renderSelection() }
+        { appState === APP_STATE.STUDIO && renderStudio() }
+        { (appState === APP_STATE.STUDIO
+          || appState === APP_STATE.FIRING
+          || appState === APP_STATE.RESULTS
+        ) && renderPottery() }
+        { appState === APP_STATE.FIRING && renderFiring() }
+        { appState === APP_STATE.RESULTS && renderResults() }
+      </div>
+      <div className={`fade-black-overlay ${showFadeOut ? 'show' : ''}`} />
     </>
   );
 }

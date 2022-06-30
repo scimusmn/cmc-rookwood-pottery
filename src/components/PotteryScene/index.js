@@ -23,26 +23,37 @@ function Lighting() {
   const pointLight2 = useRef();
   const pointLight3 = useRef();
   const dirLight1 = useRef();
+  const dirLight2 = useRef();
   if (SCENE_DEBUG_MODE) {
     useHelper(pointLight1, PointLightHelper, 0.5, "hotpink");
     useHelper(pointLight2, PointLightHelper, 0.5, "red");
     useHelper(pointLight3, PointLightHelper, 0.5, "teal");
-    useHelper(dirLight1, DirectionalLightHelper, 0.5, "green");
+    useHelper(dirLight1, DirectionalLightHelper, 0.5, "white");
+    useHelper(dirLight2, DirectionalLightHelper, 0.5, "green");
   }
   return (
     <>
       <ambientLight />
-      <pointLight ref={pointLight1} position={[1, 0.5, 3]} intensity={4} />
-      <pointLight ref={pointLight2} position={[-4, 1, 0]} intensity={3.5} />
-      <pointLight ref={pointLight3} position={[0, 4, -1]} intensity={3} />
+      <pointLight ref={pointLight1} position={[1, 2.5, 2]} intensity={2} />
+      <pointLight ref={pointLight2} position={[-2, 3, -2.5]} intensity={1} />
+      <pointLight ref={pointLight3} position={[0, 4, -1]} intensity={2} />
       <directionalLight
-        position={[3, 2.5, -5]}
+        position={[-7, 2.5, 7]}
         ref={dirLight1}
         color={'#fafbff'}
         lookAt={[0, 1, 0]}
         penumbra={2}
         castShadow
-        intensity={3}
+        intensity={4.5}
+      />
+      <directionalLight
+        position={[2, 2.5, -5]}
+        ref={dirLight2}
+        color={'#fafbff'}
+        lookAt={[0, 2, 0]}
+        penumbra={2}
+        castShadow
+        intensity={1.25}
       />
     </>
   );
@@ -62,8 +73,8 @@ function SpinnerGroup({
   const spinGroupRef = useRef();
 
   // Camera configuration - Flats (tiles)
-  const CAM_POSITION_FLATS = new THREE.Vector3(-6.5, 5.5, 0.5);
-  const CAM_LOOKAT_FLATS = new THREE.Vector3(0, 0, 0.5);
+  const CAM_POSITION_FLATS = new THREE.Vector3(-5, 6, 0.5);
+  const CAM_LOOKAT_FLATS = new THREE.Vector3(0, 0.15, 0.5);
 
   // Camera configuration - Vases
   const CAM_POSITION_VASES = new THREE.Vector3(-8, 1.75, 0.5);
@@ -78,9 +89,18 @@ function SpinnerGroup({
 
   const FLAT_ROTATION_COMPARE = [Math.PI/2, 0, Math.PI/2];
 
+  const isFlat = PotteryScene.getIsFlatPiece(pieceName);
+  const isAtomizer = PotteryScene.getIsAtomizerPiece(pieceName);
+
   useFrame((state, delta) => {
-    if (!showCompare){
+    if (!isFlat && !showCompare){
       spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
+    } else if (isFlat && !showCompare) {
+      if (isFlat) {
+        spinGroupRef.current.rotation.set( 0, -Math.PI/2, 0 );
+      } else {
+        spinGroupRef.current.rotation.set( 0, 0, 0 );
+      }
     } else {
       spinGroupRef.current.rotation.set( 0, 0, 0 );
     }
@@ -90,8 +110,8 @@ function SpinnerGroup({
     let camPos;
     let camLook;
     if (!showCompare) {
-      camPos = PotteryScene.getIsFlatPiece(pieceName) ? CAM_POSITION_FLATS : CAM_POSITION_VASES;
-      camLook = PotteryScene.getIsFlatPiece(pieceName) ? CAM_LOOKAT_FLATS : CAM_LOOKAT_VASES;
+      camPos = isFlat ? CAM_POSITION_FLATS : CAM_POSITION_VASES;
+      camLook = isFlat ? CAM_LOOKAT_FLATS : CAM_LOOKAT_VASES;
     } else {
       camPos = CAM_POSITION_COMPARE;
       camLook = CAM_LOOKAT_COMPARE;
@@ -103,11 +123,13 @@ function SpinnerGroup({
   });
 
   function onUserModelEdits(editsObj) {
-    console.log('onUserModelEdits', editsObj, showFired);
+    console.log('PotteryScene.onUserModelEdits', showFired);
+    console.log(editsObj);
+    const clonedEditsObj = structuredClone(editsObj);
     // Replace before colors w after colors
-    if (editsObj.colors) {
-      Object.keys(editsObj.colors).forEach(key => {
-        const beforeColor = editsObj.colors[key];
+    if (clonedEditsObj.colors) {
+      Object.keys(clonedEditsObj.colors).forEach(key => {
+        const beforeColor = clonedEditsObj.colors[key];
         let afterColor = null;
         Object.keys(COLOR_LOOKUP).forEach(k => {
           if (COLOR_LOOKUP[k].before === beforeColor) {
@@ -115,14 +137,14 @@ function SpinnerGroup({
           }
         })
         if (afterColor) {
-          editsObj.colors[key] = afterColor;
+          clonedEditsObj.colors[key] = afterColor;
         } else {
           console.log('[WARNING] No after color for pbn', beforeColor);
         }
       })
     }
-    if (editsObj.atomizerPoints) {
-      editsObj.atomizerPoints.forEach(atomizerPoint => {
+    if (clonedEditsObj.atomizerPoints) {
+      clonedEditsObj.atomizerPoints.forEach(atomizerPoint => {
         const beforeColor = atomizerPoint.color;
         let afterColor = null;
         Object.keys(COLOR_LOOKUP).forEach(k => {
@@ -137,11 +159,7 @@ function SpinnerGroup({
         }
       })
     }
-    setPreFireEdits(editsObj);
-  }
-
-  function getModelPosition(modelName) {
-
+    setPreFireEdits(clonedEditsObj);
   }
 
   function getIdealEdits(pieceName) {
@@ -166,7 +184,7 @@ function SpinnerGroup({
         atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
         onUserEdits={(e) => onUserModelEdits(e)}
       />
-      <AtomizerModel 
+      {/* <AtomizerModel 
         key="after-model"
         modelPath={modelPathAfter} 
         scale={scale} 
@@ -186,7 +204,7 @@ function SpinnerGroup({
         position={[0, (showCompare && PotteryScene.getIsFlatPiece(pieceName) ? 0.82 : 0), 0.75]}
         rotation={(showCompare && PotteryScene.getIsFlatPiece(pieceName)) ? FLAT_ROTATION_COMPARE : null}
         spinSpeed={showCompare ? SPIN_SPEED : 0}
-      />
+      /> */}
       <WheelModel modelPath={turntableModelPath} visible={!showCompare} /> 
     </group>
   );
@@ -207,10 +225,10 @@ function PotteryScene({
     const canvasRef = useRef();
     const mouse = useRef([0, 0]);   
 
-    function onCanvasMouseMove({ clientX: x, clientY: y }) {
-      console.log('onCanvasMouseMove', x, y);
-      mouse.current = [x, y];
-    }
+    // function onCanvasMouseMove({ clientX: x, clientY: y }) {
+    //   console.log('onCanvasMouseMove', x, y);
+    //   mouse.current = [x, y];
+    // }
 
   return (
     <div className="scene-container">

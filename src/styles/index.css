@@ -29,14 +29,25 @@ body {
   width: 100%;
 }
 
+html {
+  background-color: black;
+}
+
 body {
-  background-color: #e5e5e5;
+  background-color: black;
   font-family: Merriweather, serif;
-  height: 1920px;
+  height: 1080px;
   margin: 0;
   overflow: hidden;
   padding: 0;
-  width: 1080px;
+  user-select: none;
+  width: 1920px;
+}
+
+.screens {
+  background-color: #e5e5e5;
+  height: 1080px;
+  width: 1920px;
 }
 
 h1 {
@@ -49,6 +60,16 @@ p {
 
 span {
   font-family: Roboto, sans-serif;
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+*:focus,
+*:focus-visible {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 .btn.primary {
@@ -89,7 +110,7 @@ span {
   font-style: normal;
   font-weight: 300;
   height: 45px;
-  line-height: 123%;
+  line-height: 43%;
 }
 
 .swatch-button {
@@ -162,6 +183,7 @@ span {
   height: 1080px;
   position: absolute;
   width: 1920px;
+  z-index: 1;
 }
 
 .scene-container {
@@ -275,16 +297,22 @@ span {
 .selection-button:nth-of-type(4) {
   left: calc(50% - 350px / 2 - 420px);
   top: calc(50% - 459.89px / 2 + 264.95px);
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 .selection-button:nth-of-type(5) {
   left: calc(50% - 350px / 2 - 0px);
   top: calc(50% - 459.89px / 2 + 264.95px);
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 .selection-button:nth-of-type(6) {
   left: calc(50% - 350px / 2 + 420px);
   top: calc(50% - 459.89px / 2 + 264.95px);
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 .selection-screen h2 {
@@ -374,10 +402,30 @@ span {
 }
 
 .btn.home {
+  border: 4px solid #364015;
+  height: 45px;
   left: 2%;
   position: fixed;
   top: 5%;
+  width: 183px;
   z-index: 5;
+}
+
+.btn.home .label {
+  margin-left: 40px;
+  margin-right: 7px;
+}
+
+span.icon-home {
+  background: url(./icons/home.svg) no-repeat top left;
+  background-size: contain;
+  cursor: pointer;
+  display: inline-block;
+  height: 27px;
+  left: 15px;
+  position: absolute;
+  top: 5px;
+  width: 27px;
 }
 
 .btn.fire {
@@ -430,6 +478,12 @@ span {
   position: absolute;
   text-align: center;
   width: 241.04px;
+}
+
+.firing-screen {
+  background-color: #111;
+  height: 100%;
+  width: 100%;
 }
 
 .firing-screen .firing-progress {
@@ -653,7 +707,7 @@ span {
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: -1;
+  z-index: 0;
 }
 
 .background .gatsby-image-wrapper {
@@ -676,15 +730,31 @@ images to blur and gray out */
 /* Layer that can be placed over background
 images to darken and de-emphasize */
 .darken-overlay {
-  backdrop-filter: blur(15px);
-  background: rgb(23 23 23 / 51%);
+  background: rgb(23 23 23 / 35%);
   height: 1080px;
   left: 0;
   position: absolute;
   top: 0;
   width: 100%;
+}
 
-  /* z-index: 9; */
+/* Layer that can be placed over entire app for
+fade to black resets */
+.fade-black-overlay {
+  background: rgb(0 0 0);
+  height: 1080px;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transition: opacity 1s;
+  width: 100%;
+  z-index: 99;
+}
+
+.fade-black-overlay.show {
+  opacity: 1;
 }
 
 /* Modals */

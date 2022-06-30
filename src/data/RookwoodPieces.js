@@ -1,33 +1,28 @@
+import COLOR_LOOKUP from './ColorLookup';
+
 const FINISHED_PIECES = {
   PINECONE_VASE: {
-    atomizerPoints: [
-      {
-        y: 665.5767253666871,
-        color: '#362d2e',
-      },
-      {
-        y: 665.5767253666871,
-        color: '#362d2e',
-      },
-      {
-        y: 636.6596074478684,
-        color: '#2e4d62',
-      },
-    ],
+    colors: {
+      PineconeVaseBASE: COLOR_LOOKUP.Off_white.after,
+      PineconeVaseBRANCHES: COLOR_LOOKUP.Light_brown_Pinecone_vase.after,
+      PineconeVaseNEEDLESBrwn: COLOR_LOOKUP.Brown_green.after,
+      PineconeVaseNEEDLESGrn: COLOR_LOOKUP.Blue_green.after,
+      PineconeVasePINECONES: COLOR_LOOKUP.Brunneous_brown.after,
+    },
   },
   TREE_OF_LIFE_TILE: {
     colors: {
-      Tree_of_LifeBASE: '#937865',
-      Tree_of_LifeBRANCHES: '#675b4f',
-      Tree_of_Life_LEAVES: '#34592d',
-      TreeLife_SKY: '#4a7588',
+      Tree_of_LifeBASE: COLOR_LOOKUP.Griege.after,
+      Tree_of_LifeBRANCHES: COLOR_LOOKUP.Light_brown_Tree_of_Life.after,
+      Tree_of_Life_LEAVES: COLOR_LOOKUP.Ivy.after,
+      TreeLife_SKY: COLOR_LOOKUP.Sargasso_Surf.after,
     },
   },
   ASHBEE_FLORA_TILE: {
     colors: {
-      ashbeeBASE: '#c18a75',
-      ashbeeFLOWERS: '#675b4f',
-      ashbeeLEAVES: '#34592d',
+      ashbeeBASE: COLOR_LOOKUP.Aegean.after,
+      ashbeeFLOWERS: COLOR_LOOKUP.Serenade.after,
+      ashbeeLEAVES: COLOR_LOOKUP.Brown_green.after,
     },
   },
   HERITAGE_MUG: {
