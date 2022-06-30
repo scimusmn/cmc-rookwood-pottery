@@ -27,7 +27,12 @@ function SwatchButton({
         type="button"
       />
       <br />
-      <span onClick={() => handleSelection()}>
+      <span
+        onClick={() => handleSelection()}
+        style={{
+          fontWeight: selected ? 700 : 300,
+        }}
+      >
         {label}
       </span>
     </div>

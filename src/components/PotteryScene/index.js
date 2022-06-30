@@ -34,9 +34,9 @@ function Lighting() {
   return (
     <>
       <ambientLight />
-      <pointLight ref={pointLight1} position={[1, 2.5, 2]} intensity={2} />
-      <pointLight ref={pointLight2} position={[-2, 3, -2.5]} intensity={1} />
-      <pointLight ref={pointLight3} position={[0, 4, -1]} intensity={2} />
+      <pointLight ref={pointLight1} position={[1, 2.5, 4]} intensity={2.5} />
+      <pointLight ref={pointLight2} position={[-3, 3, -3.5]} intensity={3} />
+      <pointLight ref={pointLight3} position={[0, 2.5, -1]} intensity={2.5} />
       <directionalLight
         position={[-7, 2.5, 7]}
         ref={dirLight1}
@@ -44,7 +44,7 @@ function Lighting() {
         lookAt={[0, 1, 0]}
         penumbra={2}
         castShadow
-        intensity={4.5}
+        intensity={2.5}
       />
       <directionalLight
         position={[2, 2.5, -5]}
@@ -94,7 +94,10 @@ function SpinnerGroup({
 
   useFrame((state, delta) => {
     if (!isFlat && !showCompare){
-      spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
+      // spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
+
+      // TEMP - Static pinecone rotation for v1
+      spinGroupRef.current.rotation.set( 0, -Math.PI, 0 );
     } else if (isFlat && !showCompare) {
       if (isFlat) {
         spinGroupRef.current.rotation.set( 0, -Math.PI/2, 0 );
@@ -184,7 +187,7 @@ function SpinnerGroup({
         atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
         onUserEdits={(e) => onUserModelEdits(e)}
       />
-      {/* <AtomizerModel 
+      <AtomizerModel 
         key="after-model"
         modelPath={modelPathAfter} 
         scale={scale} 
@@ -204,7 +207,7 @@ function SpinnerGroup({
         position={[0, (showCompare && PotteryScene.getIsFlatPiece(pieceName) ? 0.82 : 0), 0.75]}
         rotation={(showCompare && PotteryScene.getIsFlatPiece(pieceName)) ? FLAT_ROTATION_COMPARE : null}
         spinSpeed={showCompare ? SPIN_SPEED : 0}
-      /> */}
+      />
       <WheelModel modelPath={turntableModelPath} visible={!showCompare} /> 
     </group>
   );

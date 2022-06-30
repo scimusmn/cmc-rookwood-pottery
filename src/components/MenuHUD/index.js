@@ -18,7 +18,7 @@ function MenuHUD({ onSelectionCallback, colorOptions, hudOptions }) {
       <div className="side-panel right">
         <h1>GLAZES</h1>
         <p className="info">
-          {/* <span className="info-icon" /> */}
+          <span className="info-icon" />
           <em>
             <strong>Please note:</strong>
             {' '}

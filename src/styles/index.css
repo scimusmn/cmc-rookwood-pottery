@@ -78,13 +78,13 @@ img {
   border-bottom: 5px solid #ffb600;
   box-shadow: 0 4px 13px 1px rgb(54 64 21 / 22%);
   color: #e5e5e5;
-  display: flex;
+  /* display: flex; */
   font-family: Nord, sans-serif;
   font-size: 30px;
   font-style: normal;
   font-weight: 500;
   height: 45px;
-  line-height: 122.69%;
+  line-height: 1%;
   text-align: center !important;
 }
 
@@ -433,7 +433,7 @@ span.icon-home {
   height: 90px;
   position: absolute;
   right: 145px;
-  top: 992px;
+  top: 997px;
   width: 250px;
   z-index: 99;
 }
@@ -464,20 +464,15 @@ span.icon-home {
 }
 
 .btn.fire span {
-  align-items: center;
-  bottom: 0;
   color: #fff;
-  display: flex;
   font-family: Nord, sans-serif;
   font-size: 27px;
   font-style: normal;
   font-weight: 900;
-  height: 90px;
-  left: calc(50% - 241.04px / 2 + 4.48px);
-  line-height: 122.69%;
   position: absolute;
   text-align: center;
-  width: 241.04px;
+  left: 31%;
+  top: 17%;
 }
 
 .firing-screen {
@@ -609,14 +604,6 @@ span.icon-home {
   width: 387.76px;
 }
 
-.menu-hud .info-icon {
-  background-image: url(./icons/info.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100px;
-  width: 100px;
-}
-
 .menu-hud p {
   color: #364015;
   font-family: Merriweather, sans-serif;
@@ -624,12 +611,24 @@ span.icon-home {
   font-style: italic;
   font-weight: 700;
   height: 48px;
-  left: 93.38px;
+  left: 92px;
   letter-spacing: 0.02em;
   line-height: 48px;
   position: absolute;
   text-align: center;
-  top: 120.02px;
+  top: 118px;
+}
+
+.menu-hud span.info-icon {
+  background: url(./icons/info.svg) no-repeat top left;
+  background-size: contain;
+  cursor: pointer;
+  display: inline-block;
+  height: 18px;
+  left: -28px;
+  position: absolute;
+  top: 14px;
+  width: 18px;
 }
 
 .menu-hud .target-mesh-swatches {
@@ -649,7 +648,7 @@ span.icon-home {
 
 .menu-hud .swatch-container {
   float: left;
-  height: 135px;
+  height: 134px;
   margin: 0;
   margin-bottom: 18px;
   pointer-events: all;
@@ -662,10 +661,10 @@ span.icon-home {
   font-family: Merriweather, serif;
   font-size: 15px;
   font-style: normal;
-  font-weight: 300;
+  /* font-weight: 300; */
   height: 45px;
   letter-spacing: 0.02em;
-  line-height: 48px;
+  line-height: 44px;
   pointer-events: all;
   text-align: center;
   width: 160px;
@@ -684,7 +683,7 @@ span.icon-home {
   height: 140px;
   left: 195px;
   position: absolute;
-  top: 784.5px;
+  top: 799px;
   width: 160px;
 }
 

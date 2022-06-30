@@ -340,8 +340,8 @@ export function AtomizerModel({
       onPointerMove={visible ? onTouchMove : null}
       object={clonedScene}
       visible={visible}
-      // position={position || [0, 0, 0]}
-      // rotation={rotation || [0, 0, 0]}
+      position={position || [0, 0, 0]}
+      rotation={rotation || [0, 0, 0]}
       ref={meshRef}
     /> );
 }

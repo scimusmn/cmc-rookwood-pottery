@@ -101,7 +101,7 @@ const APP_STATE = {
 
 const FIRING_DURATION_SECS = 6;
 
-const INACTIVITY_TIMEOUT_SECS = 70;
+const INACTIVITY_TIMEOUT_SECS = 75;
 
 function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
@@ -189,7 +189,7 @@ function RookwoodPotteryInteractive({ data }) {
           <h1>{homeTitle}</h1>
           <p>{homeSubhead.homeSubhead}</p>
           <button type="button" className="btn primary begin" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
-            <span>BEGIN</span>
+            BEGIN
           </button>
         </div>
         <Video src={homeBgVideo.localFile.publicURL} active />
@@ -412,7 +412,7 @@ function RookwoodPotteryInteractive({ data }) {
   function renderResults() {
     return (
       <div className="results-screen">
-        <div className="background">
+        <div className="background" style={{ display: 'none' }}>
           <div className="blur-overlay" />
           <GatsbyImage
             image={getImage(resultsBgImage.localFile)}
