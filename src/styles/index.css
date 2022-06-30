@@ -66,10 +66,26 @@ img {
   -webkit-user-drag: none;
 }
 
-*:focus,
-*:focus-visible {
+* {
+  -webkit-focus-ring-color: rgb(255 255 255 / 0%) !important;
   outline: none !important;
   -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: rgb(255 255 255 / 0%) !important;
+}
+
+*:focus,
+*:focus-visible {
+  -webkit-focus-ring-color: rgb(255 255 255 / 0%) !important;
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: rgb(255 255 255 / 0%) !important;
+}
+
+button,
+.btn {
+  -webkit-focus-ring-color: rgb(255 255 255 / 0%) !important;
+  outline: none !important;
+  -webkit-tap-highlight-color: rgb(255 255 255 / 0%) !important;
 }
 
 .btn.primary {
@@ -78,6 +94,7 @@ img {
   border-bottom: 5px solid #ffb600;
   box-shadow: 0 4px 13px 1px rgb(54 64 21 / 22%);
   color: #e5e5e5;
+
   /* display: flex; */
   font-family: Nord, sans-serif;
   font-size: 30px;
@@ -296,23 +313,23 @@ img {
 
 .selection-button:nth-of-type(4) {
   left: calc(50% - 350px / 2 - 420px);
-  top: calc(50% - 459.89px / 2 + 264.95px);
-  pointer-events: none;
   opacity: 0.8;
+  pointer-events: none;
+  top: calc(50% - 459.89px / 2 + 264.95px);
 }
 
 .selection-button:nth-of-type(5) {
   left: calc(50% - 350px / 2 - 0px);
-  top: calc(50% - 459.89px / 2 + 264.95px);
-  pointer-events: none;
   opacity: 0.8;
+  pointer-events: none;
+  top: calc(50% - 459.89px / 2 + 264.95px);
 }
 
 .selection-button:nth-of-type(6) {
   left: calc(50% - 350px / 2 + 420px);
-  top: calc(50% - 459.89px / 2 + 264.95px);
-  pointer-events: none;
   opacity: 0.8;
+  pointer-events: none;
+  top: calc(50% - 459.89px / 2 + 264.95px);
 }
 
 .selection-screen h2 {
@@ -469,9 +486,9 @@ span.icon-home {
   font-size: 27px;
   font-style: normal;
   font-weight: 900;
+  left: 31%;
   position: absolute;
   text-align: center;
-  left: 31%;
   top: 17%;
 }
 
@@ -661,6 +678,7 @@ span.icon-home {
   font-family: Merriweather, serif;
   font-size: 15px;
   font-style: normal;
+
   /* font-weight: 300; */
   height: 45px;
   letter-spacing: 0.02em;
