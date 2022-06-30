@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Modal } from 'react-bootstrap';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { useIdleTimer } from 'react-idle-timer';
 import PotteryScene from '../../components/PotteryScene';
 import MenuHUD from '../../components/MenuHUD';
 import Video from '../../components/Video';
@@ -100,6 +101,8 @@ const APP_STATE = {
 
 const FIRING_DURATION_SECS = 6;
 
+const INACTIVITY_TIMEOUT_SECS = 70;
+
 function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
   const {
@@ -170,6 +173,14 @@ function RookwoodPotteryInteractive({ data }) {
       setAppState(APP_STATE.RESULTS);
     }, FIRING_DURATION_SECS * 1000);
   };
+
+  // Inactivity timeout
+  useIdleTimer({
+    timeout: INACTIVITY_TIMEOUT_SECS * 1000,
+    debounce: 500,
+    startOnMount: false,
+    onIdle: () => fadeToBlackReset(),
+  });
 
   function renderAttract() {
     return (
