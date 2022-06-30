@@ -4,6 +4,7 @@ import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { PointLightHelper, DirectionalLightHelper } from "three";
 import { OrbitControls, Html, useProgress, useHelper } from '@react-three/drei';
+import structuredClone from '@ungap/structured-clone';
 import { AtomizerModel } from '../AtomizerModel';
 import { WheelModel } from '../WheelModel';
 import COLOR_LOOKUP from '../../data/ColorLookup';
