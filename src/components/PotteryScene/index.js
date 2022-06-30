@@ -33,27 +33,27 @@ function Lighting() {
   }
   return (
     <>
-      <ambientLight />
-      <pointLight ref={pointLight1} position={[1, 2.5, 4]} intensity={2.5} />
-      <pointLight ref={pointLight2} position={[-3, 3, -3.5]} intensity={3} />
-      <pointLight ref={pointLight3} position={[0, 2.5, -1]} intensity={2.5} />
+      {/* <ambientLight /> */}
+      <pointLight ref={pointLight1} position={[1, 2.5, 4]} intensity={1.5} />
+      <pointLight ref={pointLight2} position={[-3, 3, -3.5]} intensity={1.5} />
+      <pointLight ref={pointLight3} position={[-1, 2, -1]} intensity={1.5} />
       <directionalLight
-        position={[-7, 2.5, 7]}
+        position={[-6.5, 2.5, 7]}
         ref={dirLight1}
         color={'#fafbff'}
         lookAt={[0, 1, 0]}
         penumbra={2}
         castShadow
-        intensity={2.5}
+        intensity={3}
       />
       <directionalLight
-        position={[2, 2.5, -5]}
+        position={[0, 2.5, -5]}
         ref={dirLight2}
         color={'#fafbff'}
         lookAt={[0, 2, 0]}
         penumbra={2}
         castShadow
-        intensity={1.25}
+        intensity={1.5}
       />
     </>
   );
@@ -243,6 +243,7 @@ function PotteryScene({
           gl.physicallyCorrectLights = true;
           gl.gammaOutput = true;
         }}
+        shadows
       >
       {/* <Canvas ref={canvasRef} camera={ fov: 75, near: 0.1, far: 1000, position: [0, 0, 5] }> */}
         <Suspense fallback={<ProgressLoader />}>

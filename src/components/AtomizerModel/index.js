@@ -334,14 +334,15 @@ export function AtomizerModel({
   return (
     <primitive
       onPointerDown={visible ? onTouchDown : null}
-      // onPointerUp={visible ? onTouchUp : null}
-      // onPointerEnter={visible ? onTouchEnter : null}
-      // onPointerLeave={visible ? onTouchLeave : null}
+      onPointerUp={visible ? onTouchUp : null}
+      onPointerEnter={visible ? onTouchEnter : null}
+      onPointerLeave={visible ? onTouchLeave : null}
       onPointerMove={visible ? onTouchMove : null}
       object={clonedScene}
       visible={visible}
       position={position || [0, 0, 0]}
       rotation={rotation || [0, 0, 0]}
       ref={meshRef}
+      castShadow
     /> );
 }

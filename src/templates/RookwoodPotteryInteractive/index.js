@@ -412,7 +412,7 @@ function RookwoodPotteryInteractive({ data }) {
   function renderResults() {
     return (
       <div className="results-screen">
-        <div className="background" style={{ display: 'none' }}>
+        <div className="background">
           <div className="blur-overlay" />
           <GatsbyImage
             image={getImage(resultsBgImage.localFile)}
