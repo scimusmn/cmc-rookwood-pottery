@@ -101,7 +101,7 @@ const APP_STATE = {
 
 const FIRING_DURATION_SECS = 6;
 
-const INACTIVITY_TIMEOUT_SECS = 75;
+const INACTIVITY_TIMEOUT_SECS = 90;
 
 function RookwoodPotteryInteractive({ data }) {
   const { contentfulRookwoodPotteryInteractive } = data;
@@ -417,8 +417,8 @@ function RookwoodPotteryInteractive({ data }) {
           <GatsbyImage
             image={getImage(resultsBgImage.localFile)}
             loading="eager"
-            alt="studio background"
-            imgStyle={{ objectFit: 'contain' }}
+            alt="results background"
+            imgStyle={{ objectFit: 'cover' }}
           />
         </div>
         <button type="button" className="btn secondary home" onClick={() => fadeToBlackReset()}>

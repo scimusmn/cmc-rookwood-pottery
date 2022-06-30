@@ -36,7 +36,7 @@ function Lighting() {
     <>
       {/* <ambientLight /> */}
       <pointLight ref={pointLight1} position={[1, 2.5, 4]} intensity={1.5} />
-      <pointLight ref={pointLight2} position={[-3, 3, -3.5]} intensity={1.5} />
+      <pointLight ref={pointLight2} position={[-3, 3, -3.5]} intensity={2.5} />
       <pointLight ref={pointLight3} position={[-1, 2, -1]} intensity={1.5} />
       <directionalLight
         position={[-6.5, 2.5, 7]}
@@ -45,7 +45,7 @@ function Lighting() {
         lookAt={[0, 1, 0]}
         penumbra={2}
         castShadow
-        intensity={3}
+        intensity={2.75}
       />
       <directionalLight
         position={[0, 2.5, -5]}
@@ -54,7 +54,7 @@ function Lighting() {
         lookAt={[0, 2, 0]}
         penumbra={2}
         castShadow
-        intensity={1.5}
+        intensity={1.25}
       />
     </>
   );
@@ -74,12 +74,12 @@ function SpinnerGroup({
   const spinGroupRef = useRef();
 
   // Camera configuration - Flats (tiles)
-  const CAM_POSITION_FLATS = new THREE.Vector3(-5, 6, 0.5);
-  const CAM_LOOKAT_FLATS = new THREE.Vector3(0, 0.15, 0.5);
+  const CAM_POSITION_FLATS = new THREE.Vector3(-4, 6, 0.45);
+  const CAM_LOOKAT_FLATS = new THREE.Vector3(0, 0.15, 0.45);
 
   // Camera configuration - Vases
-  const CAM_POSITION_VASES = new THREE.Vector3(-8, 1.75, 0.5);
-  const CAM_LOOKAT_VASES = new THREE.Vector3(0, 0.6, 0.5);
+  const CAM_POSITION_VASES = new THREE.Vector3(-7.75, 1.8, 0.45);
+  const CAM_LOOKAT_VASES = new THREE.Vector3(0, 0.68, 0.45);
 
   // Camera configuration - Compare screen
   const CAM_POSITION_COMPARE = new THREE.Vector3(-9, 1.75, 0);

@@ -731,10 +731,14 @@ span.icon-home {
   left: -30px;
 }
 
+.results-screen .background .gatsby-image-wrapper {
+  left: 0px;
+}
+
 /* Layer that can be placed over background
 images to blur and gray out */
 .blur-overlay {
-  backdrop-filter: blur(20px);
+  /* backdrop-filter: blur(20px); */
   background: rgb(134 134 134 / 37%);
   height: 1080px;
   left: 0;
