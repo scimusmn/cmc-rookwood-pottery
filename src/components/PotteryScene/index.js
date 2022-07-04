@@ -41,7 +41,7 @@ function Lighting() {
       <directionalLight
         position={[-6.5, 2.5, 7]}
         ref={dirLight1}
-        color={'#fafbff'}
+        color={'#fdfcfa'}
         lookAt={[0, 1, 0]}
         penumbra={2}
         castShadow
@@ -50,7 +50,7 @@ function Lighting() {
       <directionalLight
         position={[0, 2.5, -5]}
         ref={dirLight2}
-        color={'#fafbff'}
+        color={'#fafcff'}
         lookAt={[0, 2, 0]}
         penumbra={2}
         castShadow
@@ -72,6 +72,7 @@ function SpinnerGroup({
 }) { 
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
+  const unfiredUserEdits = useRef();
 
   // Camera configuration - Flats (tiles)
   const CAM_POSITION_FLATS = new THREE.Vector3(-4, 6, 0.45);
@@ -94,18 +95,14 @@ function SpinnerGroup({
   const isAtomizer = PotteryScene.getIsAtomizerPiece(pieceName);
 
   useFrame((state, delta) => {
-    if (!isFlat && !showCompare){
-      // spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
-
-      // TEMP - Static pinecone rotation for v1
-      spinGroupRef.current.rotation.set( 0, -Math.PI, 0 );
+    if ( isAtomizer && !showCompare){
+      spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
     } else if (isFlat && !showCompare) {
-      if (isFlat) {
-        spinGroupRef.current.rotation.set( 0, -Math.PI/2, 0 );
-      } else {
-        spinGroupRef.current.rotation.set( 0, 0, 0 );
-      }
-    } else {
+      spinGroupRef.current.rotation.set( 0, -Math.PI/2, 0 );
+    } else if (!isFlat && !showCompare){
+      // Exception - Static pinecone rotation 
+      spinGroupRef.current.rotation.set( 0, -Math.PI, 0 );
+    }else{
       spinGroupRef.current.rotation.set( 0, 0, 0 );
     }
   });
@@ -126,10 +123,21 @@ function SpinnerGroup({
     state.camera.updateProjectionMatrix();
   });
 
+  useEffect(() => {
+    if (showFired && !preFireEdits) {
+      convertToFiredEdits(unfiredUserEdits.current);
+    }
+  }, [showFired])
+
   function onUserModelEdits(editsObj) {
-    console.log('PotteryScene.onUserModelEdits', showFired);
-    console.log(editsObj);
+    // Save edits to be handed to fired model
+    unfiredUserEdits.current = editsObj;    
+  }
+
+  // Converts all unifred "before" colors to fired "after" colors
+  function convertToFiredEdits(editsObj) {
     const clonedEditsObj = structuredClone(editsObj);
+    console.log('conv->', clonedEditsObj);
     // Replace before colors w after colors
     if (clonedEditsObj.colors) {
       Object.keys(clonedEditsObj.colors).forEach(key => {
@@ -143,7 +151,7 @@ function SpinnerGroup({
         if (afterColor) {
           clonedEditsObj.colors[key] = afterColor;
         } else {
-          console.log('[WARNING] No after color for pbn', beforeColor);
+          console.log('[WARNING] No after color for PBN', beforeColor);
         }
       })
     }
@@ -226,13 +234,7 @@ function PotteryScene({
   showFired,
   showCompare
 }) { 
-    const canvasRef = useRef();
-    const mouse = useRef([0, 0]);   
-
-    // function onCanvasMouseMove({ clientX: x, clientY: y }) {
-    //   console.log('onCanvasMouseMove', x, y);
-    //   mouse.current = [x, y];
-    // }
+  const canvasRef = useRef();
 
   return (
     <div className="scene-container">
@@ -242,7 +244,6 @@ function PotteryScene({
         }} 
         onCreated={({ gl }) => {
           gl.physicallyCorrectLights = true;
-          gl.gammaOutput = true;
         }}
         shadows
       >

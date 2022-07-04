@@ -30,7 +30,7 @@ function SwatchButton({
       <span
         onClick={() => handleSelection()}
         style={{
-          fontWeight: selected ? 700 : 300,
+          fontFamily: selected ? 'Merriweather-bold' : 'Merriweather',
         }}
       >
         {label}

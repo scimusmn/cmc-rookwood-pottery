@@ -1,9 +1,9 @@
 /* eslint-disable */
 /* Disabled ESLINT to get around blocking eslint warnings
 tied to imports from the three/examples folder. - tn  */
-import React, { useRef, useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useBVH } from '@react-three/drei';
 import * as THREE from 'three';
 import { PRE_GLAZE_DEFAULT_COLOR, ERASER_COLOR_ID } from '../../data/ColorLookup';
 
@@ -19,10 +19,14 @@ export function AtomizerModel({
   spinSpeed
 }) {
 
-  console.log('AtomizerModel', modelPath);
+  // console.log('AtomizerModel', modelPath);
 
   const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
   const SPIN_AXIS_FLAT = new THREE.Vector3(0, 0, 1);
+
+  const RAYCAST_SPREAD = 0.175;
+
+  const SPRAY_FRAME_INTERVAL = 6;
 
   const textureRef = useRef(null);
 
@@ -42,13 +46,16 @@ export function AtomizerModel({
   const dragging = useRef(false);
   const latestRayEvt = useRef(null);
   const atomizerPts =  useRef([]);
+  const sprayTicker = useRef(0);
+  const mouseX = useRef(0);
+  const mouseY = useRef(0);
+  const lastRaycast = useRef(null);
+  const mouseVector = useRef(new THREE.Vector3());
+
+  // useBVH(meshRef); // Raycasting performance improver
 
   useFrame((state, delta) => {
-    if ( dragging.current 
-      && atomizerEnabled 
-      && latestRayEvt.current ) {
-      sprayAtomizer(latestRayEvt.current);
-    }
+
     if (spinSpeed !== undefined && spinSpeed !== 0) {
       if (!rotation) {
         meshRef.current.rotateOnAxis(SPIN_AXIS, spinSpeed);
@@ -56,7 +63,73 @@ export function AtomizerModel({
         meshRef.current.rotateOnAxis(SPIN_AXIS_FLAT, spinSpeed);
       }
     }
+
+    if (dragging.current === true && atomizerEnabled ) {      
+      sprayTicker.current += 1;
+      if (sprayTicker.current > SPRAY_FRAME_INTERVAL) {
+        sprayTicker.current = 0;
+        sprayFromMouse(latestRayEvt.current.ray, state.raycaster);
+      }
+    }
+    
   });
+
+  function sprayFromMouse(ray, raycaster) {
+
+    mouseVector.current.set(
+      (mouseX.current / 1920) * 2 - 1, 
+      -(mouseY.current / 1080) * 2 + 1, 
+      0.5
+    );
+
+    const { camera } = latestRayEvt.current;
+
+    mouseVector.current.unproject(camera);
+
+    // In order to paint across seams in the texture map
+    // we perform two raycast to the left and right of mouse position
+
+    raycaster.set( mouseVector.current, ray.direction );
+    const intersects = raycaster.intersectObject( clonedScene );
+    if ( intersects.length > 0 ) sprayAtomizer(intersects[0]);
+
+    // LEFT of CENTER
+    mouseVector.current.z -= RAYCAST_SPREAD;
+    raycaster.set( mouseVector.current, ray.direction );
+    const instersectsLeft = raycaster.intersectObject( clonedScene );
+    if ( instersectsLeft.length > 0 ) sprayAtomizer(instersectsLeft[0]);
+
+    // RIGHT of CENTER
+    mouseVector.current.z += (RAYCAST_SPREAD * 2);
+    raycaster.set( mouseVector.current, ray.direction );
+    const instersectsRight = raycaster.intersectObject( clonedScene );
+    if ( instersectsRight.length > 0 ) sprayAtomizer(instersectsRight[0]);
+
+  }
+
+  function releaseDrag() {
+    dragging.current = false;
+    sprayTicker.current = 0;
+    
+    latestRayEvt.current = null;
+    if (onUserEdits && visible) onUserEdits({colors: currentColors.current, atomizerPoints: atomizerPts.current});
+  }
+
+  function mouseMove(e) {
+    mouseX.current = e.clientX;
+    mouseY.current = e.clientY;
+  }
+
+  useEffect(() => {
+    // global mouse up listener so release can happen off-model
+    if (visible && atomizerEnabled) {
+      document.onmouseup = releaseDrag;
+      document.onmousemove = mouseMove;
+    }
+    return () => {
+      document.onmouseup = null;
+    }
+  }, []);
 
   useLayoutEffect(() => {
     if (atomizerEnabled) {
@@ -64,8 +137,6 @@ export function AtomizerModel({
 
       canvas.width = 4096;
       canvas.height = 4096;
-      // canvas.width = 1024 * 2;
-      // canvas.height = 1024 * 2;
 
       const context = canvas.getContext("2d");
       if (context) {
@@ -114,34 +185,49 @@ export function AtomizerModel({
     const context = canvas.getContext("2d");
 
     const rgb = hexToRgb(color);
-    const colorStr = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.05)`;
+    const colorStrInner = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`;
+    const colorStrOuter = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.0)`;
+    let colorGradient;
 
-    if (context) {
-
-      // MULTI-CIRCLE SPRAY
-      const dropletCount = 9;
-      const sprayRadius = 175;
-      for (let i = 0; i < dropletCount; i++) {
-        const dropletRadius = 75 + Math.random() * 25;
-        let r = sprayRadius * Math.sqrt(Math.random()); // Even distribution
-        const theta = Math.random() * 2 * Math.PI;
-        const xOffset = r * Math.cos(theta);
-        const yOffset = r * Math.sin(theta);
-        context.beginPath();
-        context.arc(
-          x - dropletRadius + xOffset,
-          y - dropletRadius + yOffset,
-          dropletRadius * 2,
-          0,
-          2 * Math.PI
-        );
-        context.fillStyle = colorStr;
-        context.fill();
-      }
-
-      textureRef.current.needsUpdate = true;
-
+    // MULTI-CIRCLE SPRAY
+    const dropletCount = 9;
+    const sprayRadius = 150;
+    for (let i = 0; i < dropletCount; i++) {
+      const dropletRadius = 220 + Math.random() * 100;
+      let r = sprayRadius * Math.sqrt(Math.random()); // Even distribution
+      const theta = Math.random() * 2 * Math.PI;
+      const xOffset = r * Math.cos(theta);
+      const yOffset = r * Math.sin(theta);
+      const drawX = x + xOffset;
+      const drawY = y + yOffset;
+      context.beginPath();
+      context.arc(
+        drawX,
+        drawY,
+        dropletRadius,
+        0,
+        2 * Math.PI
+      );
+      colorGradient = context.createRadialGradient(drawX, drawY, 0, drawX, drawY, dropletRadius);
+      colorGradient.addColorStop(0.4, colorStrInner);
+      colorGradient.addColorStop(1, colorStrOuter);
+      context.fillStyle = colorGradient;
+      context.fill();
     }
+
+    // context.beginPath();
+    // context.arc(
+    //   x,
+    //   y,
+    //   30,
+    //   0,
+    //   2 * Math.PI
+    // );
+    // context.fillStyle = 'red';
+    // context.fill();
+
+    textureRef.current.needsUpdate = true;
+
   }
 
   function sprayAtomizer({uv}) {
@@ -155,6 +241,7 @@ export function AtomizerModel({
     y = Math.round(y * 100) / 100;
 
     const color = (currentDragColor.current || "#ff0000" );
+    // const color = (currentDragColor.current || PRE_GLAZE_DEFAULT_COLOR.before );
 
     const sprayData = {x, y, color};
     atomizerPts.current.push(sprayData);
@@ -193,16 +280,18 @@ export function AtomizerModel({
     // console.log('onTouchUp', e);
     dragging.current = false;
     latestRayEvt.current = null;
-    const {object} = e;
+
+    // sprayAtomizer(e);
     e.stopPropagation();
     // This color is now "permanent"
+    const {object} = e;
     currentColors.current[object.name] = activeColor;
     if (onUserEdits && visible) onUserEdits({colors: currentColors.current, atomizerPoints: atomizerPts.current});
     
   }
 
   function onTouchEnter(e) {
-    console.log('onTouchEnter', e);
+    // console.log('onTouchEnter', e);
     if (!atomizerEnabled) {
       onRaycast(e);
     }
@@ -211,17 +300,17 @@ export function AtomizerModel({
 
   function onTouchLeave(e) {
     // console.log('onTouchLeave', e);
-    latestRayEvt.current = null;
-    onRaycastLeave(e);
+    // latestRayEvt.current = null;
+    // onRaycastLeave(e);
     e.stopPropagation();
   }
 
   function onTouchMove(e) {
-    console.log('onTouchMove', dragging.current);
+    // console.log('onTouchMove', dragging.current);
     if ( dragging.current === true ) {
-      // latestRayEvt.current = e;
+      latestRayEvt.current = e;
     }
-    // e.stopPropagation();
+    e.stopPropagation();
   }
 
   function onRaycast(e) {
@@ -307,7 +396,6 @@ export function AtomizerModel({
   // Apply user-made edits 
   // (usually coming from previous version of model)
   useEffect(() => {
-    console.log('useEffect: edits -', visible, edits);
     if (visible && edits) {
       if (edits.colors && !atomizerEnabled) {
         Object.keys(edits.colors).forEach(meshName => {
@@ -333,11 +421,11 @@ export function AtomizerModel({
 
   return (
     <primitive
-      onPointerDown={visible ? onTouchDown : null}
-      onPointerUp={visible ? onTouchUp : null}
-      onPointerEnter={visible ? onTouchEnter : null}
-      onPointerLeave={visible ? onTouchLeave : null}
-      onPointerMove={visible ? onTouchMove : null}
+      onPointerDown={(visible && !spinSpeed) ? onTouchDown : null}
+      // onPointerUp={visible ? onTouchUp : null}
+      // onPointerEnter={visible ? onTouchEnter : null}
+      // onPointerLeave={visible ? onTouchLeave : null}
+      // onPointerMove={visible ? onTouchMove : null}
       object={clonedScene}
       visible={visible}
       position={position || [0, 0, 0]}
