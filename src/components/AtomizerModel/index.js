@@ -26,7 +26,7 @@ export function AtomizerModel({
 
   const RAYCAST_SPREAD = 0.175;
 
-  const SPRAY_FRAME_INTERVAL = 6;
+  const SPRAY_FRAME_INTERVAL = 7;
 
   const textureRef = useRef(null);
 
@@ -49,7 +49,6 @@ export function AtomizerModel({
   const sprayTicker = useRef(0);
   const mouseX = useRef(0);
   const mouseY = useRef(0);
-  const lastRaycast = useRef(null);
   const mouseVector = useRef(new THREE.Vector3());
 
   // useBVH(meshRef); // Raycasting performance improver
@@ -110,9 +109,14 @@ export function AtomizerModel({
   function releaseDrag() {
     dragging.current = false;
     sprayTicker.current = 0;
-    
+
+    // console.log('onTouchUp', e);
+    dragging.current = false;
     latestRayEvt.current = null;
-    if (onUserEdits && visible) onUserEdits({colors: currentColors.current, atomizerPoints: atomizerPts.current});
+
+    if (onUserEdits && visible) {
+      onUserEdits({colors: currentColors.current, atomizerPoints: atomizerPts.current});
+    }
   }
 
   function mouseMove(e) {
@@ -122,12 +126,13 @@ export function AtomizerModel({
 
   useEffect(() => {
     // global mouse up listener so release can happen off-model
-    if (visible && atomizerEnabled) {
+    if (visible) {
       document.onmouseup = releaseDrag;
-      document.onmousemove = mouseMove;
+      if (atomizerEnabled) document.onmousemove = mouseMove;
     }
     return () => {
       document.onmouseup = null;
+      document.onmousemove = null;
     }
   }, []);
 
@@ -268,10 +273,12 @@ export function AtomizerModel({
     console.log('onTouchDown', e);
     dragging.current = true;
     latestRayEvt.current = e;
+
+
     if (atomizerEnabled) {
       sprayAtomizer(e);
     } else {
-      onRaycast(e);
+      paintByNumber(e);
     }
     e.stopPropagation();
   }
@@ -283,6 +290,7 @@ export function AtomizerModel({
 
     // sprayAtomizer(e);
     e.stopPropagation();
+    
     // This color is now "permanent"
     const {object} = e;
     currentColors.current[object.name] = activeColor;
@@ -290,32 +298,12 @@ export function AtomizerModel({
     
   }
 
-  function onTouchEnter(e) {
-    // console.log('onTouchEnter', e);
-    if (!atomizerEnabled) {
-      onRaycast(e);
-    }
-    e.stopPropagation();
-  }
-
-  function onTouchLeave(e) {
-    // console.log('onTouchLeave', e);
-    // latestRayEvt.current = null;
-    // onRaycastLeave(e);
-    e.stopPropagation();
-  }
-
-  function onTouchMove(e) {
-    // console.log('onTouchMove', dragging.current);
-    if ( dragging.current === true ) {
-      latestRayEvt.current = e;
-    }
-    e.stopPropagation();
-  }
-
-  function onRaycast(e) {
+  function paintByNumber(e) {
     const {object} = e;
-    if (dragging.current === true && currentDragColor.current) {
+    if (currentDragColor.current) {
+      // This color is now "permanent" if PBN mode
+      currentColors.current[e.object.name] = activeColor;
+      console.log('paintByNumber', currentColors.current);
       applySwatch(object.name, currentDragColor.current);
     }
   }
@@ -422,10 +410,6 @@ export function AtomizerModel({
   return (
     <primitive
       onPointerDown={(visible && !spinSpeed) ? onTouchDown : null}
-      // onPointerUp={visible ? onTouchUp : null}
-      // onPointerEnter={visible ? onTouchEnter : null}
-      // onPointerLeave={visible ? onTouchLeave : null}
-      // onPointerMove={visible ? onTouchMove : null}
       object={clonedScene}
       visible={visible}
       position={position || [0, 0, 0]}
