@@ -74,6 +74,10 @@ function SpinnerGroup({
   const spinGroupRef = useRef();
   const unfiredUserEdits = useRef();
 
+  const wheelDragStartX = useRef(0);
+  const wheelDragStartRotation = useRef(0);
+  const wheelTargetRotation = useRef();
+  
   // Camera configuration - Flats (tiles)
   const CAM_POSITION_FLATS = new THREE.Vector3(-4, 6, 0.45);
   const CAM_LOOKAT_FLATS = new THREE.Vector3(0, 0.15, 0.45);
@@ -96,16 +100,27 @@ function SpinnerGroup({
 
   useFrame((state, delta) => {
     if ( isAtomizer && !showCompare){
-      spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
-    } else if (isFlat && !showCompare) {
+      // spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
+      wheelTargetRotation.current += SPIN_SPEED;
+    }
+
+    spinGroupRef.current.rotation.y += ( wheelTargetRotation.current - spinGroupRef.current.rotation.y ) * 0.05;
+
+  });
+
+  useLayoutEffect(() => {
+    if (isFlat && !showCompare) {
       spinGroupRef.current.rotation.set( 0, -Math.PI/2, 0 );
+      wheelTargetRotation.current = -Math.PI/2;
     } else if (!isFlat && !showCompare){
       // Exception - Static pinecone rotation 
       spinGroupRef.current.rotation.set( 0, -Math.PI, 0 );
-    }else{
+      wheelTargetRotation.current = -Math.PI;
+    } else {
       spinGroupRef.current.rotation.set( 0, 0, 0 );
+      wheelTargetRotation.current = 0;
     }
-  });
+  }, [showCompare]);
 
   useThree((state) => {
     let camPos;
@@ -136,8 +151,11 @@ function SpinnerGroup({
 
   // Converts all unifred "before" colors to fired "after" colors
   function convertToFiredEdits(editsObj) {
+    if (!editsObj) {
+      setPreFireEdits({});
+      return;
+    }
     const clonedEditsObj = structuredClone(editsObj);
-    console.log('conv->', clonedEditsObj);
     // Replace before colors w after colors
     if (clonedEditsObj.colors) {
       Object.keys(clonedEditsObj.colors).forEach(key => {
@@ -186,6 +204,26 @@ function SpinnerGroup({
     }
   }
 
+  function onWheelDown (e) {
+    if (showCompare) return;
+
+    document.onmousemove = onWheelMove;
+		document.onmouseup = onWheelUp;
+
+    wheelDragStartX.current = e.clientX - (1920 / 2);
+		wheelDragStartRotation.current = wheelTargetRotation.current;
+  }
+
+  function onWheelMove (e) {
+    const wheelXOffset = ( e.clientX - (1920/2) ) - wheelDragStartX.current;
+    wheelTargetRotation.current = wheelDragStartRotation.current + wheelXOffset * 0.02;
+  }
+
+  function onWheelUp (e) {
+    document.onmousemove = null;
+		document.onmouseup = null;
+  }
+
   return (
     <group ref={spinGroupRef} position={(showFired && !showCompare) ? [0, 0, -9] : null}>
       <AtomizerModel 
@@ -217,7 +255,7 @@ function SpinnerGroup({
         rotation={(showCompare && PotteryScene.getIsFlatPiece(pieceName)) ? FLAT_ROTATION_COMPARE : null}
         spinSpeed={showCompare ? SPIN_SPEED : 0}
       />
-      <WheelModel modelPath={turntableModelPath} visible={!showCompare} /> 
+      <WheelModel modelPath={turntableModelPath} visible={!showCompare} onWheelDown={onWheelDown} /> 
     </group>
   );
 }

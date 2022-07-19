@@ -216,6 +216,17 @@ button,
   z-index: 3 !important;
 }
 
+.firing-screen video {
+  opacity: 0.1;
+  position: absolute;
+  transition: opacity 1s;
+  z-index: 0;
+}
+
+.firing-screen video.fade-true {
+  opacity: 1;
+}
+
 .stats {
   left: auto !important;
   right: 0 !important;
@@ -313,21 +324,27 @@ button,
 
 .selection-button:nth-of-type(4) {
   left: calc(50% - 350px / 2 - 420px);
+
   /* opacity: 0.8; */
+
   /* pointer-events: none; */
   top: calc(50% - 459.89px / 2 + 264.95px);
 }
 
 .selection-button:nth-of-type(5) {
   left: calc(50% - 350px / 2 - 0px);
+
   /* opacity: 0.8; */
+
   /* pointer-events: none; */
   top: calc(50% - 459.89px / 2 + 264.95px);
 }
 
 .selection-button:nth-of-type(6) {
   left: calc(50% - 350px / 2 + 420px);
+
   /* opacity: 0.8; */
+
   /* pointer-events: none; */
   top: calc(50% - 459.89px / 2 + 264.95px);
 }
@@ -509,6 +526,7 @@ span.icon-home {
   text-align: center;
   transform: translateX(-50%);
   width: 400px;
+  z-index: 2;
 }
 
 .firing-screen .ring-container div {
@@ -636,6 +654,10 @@ span.icon-home {
   top: 118px;
 }
 
+.menu-hud .info strong {
+  font-family: Merriweather-bold, serif;
+}
+
 .menu-hud span.info-icon {
   background: url(./icons/info.svg) no-repeat top left;
   background-size: contain;
@@ -732,7 +754,7 @@ span.icon-home {
 }
 
 .results-screen .background .gatsby-image-wrapper {
-  left: 0px;
+  left: 0;
 }
 
 /* Layer that can be placed over background
@@ -757,6 +779,7 @@ images to darken and de-emphasize */
   position: absolute;
   top: 0;
   width: 100%;
+  z-index: 1;
 }
 
 /* Layer that can be placed over entire app for
