@@ -404,7 +404,7 @@ function RookwoodPotteryInteractive({ data }) {
           <h2>DID YOU KNOW?</h2>
           <FadeShow elements={firingFactoids} delay={99999999} />
         </div>
-        <Video src={firingBgVideo.localFile.publicURL} active />
+        <Video src={firingBgVideo.localFile.publicURL} active fadeIn />
       </div>
     );
   }

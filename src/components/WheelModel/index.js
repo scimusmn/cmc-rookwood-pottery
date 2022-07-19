@@ -9,6 +9,7 @@ import * as THREE from 'three';
 export function WheelModel({
   modelPath, 
   visible,
+  onWheelDown,
 }) {
   const { scene, nodes, materials } = useGLTF(modelPath);
 
@@ -29,5 +30,6 @@ export function WheelModel({
             scale={0.01} 
             position={[0, 0, 0]} 
             receiveShadow
+            onPointerDown={onWheelDown}
           />;
 }

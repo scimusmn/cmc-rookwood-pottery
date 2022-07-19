@@ -1,11 +1,11 @@
 /* eslint-disable */
 /* Disabled ESLINT to get around blocking eslint warnings
 tied to imports from the three/examples folder. - tn  */
-import React, { useRef, useState, useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useGLTF, useBVH } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-import { PRE_GLAZE_DEFAULT_COLOR, ERASER_COLOR_ID } from '../../data/ColorLookup';
+import COLOR_LOOKUP, { PRE_GLAZE_DEFAULT_COLOR, ERASER_COLOR_ID } from '../../data/ColorLookup';
 
 export function AtomizerModel({
   modelPath, 
@@ -19,14 +19,12 @@ export function AtomizerModel({
   spinSpeed
 }) {
 
-  // console.log('AtomizerModel', modelPath);
-
   const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
   const SPIN_AXIS_FLAT = new THREE.Vector3(0, 0, 1);
 
-  const RAYCAST_SPREAD = 0.175;
+  const RAYCAST_SPREAD = 0.125;
 
-  const SPRAY_FRAME_INTERVAL = 7;
+  const SPRAY_FRAME_INTERVAL = 4;
 
   const textureRef = useRef(null);
 
@@ -50,8 +48,6 @@ export function AtomizerModel({
   const mouseX = useRef(0);
   const mouseY = useRef(0);
   const mouseVector = useRef(new THREE.Vector3());
-
-  // useBVH(meshRef); // Raycasting performance improver
 
   useFrame((state, delta) => {
 
@@ -110,7 +106,9 @@ export function AtomizerModel({
     dragging.current = false;
     sprayTicker.current = 0;
 
-    // console.log('onTouchUp', e);
+    document.onmouseup = null;
+    document.onmousemove = null;
+
     dragging.current = false;
     latestRayEvt.current = null;
 
@@ -124,18 +122,6 @@ export function AtomizerModel({
     mouseY.current = e.clientY;
   }
 
-  useEffect(() => {
-    // global mouse up listener so release can happen off-model
-    if (visible) {
-      document.onmouseup = releaseDrag;
-      if (atomizerEnabled) document.onmousemove = mouseMove;
-    }
-    return () => {
-      document.onmouseup = null;
-      document.onmousemove = null;
-    }
-  }, []);
-
   useLayoutEffect(() => {
     if (atomizerEnabled) {
       const canvas = canvasRef.current;
@@ -146,7 +132,7 @@ export function AtomizerModel({
       const context = canvas.getContext("2d");
       if (context) {
         context.rect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = "white";
+        context.fillStyle = PRE_GLAZE_DEFAULT_COLOR.before;
         context.fill();
       }
     }
@@ -176,7 +162,7 @@ export function AtomizerModel({
       });
     } else {
       // Setting default color of all meshes once on load.
-      meshTargets.forEach(meshName => {
+      topLevelTargets.forEach(meshName => {
         applySwatch(meshName, PRE_GLAZE_DEFAULT_COLOR.before, true);
         currentColors.current[meshName] = PRE_GLAZE_DEFAULT_COLOR.before;
       });
@@ -190,15 +176,15 @@ export function AtomizerModel({
     const context = canvas.getContext("2d");
 
     const rgb = hexToRgb(color);
-    const colorStrInner = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`;
+    const colorStrInner = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.1)`;
     const colorStrOuter = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.0)`;
     let colorGradient;
 
     // MULTI-CIRCLE SPRAY
-    const dropletCount = 9;
-    const sprayRadius = 150;
+    const dropletCount = 7;
+    const sprayRadius = 250;
     for (let i = 0; i < dropletCount; i++) {
-      const dropletRadius = 220 + Math.random() * 100;
+      const dropletRadius = 250 + Math.random() * 50;
       let r = sprayRadius * Math.sqrt(Math.random()); // Even distribution
       const theta = Math.random() * 2 * Math.PI;
       const xOffset = r * Math.cos(theta);
@@ -245,8 +231,8 @@ export function AtomizerModel({
     x = Math.round(x * 100) / 100;
     y = Math.round(y * 100) / 100;
 
-    const color = (currentDragColor.current || "#ff0000" );
-    // const color = (currentDragColor.current || PRE_GLAZE_DEFAULT_COLOR.before );
+    // const color = (currentDragColor.current || "#ff0000" );
+    const color = (currentDragColor.current || PRE_GLAZE_DEFAULT_COLOR.before );
 
     const sprayData = {x, y, color};
     atomizerPts.current.push(sprayData);
@@ -256,12 +242,12 @@ export function AtomizerModel({
 
   function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, function(m, r, g, b) {
       return r + r + g + g + b + b;
     });
   
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
       r: parseInt(result[1], 16),
       g: parseInt(result[2], 16),
@@ -270,10 +256,14 @@ export function AtomizerModel({
   }
 
   function onTouchDown(e) {
-    console.log('onTouchDown', e);
+    // console.log('onTouchDown', e);
     dragging.current = true;
     latestRayEvt.current = e;
 
+    if (visible) {
+      document.onmouseup = releaseDrag;
+      document.onmousemove = mouseMove;
+    }
 
     if (atomizerEnabled) {
       sprayAtomizer(e);
@@ -283,36 +273,12 @@ export function AtomizerModel({
     e.stopPropagation();
   }
 
-  function onTouchUp(e) {
-    // console.log('onTouchUp', e);
-    dragging.current = false;
-    latestRayEvt.current = null;
-
-    // sprayAtomizer(e);
-    e.stopPropagation();
-    
-    // This color is now "permanent"
-    const {object} = e;
-    currentColors.current[object.name] = activeColor;
-    if (onUserEdits && visible) onUserEdits({colors: currentColors.current, atomizerPoints: atomizerPts.current});
-    
-  }
-
   function paintByNumber(e) {
     const {object} = e;
     if (currentDragColor.current) {
       // This color is now "permanent" if PBN mode
       currentColors.current[e.object.name] = activeColor;
-      console.log('paintByNumber', currentColors.current);
       applySwatch(object.name, currentDragColor.current);
-    }
-  }
-
-  function onRaycastLeave(e) {
-    const {object} = e;
-    if (dragging.current === true) {
-      dragging.current = false;
-      if (!atomizerEnabled) applySwatch(object.name, currentColors.current[object.name]);
     }
   }
 
@@ -343,9 +309,12 @@ export function AtomizerModel({
     newMaterial.map = canvasTexture;
     textureRef.current = canvasTexture;
 
+    // Set material base color to white to allow for 
+    // purer application of other colors. 
+    newMaterial.color = new THREE.Color('white');
+
     clonedScene.traverse((object) => {
       if (object.isMesh && object.name === meshName) {
-        console.log('Adding atomizer canvas to mesh:', meshName);
         object.material = newMaterial;
         return;
       }
@@ -361,8 +330,6 @@ export function AtomizerModel({
   }
 
   function setMaterialByMeshName(meshName, newMaterial, parentScene) {
-    // TODO: Replace with Object3D.getObjectByName()
-    // https://threejs.org/docs/#api/en/core/Object3D.getObjectByName
     parentScene.traverse((object) => {
       if (object.isMesh && object.name === meshName) {
         object.material = newMaterial;
