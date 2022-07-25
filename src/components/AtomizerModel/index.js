@@ -5,6 +5,7 @@ import React, { useRef, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import chroma from "chroma-js";
 import COLOR_LOOKUP, { PRE_GLAZE_DEFAULT_COLOR, ERASER_COLOR_ID } from '../../data/ColorLookup';
 
 export function AtomizerModel({
@@ -152,9 +153,6 @@ export function AtomizerModel({
       }
     });
 
-    console.log('@ topLevelTargets', topLevelTargets);
-    console.log('@ meshTargets', meshTargets);
-
     if (atomizerEnabled) {
       // Add canvas texture to existing material
       topLevelTargets.forEach(meshName => {
@@ -175,9 +173,19 @@ export function AtomizerModel({
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    const rgb = hexToRgb(color);
-    const colorStrInner = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.1)`;
-    const colorStrOuter = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.0)`;
+    // When applying atomizer "before" paint, 
+    // darken/saturate color so it stands out
+    let rgb = chroma(color).rgb();
+    if (!edits || !edits.atomizerPoints) {      
+      // Only saturate if already non-grayscale value
+      let satVal = 1.1;
+      if (rgb[0] === rgb[1] && rgb[0] === rgb[2]) satVal = 0;
+      rgb = chroma(rgb).saturate(satVal);
+      // Darken all colors
+      rgb = rgb.darken(1.1).rgb();
+    }
+    const colorStrInner = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.1)`;
+    const colorStrOuter = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.0)`;
     let colorGradient;
 
     // MULTI-CIRCLE SPRAY
@@ -238,21 +246,6 @@ export function AtomizerModel({
     atomizerPts.current.push(sprayData);
 
     drawToCanvas(sprayData);
-  }
-
-  function hexToRgb(hex) {
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-      return r + r + g + g + b + b;
-    });
-  
-    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
   }
 
   function onTouchDown(e) {

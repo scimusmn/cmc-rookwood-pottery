@@ -108,7 +108,7 @@ const OBJECT_PALETTES = {
   ],
 };
 
-const PRE_GLAZE_DEFAULT_COLOR = { label: 'Default_Base', before: '#999', after: '#999' };
+const PRE_GLAZE_DEFAULT_COLOR = { label: 'Default_Base', before: '#fff', after: '#fff' };
 
 // Unique color id for eraser exception
 const ERASER_COLOR_ID = 'eraser';
