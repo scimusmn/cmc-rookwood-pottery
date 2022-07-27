@@ -34,7 +34,6 @@ function Lighting() {
   }
   return (
     <>
-      {/* <ambientLight /> */}
       <pointLight ref={pointLight1} position={[1, 2.5, 4]} intensity={1.5} />
       <pointLight ref={pointLight2} position={[-3, 3, -3.5]} intensity={2.5} />
       <pointLight ref={pointLight3} position={[-1, 2, -1]} intensity={1.5} />
@@ -206,22 +205,37 @@ function SpinnerGroup({
 
   function onWheelDown (e) {
     if (showCompare) return;
+    console.log('onWheelDown', e);
 
+    document.ontouchmove = onWheelMove;
+    document.ontouchend = onWheelUp;
     document.onmousemove = onWheelMove;
-		document.onmouseup = onWheelUp;
+    document.onmouseup = onWheelUp;
 
     wheelDragStartX.current = e.clientX - (1920 / 2);
 		wheelDragStartRotation.current = wheelTargetRotation.current;
   }
 
   function onWheelMove (e) {
-    const wheelXOffset = ( e.clientX - (1920/2) ) - wheelDragStartX.current;
+    // console.log('onWheelMove', e);
+
+    let pointerX;
+
+    if (e.touches) {
+      pointerX = e.touches[0].clientX;
+    } else {
+      pointerX = e.clientX;
+    }
+
+    const wheelXOffset = ( pointerX - (1920/2) ) - wheelDragStartX.current;
     wheelTargetRotation.current = wheelDragStartRotation.current + wheelXOffset * 0.02;
   }
 
   function onWheelUp (e) {
     document.onmousemove = null;
 		document.onmouseup = null;
+    document.ontouchmove = null;
+		document.ontouchend = null;
   }
 
   return (
@@ -285,10 +299,7 @@ function PotteryScene({
         }}
         shadows
       >
-      {/* <Canvas ref={canvasRef} camera={ fov: 75, near: 0.1, far: 1000, position: [0, 0, 5] }> */}
         <Suspense fallback={<ProgressLoader />}>
-            {/* <OrbitControls target={[0, 0.75, 0]} /> */}
-            {/* <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} /> */}
             <SpinnerGroup 
               pieceName={pieceName}
               modelPathBefore={modelPathBefore} 

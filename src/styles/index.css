@@ -196,6 +196,21 @@ button,
   margin-top: 30px;
 }
 
+.atomizer-reticle {
+  background-color: red;
+  background-image: url(./icons/flame.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 200px;
+  margin: 0 auto;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+  width: 200px;
+  z-index: 3;
+  pointer-events: none;
+}
+
 .pottery-screen {
   height: 1080px;
   position: absolute;

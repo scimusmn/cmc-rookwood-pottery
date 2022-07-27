@@ -131,6 +131,18 @@ function RookwoodPotteryInteractive({ data }) {
   const [showReadyModal, setShowReadyModal] = useState(false);
   const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
 
+  function filterMultiTouch(e) {
+    if (e.touches.length > 1) {
+      console.log('Filtering multi-touch');
+      e.preventDefault();
+    }
+  }
+
+  useEffect(() => {
+    window.ontouchstart = filterMultiTouch;
+    return () => { window.ontouchstart = null; };
+  }, []);
+
   useEffect(() => {
     setShowFadeOut(false);
   }, []);

@@ -5,6 +5,7 @@ import React, { useRef, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import chroma from "chroma-js";
 import COLOR_LOOKUP, { PRE_GLAZE_DEFAULT_COLOR, ERASER_COLOR_ID } from '../../data/ColorLookup';
 
 export function AtomizerModel({
@@ -27,6 +28,16 @@ export function AtomizerModel({
   const SPRAY_FRAME_INTERVAL = 4;
 
   const textureRef = useRef(null);
+
+  // Add atomizer reticle
+  // let reticleRef;
+  // if (atomizerEnabled) {
+  //   console.log('add ret');
+  //   reticleRef = useRef(document.createElement('div'));
+  //   reticleRef.current.className = 'atomizer-reticle';
+  //   reticleRef.current.style.visibility = "hidden";
+  //   document.body.appendChild(reticleRef.current);
+  // }
 
   let canvasRef;
   if (atomizerEnabled) canvasRef = useRef(document.createElement("canvas"));
@@ -106,6 +117,9 @@ export function AtomizerModel({
     dragging.current = false;
     sprayTicker.current = 0;
 
+    // Hide atomizer reticle
+    // reticleRef.current.style.visibility = "hidden";
+
     document.onmouseup = null;
     document.onmousemove = null;
 
@@ -120,6 +134,10 @@ export function AtomizerModel({
   function mouseMove(e) {
     mouseX.current = e.clientX;
     mouseY.current = e.clientY;
+
+    // Move atomizer reticle
+    // reticleRef.current.style.top = mouseY.current;
+    // reticleRef.current.style.left = mouseX.current;
   }
 
   useLayoutEffect(() => {
@@ -152,8 +170,8 @@ export function AtomizerModel({
       }
     });
 
-    console.log('@ topLevelTargets', topLevelTargets);
-    console.log('@ meshTargets', meshTargets);
+    // console.log('meshTargets', meshTargets);
+    // console.log('topLevelTargets', topLevelTargets);
 
     if (atomizerEnabled) {
       // Add canvas texture to existing material
@@ -175,9 +193,19 @@ export function AtomizerModel({
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    const rgb = hexToRgb(color);
-    const colorStrInner = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.1)`;
-    const colorStrOuter = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.0)`;
+    // When applying atomizer "before" paint, 
+    // darken/saturate color so it stands out
+    let rgb = chroma(color).rgb();
+    if (!edits || !edits.atomizerPoints) {      
+      // Only saturate if already non-grayscale value
+      let satVal = 1.1;
+      if (rgb[0] === rgb[1] && rgb[0] === rgb[2]) satVal = 0;
+      rgb = chroma(rgb).saturate(satVal);
+      // Darken all colors
+      rgb = rgb.darken(1.1).rgb();
+    }
+    const colorStrInner = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.1)`;
+    const colorStrOuter = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.0)`;
     let colorGradient;
 
     // MULTI-CIRCLE SPRAY
@@ -222,6 +250,7 @@ export function AtomizerModel({
   }
 
   function sprayAtomizer({uv}) {
+
     // De-normalize to canvas dimensions
     let x = uv.x * canvasRef.current.width;
     let y = (1 - uv.y) * canvasRef.current.height;
@@ -240,21 +269,6 @@ export function AtomizerModel({
     drawToCanvas(sprayData);
   }
 
-  function hexToRgb(hex) {
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-      return r + r + g + g + b + b;
-    });
-  
-    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
-  }
-
   function onTouchDown(e) {
     // console.log('onTouchDown', e);
     dragging.current = true;
@@ -266,6 +280,9 @@ export function AtomizerModel({
     }
 
     if (atomizerEnabled) {
+      // Show atomizer reticle
+      // reticleRef.current.style.visibility = "visible";
+
       sprayAtomizer(e);
     } else {
       paintByNumber(e);
