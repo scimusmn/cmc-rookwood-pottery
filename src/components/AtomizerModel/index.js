@@ -29,6 +29,16 @@ export function AtomizerModel({
 
   const textureRef = useRef(null);
 
+  // Add atomizer reticle
+  // let reticleRef;
+  // if (atomizerEnabled) {
+  //   console.log('add ret');
+  //   reticleRef = useRef(document.createElement('div'));
+  //   reticleRef.current.className = 'atomizer-reticle';
+  //   reticleRef.current.style.visibility = "hidden";
+  //   document.body.appendChild(reticleRef.current);
+  // }
+
   let canvasRef;
   if (atomizerEnabled) canvasRef = useRef(document.createElement("canvas"));
 
@@ -107,6 +117,9 @@ export function AtomizerModel({
     dragging.current = false;
     sprayTicker.current = 0;
 
+    // Hide atomizer reticle
+    // reticleRef.current.style.visibility = "hidden";
+
     document.onmouseup = null;
     document.onmousemove = null;
 
@@ -121,6 +134,10 @@ export function AtomizerModel({
   function mouseMove(e) {
     mouseX.current = e.clientX;
     mouseY.current = e.clientY;
+
+    // Move atomizer reticle
+    // reticleRef.current.style.top = mouseY.current;
+    // reticleRef.current.style.left = mouseX.current;
   }
 
   useLayoutEffect(() => {
@@ -152,6 +169,9 @@ export function AtomizerModel({
         }
       }
     });
+
+    // console.log('meshTargets', meshTargets);
+    // console.log('topLevelTargets', topLevelTargets);
 
     if (atomizerEnabled) {
       // Add canvas texture to existing material
@@ -230,6 +250,7 @@ export function AtomizerModel({
   }
 
   function sprayAtomizer({uv}) {
+
     // De-normalize to canvas dimensions
     let x = uv.x * canvasRef.current.width;
     let y = (1 - uv.y) * canvasRef.current.height;
@@ -259,6 +280,9 @@ export function AtomizerModel({
     }
 
     if (atomizerEnabled) {
+      // Show atomizer reticle
+      // reticleRef.current.style.visibility = "visible";
+
       sprayAtomizer(e);
     } else {
       paintByNumber(e);
