@@ -1,0 +1,5127 @@
+{
+  "contentTypes": [
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "rookwoodPotteryInteractive",
+        "type": "ContentType",
+        "createdAt": "2022-06-09T20:35:04.516Z",
+        "updatedAt": "2022-06-13T19:34:03.137Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 3,
+        "publishedAt": "2022-06-13T19:34:03.137Z",
+        "firstPublishedAt": "2022-06-09T20:35:07.872Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "displayField": "slug",
+      "name": "Rookwood pottery interactive",
+      "description": "Visitors recreate a Rookwood pottery piece and experiment with the glazing process.",
+      "fields": [
+        {
+          "id": "slug",
+          "name": "slug",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "homeTitle",
+          "name": "Home title",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "homeSubhead",
+          "name": "Home subhead",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "homeBgVideo",
+          "name": "Home background video",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "video"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "selectionPrompt",
+          "name": "Selection prompt",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "modelSelections",
+          "name": "Model selections",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "modelSelection"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "studioBgImage",
+          "name": "Studio background image",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "turntableModel",
+          "name": "Turn-table model",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "firingBgVideo",
+          "name": "Firing background video",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "video"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "firingFactoids",
+          "name": "Firing factoids",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+            ]
+          }
+        },
+        {
+          "id": "resultsTitle",
+          "name": "Results title",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "resultsSubhead",
+          "name": "Results subhead",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "resultsBgImage",
+          "name": "Results background image",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "modelSelection",
+        "type": "ContentType",
+        "createdAt": "2022-06-09T20:35:04.519Z",
+        "updatedAt": "2022-06-14T18:18:07.489Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2022-06-14T18:18:07.489Z",
+        "firstPublishedAt": "2022-06-09T20:35:08.331Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "displayField": "name",
+      "name": "Model selection",
+      "description": "A selectable menu option based around a specific 3D model.",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "thumbnail",
+          "name": "Thumbnail",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "historicalTag",
+          "name": "Historical tag",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "shortDescription",
+          "name": "Short description",
+          "type": "Text",
+          "localized": true,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "loadingPreamble",
+          "name": "Loading preamble",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "modelBefore",
+          "name": "3D Model - before",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "assetFileSize": {
+                "min": null,
+                "max": 524288000
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "modelAfter",
+          "name": "3D Model - after",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "modelScale",
+          "name": "Model scale",
+          "type": "Number",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "defaultValue": {
+            "en-US": 1
+          },
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "model",
+        "type": "ContentType",
+        "createdAt": "2022-06-09T20:35:04.544Z",
+        "updatedAt": "2022-06-09T20:35:08.147Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 1,
+        "publishedAt": "2022-06-09T20:35:08.147Z",
+        "firstPublishedAt": "2022-06-09T20:35:08.147Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "displayField": null,
+      "name": "Model",
+      "description": "Collection of assets and metadata that make up one 3D model.",
+      "fields": [
+        {
+          "id": "obj",
+          "name": "Obj",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        }
+      ]
+    }
+  ],
+  "editorInterfaces": [
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "apklergx4ahv",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 4,
+        "createdAt": "2022-06-09T20:35:07.975Z",
+        "createdBy": {
+          "sys": {
+            "id": "3NxvvQWQVLcWEDvPgKe5tu",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2022-06-13T19:34:03.518Z",
+        "updatedBy": {
+          "sys": {
+            "id": "3NxvvQWQVLcWEDvPgKe5tu",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "rookwoodPotteryInteractive",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "slug",
+          "widgetId": "slugEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "homeTitle",
+          "settings": {
+            "helpText": "Headline on home page of application"
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "homeSubhead",
+          "widgetId": "multipleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "homeBgVideo",
+          "settings": {
+            "helpText": "Background attract video",
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "selectionPrompt",
+          "widgetId": "multipleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "modelSelections",
+          "settings": {
+            "helpText": "The different Rookwood pieces you can recreate. ",
+            "bulkEditing": false,
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "entryCardsEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "studioBgImage",
+          "settings": {
+            "helpText": "Appears behind studio screen during glazing phase.",
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "turntableModel",
+          "settings": {
+            "helpText": "3D model of spinning pottery wheel",
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "firingBgVideo",
+          "settings": {
+            "helpText": "Displayed behind pottery during firing/kiln sequence.",
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "firingFactoids",
+          "settings": {
+            "helpText": "Factoids displayed while user waits during firing process."
+          },
+          "widgetId": "tagEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "resultsTitle",
+          "settings": {
+            "helpText": "The header on the Results screen after firing process."
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "resultsSubhead",
+          "settings": {
+            "helpText": "Subhead displayed on the results screen."
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "resultsBgImage",
+          "settings": {
+            "helpText": "Displayed behind results screen.",
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "apklergx4ahv",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 6,
+        "createdAt": "2022-06-09T20:35:08.393Z",
+        "createdBy": {
+          "sys": {
+            "id": "3NxvvQWQVLcWEDvPgKe5tu",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2022-06-14T18:18:07.951Z",
+        "updatedBy": {
+          "sys": {
+            "id": "3NxvvQWQVLcWEDvPgKe5tu",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "modelSelection",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "thumbnail",
+          "settings": {
+            "helpText": "Visual preview of model. Used in selection button",
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "historicalTag",
+          "settings": {
+            "helpText": "2–6 word historical detail. E.g. \"Introduced in 2006\""
+          },
+          "widgetId": "singleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "shortDescription",
+          "widgetId": "markdown",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "loadingPreamble",
+          "settings": {
+            "helpText": "This is displayed while model finishes loading and describes the steps that occurred before glazing."
+          },
+          "widgetId": "multipleLine",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "modelBefore",
+          "settings": {
+            "helpText": "3D model in GLTF format representing \"before\" state",
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "modelAfter",
+          "settings": {
+            "helpText": "3D model in GLTF format representing \"after\" state",
+            "showLinkEntityAction": true,
+            "showCreateEntityAction": true
+          },
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        },
+        {
+          "fieldId": "modelScale",
+          "settings": {
+            "helpText": "The scale applied to this model within a scene (use 1.0 unless otherwise needed)"
+          },
+          "widgetId": "numberEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "apklergx4ahv",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2022-06-09T20:35:08.187Z",
+        "createdBy": {
+          "sys": {
+            "id": "3NxvvQWQVLcWEDvPgKe5tu",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2022-06-09T20:35:08.671Z",
+        "updatedBy": {
+          "sys": {
+            "id": "3NxvvQWQVLcWEDvPgKe5tu",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "model",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "obj",
+          "widgetId": "assetLinkEditor",
+          "widgetNamespace": "builtin"
+        }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "2SwM1CnS0GOJslCL2WBdiF",
+        "type": "Entry",
+        "createdAt": "2022-06-09T20:38:34.147Z",
+        "updatedAt": "2022-07-27T17:27:26.162Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 30,
+        "publishedAt": "2022-07-27T17:27:26.162Z",
+        "firstPublishedAt": "2022-06-09T20:38:43.377Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 13,
+        "version": 31,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "modelSelection"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "en-US": "Pinecone vase"
+        },
+        "thumbnail": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "2uCnV3NWSTqXKemmQGSsl7"
+            }
+          }
+        },
+        "historicalTag": {
+          "en-US": "Introduced in 2006"
+        },
+        "shortDescription": {
+          "en-US": "This vase was the first piece offered when Rookwood returned to Cincinnati in 2006.\n"
+        },
+        "loadingPreamble": {
+          "en-US": "Another artist has already removed this piece from its mold and coated the inside with glaze. Get ready to decorate. "
+        },
+        "modelBefore": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6GypLrshpSe3fidszLWa6S"
+            }
+          }
+        },
+        "modelAfter": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "7vBw7fcEKKCSe9o4rlY3mN"
+            }
+          }
+        },
+        "modelScale": {
+          "en-US": 1
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "7F1hV34mZGYmgdC05BCmE0",
+        "type": "Entry",
+        "createdAt": "2022-06-09T20:38:34.152Z",
+        "updatedAt": "2022-07-28T02:17:35.874Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 17,
+        "publishedAt": "2022-07-28T02:17:35.874Z",
+        "firstPublishedAt": "2022-06-09T20:38:43.979Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 7,
+        "version": 18,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "modelSelection"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "en-US": "Tree of Life tile"
+        },
+        "thumbnail": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "7wpO7nH3W4TW6mkHj3R7Zn"
+            }
+          }
+        },
+        "historicalTag": {
+          "en-US": "Introduced in 1907"
+        },
+        "shortDescription": {
+          "en-US": "If you’re a Cincinnatian, you may have seen this tile as part of a backsplash or fireplace surround, or framed in someone’s house."
+        },
+        "loadingPreamble": {
+          "en-US": "Another artist has already pressed this tile and sprayed on a background-color glaze. You’re ready to decorate."
+        },
+        "modelBefore": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "34uwB6YUGCLzwtGQwnfmWH"
+            }
+          }
+        },
+        "modelAfter": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6IrR1RaGciTnzhqXX4LeIp"
+            }
+          }
+        },
+        "modelScale": {
+          "en-US": 1
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6l2YQ94e2Mge9jSjUeSuwT",
+        "type": "Entry",
+        "createdAt": "2022-06-09T20:38:34.344Z",
+        "updatedAt": "2022-06-14T23:26:19.262Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-06-14T23:26:19.262Z",
+        "firstPublishedAt": "2022-06-09T20:38:36.430Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 4,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "rookwoodPotteryInteractive"
+          }
+        }
+      },
+      "fields": {
+        "slug": {
+          "en-US": "rookwood"
+        },
+        "homeTitle": {
+          "en-US": "GLAZE IT"
+        },
+        "homeSubhead": {
+          "en-US": "Can you recreate an iconic Rookwood piece?"
+        },
+        "homeBgVideo": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "4moTnhnSz8K417OM3l0ULt"
+            }
+          }
+        },
+        "selectionPrompt": {
+          "en-US": "Choose an object to learn more about it and start glazing."
+        },
+        "modelSelections": {
+          "en-US": [
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "2SwM1CnS0GOJslCL2WBdiF"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "7F1hV34mZGYmgdC05BCmE0"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "45Z0iRSyBdNh8hglz2k2bf"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "1z0RiOtmse0i2LHewi9n9f"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "7D7QohJRV1vrO0Gz3GlbhS"
+              }
+            },
+            {
+              "sys": {
+                "type": "Link",
+                "linkType": "Entry",
+                "id": "PNpXNgwFetBRJi82VqzuQ"
+              }
+            }
+          ]
+        },
+        "studioBgImage": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "27j9lg4q8N6skbwbLlYvjz"
+            }
+          }
+        },
+        "turntableModel": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "01wipcOoapZn593M1PEvdN"
+            }
+          }
+        },
+        "firingBgVideo": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "4qrAvSsldfas52tzF1gJlr"
+            }
+          }
+        },
+        "firingFactoids": {
+          "en-US": [
+            "At Rookwood, each piece passes through 16 hands or more before it’s done.",
+            "The intense heat of the kiln makes the clay non-porous and gives the glaze a glass-like finish. ",
+            "If your clay isn’t completely dry going in, the resulting steam might make your piece explode. ",
+            "If your clay and glaze expand and contract at different rates, the glaze will crackle.",
+            "If glaze touches anything else — another pot or the kiln shelf — it will stick.",
+            "It’s always a bit of a surprise when you open the kiln!"
+          ]
+        },
+        "resultsTitle": {
+          "en-US": "It’s a masterpiece!"
+        },
+        "resultsSubhead": {
+          "en-US": "Did it turn out the way you expected it to?   Try some other options and see what you get next."
+        },
+        "resultsBgImage": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "3BOUjsoaUIXWhOZygbA9Mz"
+            }
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "1z0RiOtmse0i2LHewi9n9f",
+        "type": "Entry",
+        "createdAt": "2022-06-09T20:38:34.364Z",
+        "updatedAt": "2022-07-28T02:18:59.801Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 22,
+        "publishedAt": "2022-07-28T02:18:59.801Z",
+        "firstPublishedAt": "2022-06-09T20:38:37.408Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 10,
+        "version": 23,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "modelSelection"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "en-US": "1926 Legacy Panel vase"
+        },
+        "thumbnail": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "7KhcT7pQxEm8z3C9e1m7cg"
+            }
+          }
+        },
+        "historicalTag": {
+          "en-US": "Introduced in 1926"
+        },
+        "shortDescription": {
+          "en-US": "Kataro Shirayamadari designed this vase. His “Black Iris” design fetched a Rookwood record high price ($350,000!) when sold at auction in 2006.\n"
+        },
+        "loadingPreamble": {
+          "en-US": "Another artist has already removed this piece from its mold and coated the inside with glaze. Get ready to decorate."
+        },
+        "modelBefore": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "rG2KHDJzTTdYcy2Ym9rkV"
+            }
+          }
+        },
+        "modelAfter": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "7Ar04pSGZVu5Da3U7LAghW"
+            }
+          }
+        },
+        "modelScale": {
+          "en-US": 1
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "7D7QohJRV1vrO0Gz3GlbhS",
+        "type": "Entry",
+        "createdAt": "2022-06-09T20:38:34.391Z",
+        "updatedAt": "2022-07-28T02:19:04.418Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 17,
+        "publishedAt": "2022-07-28T02:19:04.418Z",
+        "firstPublishedAt": "2022-06-09T20:38:36.921Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 7,
+        "version": 18,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "modelSelection"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "en-US": "Emilia vase"
+        },
+        "thumbnail": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "2IvqKzGs8EdjYIPj4sAGSy"
+            }
+          }
+        },
+        "historicalTag": {
+          "en-US": "Introduced in 2021"
+        },
+        "shortDescription": {
+          "en-US": "Artist Morgan Willenbrink designed the Emilia vase to complement Rookwood’s Emilia dinnerware collection.\n"
+        },
+        "loadingPreamble": {
+          "en-US": "Another artist has already removed this piece from its mold and coated the inside with glaze. Get ready to decorate."
+        },
+        "modelBefore": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "7mPlcETgNymwA98DZPaQtb"
+            }
+          }
+        },
+        "modelAfter": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6LI6dXL530f8aWrBZQVWY7"
+            }
+          }
+        },
+        "modelScale": {
+          "en-US": 1
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "PNpXNgwFetBRJi82VqzuQ",
+        "type": "Entry",
+        "createdAt": "2022-06-09T20:38:35.993Z",
+        "updatedAt": "2022-07-28T02:17:41.013Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 24,
+        "publishedAt": "2022-07-28T02:17:41.013Z",
+        "firstPublishedAt": "2022-06-09T20:38:37.604Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 9,
+        "version": 25,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "modelSelection"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "en-US": "Heritage mug"
+        },
+        "thumbnail": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "1vJVOP543yTxRC3M3mlAA7"
+            }
+          }
+        },
+        "historicalTag": {
+          "en-US": "Introduced in 2012"
+        },
+        "shortDescription": {
+          "en-US": "The original Rookwood logo, from 1886, featured just the reversed “R” and “P.” Until 1900, a new flame was added each year. After 1900, Roman numerals under the logo marked the year.\n"
+        },
+        "loadingPreamble": {
+          "en-US": "This Ashbee tile was prepared and here's how."
+        },
+        "modelBefore": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6k1dP8c6ZRrj90ccxLlFNc"
+            }
+          }
+        },
+        "modelAfter": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "5WG8W06oO67yX7mlPSQ1Y"
+            }
+          }
+        },
+        "modelScale": {
+          "en-US": 1
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "45Z0iRSyBdNh8hglz2k2bf",
+        "type": "Entry",
+        "createdAt": "2022-06-09T20:38:36.072Z",
+        "updatedAt": "2022-07-28T02:24:32.391Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 16,
+        "publishedAt": "2022-07-28T02:24:32.391Z",
+        "firstPublishedAt": "2022-06-09T20:38:43.188Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 7,
+        "version": 17,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "type": "Link",
+            "linkType": "ContentType",
+            "id": "modelSelection"
+          }
+        }
+      },
+      "fields": {
+        "name": {
+          "en-US": "Ashbee Flora tile"
+        },
+        "thumbnail": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "6oPuUFpW3SC2mL8HOaLwuR"
+            }
+          }
+        },
+        "historicalTag": {
+          "en-US": "Introduced in 1912"
+        },
+        "shortDescription": {
+          "en-US": "Ashbee tiles are made from an original mold. Hand-painting makes each one unique.\n"
+        },
+        "loadingPreamble": {
+          "en-US": "Another artist has already removed this piece from its mold and coated the inside with glaze. Get ready to decorate. "
+        },
+        "modelBefore": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "3rGSyzVDszkTZRynr2BwlI"
+            }
+          }
+        },
+        "modelAfter": {
+          "en-US": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "3UNXeDMnoy4Wc0ALG7zjI3"
+            }
+          }
+        },
+        "modelScale": {
+          "en-US": 1
+        }
+      }
+    }
+  ],
+  "assets": [
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "27j9lg4q8N6skbwbLlYvjz",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:09.096Z",
+        "updatedAt": "2022-06-30T21:36:36.968Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 6,
+        "publishedAt": "2022-06-30T21:36:36.968Z",
+        "firstPublishedAt": "2022-06-09T20:38:25.239Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 7,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Studio bg image"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/27j9lg4q8N6skbwbLlYvjz/43d70242c790b56381f1015d991ec7fd/iStock-1319481811_1.png",
+            "details": {
+              "size": 1297826,
+              "image": {
+                "width": 1921,
+                "height": 1080
+              }
+            },
+            "fileName": "iStock-1319481811_1.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "3BOUjsoaUIXWhOZygbA9Mz",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:09.107Z",
+        "updatedAt": "2022-06-30T21:48:04.704Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 10,
+        "publishedAt": "2022-06-30T21:48:04.704Z",
+        "firstPublishedAt": "2022-06-09T20:38:25.067Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 11,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Results bg image"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/3BOUjsoaUIXWhOZygbA9Mz/8e9a255bc46fb1aa2391d3fcf33ea928/resultsbg.png",
+            "details": {
+              "size": 1140433,
+              "image": {
+                "width": 1940,
+                "height": 1081
+              }
+            },
+            "fileName": "resultsbg.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "5Za1qpf10qcwrNErbU8CVY",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:09.256Z",
+        "updatedAt": "2022-06-09T20:38:25.411Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 2,
+        "publishedAt": "2022-06-09T20:38:25.411Z",
+        "firstPublishedAt": "2022-06-09T20:38:25.411Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Cutout vase thumb temp"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/5Za1qpf10qcwrNErbU8CVY/522eda741e7c925e0134be16cb7d76f3/vaseoutline.png",
+            "details": {
+              "size": 476052,
+              "image": {
+                "width": 892,
+                "height": 1205
+              }
+            },
+            "fileName": "vaseoutline.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "4o9h5FAKb4EZbT2GEnLQtM",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:09.917Z",
+        "updatedAt": "2022-06-09T20:38:25.575Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 2,
+        "publishedAt": "2022-06-09T20:38:25.575Z",
+        "firstPublishedAt": "2022-06-09T20:38:25.575Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "FPO Thumbnail"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/4o9h5FAKb4EZbT2GEnLQtM/f77dbfddefb45e5afa7fd9adcb471b9e/Screen_Shot_2022-06-01_at_11.19.59_PM.png",
+            "details": {
+              "size": 1653365,
+              "image": {
+                "width": 1454,
+                "height": 1318
+              }
+            },
+            "fileName": "Screen Shot 2022-06-01 at 11.19.59 PM.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "7l5GJfa7UsOD9jm5LVAMN9",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:10.061Z",
+        "updatedAt": "2022-06-09T20:38:26.410Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 2,
+        "publishedAt": "2022-06-09T20:38:26.410Z",
+        "firstPublishedAt": "2022-06-09T20:38:26.410Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "GLB - After 3d tile"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/7l5GJfa7UsOD9jm5LVAMN9/8b276713e8903456f34e395325b24591/tileExperiment1GLAZED.glb",
+            "details": {
+              "size": 63744
+            },
+            "fileName": "tileExperiment1GLAZED.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "mWXA9AqgtOXs7QkjmSr2l",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:10.080Z",
+        "updatedAt": "2022-06-09T20:38:26.566Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 2,
+        "publishedAt": "2022-06-09T20:38:26.566Z",
+        "firstPublishedAt": "2022-06-09T20:38:26.566Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "GLB 3d tile - before"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/mWXA9AqgtOXs7QkjmSr2l/b3defeaffdb926e0f1aa68755c0b8822/tileExperiment1UNGLAZED.glb",
+            "details": {
+              "size": 70908
+            },
+            "fileName": "tileExperiment1UNGLAZED.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "5zGatadIGZPXur6p0JT2yJ",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:10.226Z",
+        "updatedAt": "2022-06-09T20:38:26.736Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 2,
+        "publishedAt": "2022-06-09T20:38:26.736Z",
+        "firstPublishedAt": "2022-06-09T20:38:26.736Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Tile test 3d GLB"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/5zGatadIGZPXur6p0JT2yJ/afd626a4b9a65db45e752f7926aded20/Screen_Shot_2022-05-18_at_9.15.19_PM.png",
+            "details": {
+              "size": 1005550,
+              "image": {
+                "width": 2372,
+                "height": 1146
+              }
+            },
+            "fileName": "Screen Shot 2022-05-18 at 9.15.19 PM.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "4rhyavaiMECpYXO186Jc8E",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:10.268Z",
+        "updatedAt": "2022-06-09T20:38:26.921Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 2,
+        "publishedAt": "2022-06-09T20:38:26.921Z",
+        "firstPublishedAt": "2022-06-09T20:38:26.921Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Podium after"
+        },
+        "description": {
+          "en-US": "asdf"
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/4rhyavaiMECpYXO186Jc8E/824eb2f5a7297f2a223da8947cc09df1/podium-post.gltf",
+            "details": {
+              "size": 2584665
+            },
+            "fileName": "podium-post.gltf",
+            "contentType": "model/gltf+json"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6T1VXe1AiNVX4rfwkumeC7",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:10.399Z",
+        "updatedAt": "2022-06-09T20:38:27.087Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 2,
+        "publishedAt": "2022-06-09T20:38:27.087Z",
+        "firstPublishedAt": "2022-06-09T20:38:27.087Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "tile model test gtlf"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/6T1VXe1AiNVX4rfwkumeC7/cfd8c6687c8d418f8616e758bc5af217/Ashbee_Tile.gltf",
+            "details": {
+              "size": 900817
+            },
+            "fileName": "Ashbee Tile.gltf",
+            "contentType": "model/gltf+json"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "1unoeb0nq012eyx3YbpFQf",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:35:10.452Z",
+        "updatedAt": "2022-06-09T20:38:27.260Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 2,
+        "publishedAt": "2022-06-09T20:38:27.260Z",
+        "firstPublishedAt": "2022-06-09T20:38:27.260Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 3,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Screen Shot 2022-05-20 at 4.06.32 PM"
+        },
+        "description": {
+          "en-US": "adf adf"
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/1unoeb0nq012eyx3YbpFQf/8f9b9c283534cf79856ec434abd77c9c/Screen_Shot_2022-05-20_at_4.06.32_PM.png",
+            "details": {
+              "size": 540830,
+              "image": {
+                "width": 1418,
+                "height": 1112
+              }
+            },
+            "fileName": "Screen Shot 2022-05-20 at 4.06.32 PM.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "4qrAvSsldfas52tzF1gJlr",
+        "type": "Asset",
+        "createdAt": "2022-06-09T20:53:18.395Z",
+        "updatedAt": "2022-06-09T20:53:44.348Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 4,
+        "publishedAt": "2022-06-09T20:53:44.348Z",
+        "firstPublishedAt": "2022-06-09T20:53:44.348Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 5,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Firing background video"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//videos.ctfassets.net/apklergx4ahv/4qrAvSsldfas52tzF1gJlr/abc2cda8d87a650d3173d0923aa6948e/FiringScreen.06.09.22.mp4",
+            "details": {
+              "size": 37845874
+            },
+            "fileName": "FiringScreen.06.09.22.mp4",
+            "contentType": "video/mp4"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "5gZTlBmoXmCfZnd4Dt8t2E",
+        "type": "Asset",
+        "createdAt": "2022-06-13T18:51:38.593Z",
+        "updatedAt": "2022-06-14T20:45:37.081Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 14,
+        "publishedAt": "2022-06-14T20:45:37.081Z",
+        "firstPublishedAt": "2022-06-13T18:52:07.511Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 15,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Pinecone UNGLAZED glb"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/5gZTlBmoXmCfZnd4Dt8t2E/76421747eb9decdf47323af936ad2b84/PineconeGlazeDecimate_v1.glb",
+            "details": {
+              "size": 10354180
+            },
+            "fileName": "PineconeGlazeDecimate_v1.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "2EBw20YpP0N0XyE236iPqz",
+        "type": "Asset",
+        "createdAt": "2022-06-13T18:52:17.534Z",
+        "updatedAt": "2022-06-14T20:28:36.717Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 10,
+        "publishedAt": "2022-06-14T20:28:36.717Z",
+        "firstPublishedAt": "2022-06-13T18:52:44.328Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 11,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Pinecone Vase Glazed glb"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/2EBw20YpP0N0XyE236iPqz/664d75472d069a4e96ff8dfdea3fcf91/pineconeVase_GLAZED.glb",
+            "details": {
+              "size": 7264760
+            },
+            "fileName": "pineconeVase_GLAZED.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "24QTpAGuPsDhsb1mj0umRJ",
+        "type": "Asset",
+        "createdAt": "2022-06-13T18:53:24.759Z",
+        "updatedAt": "2022-06-13T18:53:55.063Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2022-06-13T18:53:55.063Z",
+        "firstPublishedAt": "2022-06-13T18:53:55.063Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Ashbee unglaazed glb"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/24QTpAGuPsDhsb1mj0umRJ/2a0bf390039fcc9e0bfcfad2f9b639b8/AshbeeTileUNGLAZED_v1.glb",
+            "details": {
+              "size": 2094516
+            },
+            "fileName": "AshbeeTileUNGLAZED_v1.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "4AQ5UUd7b9Bbg6zPL6WGYT",
+        "type": "Asset",
+        "createdAt": "2022-06-13T18:54:07.379Z",
+        "updatedAt": "2022-06-13T18:54:42.218Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2022-06-13T18:54:42.218Z",
+        "firstPublishedAt": "2022-06-13T18:54:42.218Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Ashbee glazed glb"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/4AQ5UUd7b9Bbg6zPL6WGYT/7012e303c8f2a1ffbcb83ec41b3bbd72/AshbeeTileGLAZED_v1.glb",
+            "details": {
+              "size": 2094444
+            },
+            "fileName": "AshbeeTileGLAZED_v1.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "1sVZ5ZQvYNlNL6viILUwj8",
+        "type": "Asset",
+        "createdAt": "2022-06-13T18:55:35.631Z",
+        "updatedAt": "2022-06-16T21:56:35.306Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 9,
+        "publishedAt": "2022-06-16T21:56:35.306Z",
+        "firstPublishedAt": "2022-06-13T18:56:25.241Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 10,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Legacy Panel Vase unglazed glb"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/1sVZ5ZQvYNlNL6viILUwj8/f36565ab356b3e9bcb7a28b0937efec0/PanelVaseUNFIRED_v2.glb",
+            "details": {
+              "size": 5387820
+            },
+            "fileName": "PanelVaseUNFIRED_v2.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6mj9NXyahIgHCgzBCCE9sS",
+        "type": "Asset",
+        "createdAt": "2022-06-13T18:56:46.648Z",
+        "updatedAt": "2022-06-22T22:09:33.752Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 12,
+        "publishedAt": "2022-06-22T22:09:33.752Z",
+        "firstPublishedAt": "2022-06-13T18:57:09.856Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 13,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "legacyPanelVase GLAZED"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/6mj9NXyahIgHCgzBCCE9sS/2fd65f6b32eb0fabbbc6aba2fad31b3a/LegacyPanelVaseFIRED_v3.glb",
+            "details": {
+              "size": 5387752
+            },
+            "fileName": "LegacyPanelVaseFIRED_v3.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "4tYRDDOwLPYfJoIgtpvG1d",
+        "type": "Asset",
+        "createdAt": "2022-06-13T18:57:32.535Z",
+        "updatedAt": "2022-06-16T20:26:19.062Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-06-16T20:26:19.062Z",
+        "firstPublishedAt": "2022-06-13T18:57:45.646Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "emelia UNGLAZED"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/4tYRDDOwLPYfJoIgtpvG1d/52dfed6f42024b29a8dc4bcb6c8996b6/EmeliaUNFIRED_v2.glb",
+            "details": {
+              "size": 6375012
+            },
+            "fileName": "EmeliaUNFIRED_v2.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "2fLayQgp4eRid1kpXaqY4R",
+        "type": "Asset",
+        "createdAt": "2022-06-13T18:57:51.420Z",
+        "updatedAt": "2022-06-16T20:26:45.701Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-06-16T20:26:45.701Z",
+        "firstPublishedAt": "2022-06-13T18:58:02.993Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "emelia GLAZED"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/2fLayQgp4eRid1kpXaqY4R/564eba7561d571d3304ce563e1d747ea/EmeliaFIRED_v2.glb",
+            "details": {
+              "size": 6375020
+            },
+            "fileName": "EmeliaFIRED_v2.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "2Sgb1JYV0IDHPmClGdOdoy",
+        "type": "Asset",
+        "createdAt": "2022-06-13T18:59:51.276Z",
+        "updatedAt": "2022-06-16T21:55:35.782Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-06-16T21:55:35.782Z",
+        "firstPublishedAt": "2022-06-13T19:00:07.690Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "TreeOfLifeUNGLAZED v2"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/2Sgb1JYV0IDHPmClGdOdoy/7c5b5ef5bfd69353245b6820785a0cbc/TreeOfLifeUNFIRED_v2.glb",
+            "details": {
+              "size": 132
+            },
+            "fileName": "TreeOfLifeUNFIRED_v2.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6IrR1RaGciTnzhqXX4LeIp",
+        "type": "Asset",
+        "createdAt": "2022-06-13T19:00:13.306Z",
+        "updatedAt": "2022-07-25T16:46:45.690Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 11,
+        "publishedAt": "2022-07-25T16:46:45.690Z",
+        "firstPublishedAt": "2022-06-13T19:00:24.054Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 12,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "TreeOfLifeGLAZED v2"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/6IrR1RaGciTnzhqXX4LeIp/ed73ff51c8aa937ff26086fdbd5f8efa/TreeOfLifeFIRED_v4.glb",
+            "details": {
+              "size": 9342104
+            },
+            "fileName": "TreeOfLifeFIRED_v4.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "3rGSyzVDszkTZRynr2BwlI",
+        "type": "Asset",
+        "createdAt": "2022-06-13T19:01:01.904Z",
+        "updatedAt": "2022-07-26T15:06:51.428Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 15,
+        "publishedAt": "2022-07-26T15:06:51.428Z",
+        "firstPublishedAt": "2022-06-13T19:01:21.540Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 4,
+        "version": 16,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "AshbeeTileUNGLAZED v1"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/3rGSyzVDszkTZRynr2BwlI/9aebf1d7860062e415c4c65d3a9189b1/ashbeeTileUNFIRED_v4.glb",
+            "details": {
+              "size": 4711280
+            },
+            "fileName": "ashbeeTileUNFIRED_v4.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "3UNXeDMnoy4Wc0ALG7zjI3",
+        "type": "Asset",
+        "createdAt": "2022-06-13T19:01:33.854Z",
+        "updatedAt": "2022-07-26T15:12:21.113Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 15,
+        "publishedAt": "2022-07-26T15:12:21.113Z",
+        "firstPublishedAt": "2022-06-13T19:01:50.617Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 4,
+        "version": 16,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "AshbeeTileGLAZED v1"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/3UNXeDMnoy4Wc0ALG7zjI3/a849b517c941a29a5897bc88ec58cced/ashbeeTileFIRED_v4.glb",
+            "details": {
+              "size": 4711212
+            },
+            "fileName": "ashbeeTileFIRED_v4.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "01wipcOoapZn593M1PEvdN",
+        "type": "Asset",
+        "createdAt": "2022-06-13T19:34:16.721Z",
+        "updatedAt": "2022-06-13T19:34:42.158Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2022-06-13T19:34:42.158Z",
+        "firstPublishedAt": "2022-06-13T19:34:42.158Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Turntable model. gltf"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/01wipcOoapZn593M1PEvdN/f43e68fca8ac57a1f13c435b659273d2/Turntable.gltf",
+            "details": {
+              "size": 312579
+            },
+            "fileName": "Turntable.gltf",
+            "contentType": "model/gltf+json"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "Y4L0TxpIARkE0nLoChDPr",
+        "type": "Asset",
+        "createdAt": "2022-06-14T22:09:26.523Z",
+        "updatedAt": "2022-06-14T22:10:16.800Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2022-06-14T22:10:16.800Z",
+        "firstPublishedAt": "2022-06-14T22:10:16.800Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Unglased Pincone smaller"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/Y4L0TxpIARkE0nLoChDPr/7c870ed0a73026bab7108bf1694513af/PineconeVase_Branches.glb",
+            "details": {
+              "size": 10372616
+            },
+            "fileName": "PineconeVase_Branches.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "4moTnhnSz8K417OM3l0ULt",
+        "type": "Asset",
+        "createdAt": "2022-06-14T23:24:11.287Z",
+        "updatedAt": "2022-06-21T16:41:42.599Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 8,
+        "publishedAt": "2022-06-21T16:41:42.599Z",
+        "firstPublishedAt": "2022-06-14T23:26:14.347Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 9,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Rookwood intro video mp4"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//videos.ctfassets.net/apklergx4ahv/4moTnhnSz8K417OM3l0ULt/59516cec3c9496e77ff50d10f6d9ed13/InsideRookwoodPottery.06.16.22.mp4",
+            "details": {
+              "size": 155389891
+            },
+            "fileName": "InsideRookwoodPottery.06.16.22.mp4",
+            "contentType": "video/mp4"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "5tLk06dhzJQwek094zkhBz",
+        "type": "Asset",
+        "createdAt": "2022-06-15T00:04:47.509Z",
+        "updatedAt": "2022-06-16T21:58:20.614Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 9,
+        "publishedAt": "2022-06-16T21:58:20.614Z",
+        "firstPublishedAt": "2022-06-15T00:05:18.744Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 10,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Heritage mug unglazed glb"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/5tLk06dhzJQwek094zkhBz/966bfe1a0e7c2d060187786d51335e58/HeritageMugUNFIRED_v2.glb",
+            "details": {
+              "size": 1657928
+            },
+            "fileName": "HeritageMugUNFIRED_v2.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "5rWckjGkfB4guC7QrnpThi",
+        "type": "Asset",
+        "createdAt": "2022-06-15T00:05:24.909Z",
+        "updatedAt": "2022-06-16T21:58:33.971Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 9,
+        "publishedAt": "2022-06-16T21:58:33.971Z",
+        "firstPublishedAt": "2022-06-15T00:05:45.458Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 10,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "HEritage mug glazed glb"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/5rWckjGkfB4guC7QrnpThi/68a49993e3ff72785b49b6cb06623b73/HeritageMugFIRED_v2.glb",
+            "details": {
+              "size": 1657936
+            },
+            "fileName": "HeritageMugFIRED_v2.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6GEB3GFNTAMJtN2VC2Eh2d",
+        "type": "Asset",
+        "createdAt": "2022-06-22T20:00:11.940Z",
+        "updatedAt": "2022-06-22T20:00:49.192Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2022-06-22T20:00:49.192Z",
+        "firstPublishedAt": "2022-06-22T20:00:49.192Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Sphere GLTF simple tester"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/6GEB3GFNTAMJtN2VC2Eh2d/2836fb89a9c16ded92319fe46c25e363/my-sphere-test.glb",
+            "details": {
+              "size": 70212
+            },
+            "fileName": "my-sphere-test.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6FGqtVOw8hGroeE1VhMeEw",
+        "type": "Asset",
+        "createdAt": "2022-06-22T20:25:14.927Z",
+        "updatedAt": "2022-06-22T22:33:24.369Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 10,
+        "publishedAt": "2022-06-22T22:33:24.369Z",
+        "firstPublishedAt": "2022-06-22T20:25:49.964Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 11,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Legacy vase glb unfired"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/6FGqtVOw8hGroeE1VhMeEw/727fb7751725a3382d96a0291b50d3d7/PanelVaseUNFIRED_v2.glb",
+            "details": {
+              "size": 5387820
+            },
+            "fileName": "PanelVaseUNFIRED_v2.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "34uwB6YUGCLzwtGQwnfmWH",
+        "type": "Asset",
+        "createdAt": "2022-06-22T22:10:04.364Z",
+        "updatedAt": "2022-07-25T16:45:41.947Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 9,
+        "publishedAt": "2022-07-25T16:45:41.947Z",
+        "firstPublishedAt": "2022-06-22T22:10:21.896Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 10,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Tree of life unfired 2022-06-22"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/34uwB6YUGCLzwtGQwnfmWH/847244534058f1fe45206c6500a20dc5/TreeOfLifeUNFIRED_v4.glb",
+            "details": {
+              "size": 9342172
+            },
+            "fileName": "TreeOfLifeUNFIRED_v4.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6GypLrshpSe3fidszLWa6S",
+        "type": "Asset",
+        "createdAt": "2022-06-28T20:00:48.209Z",
+        "updatedAt": "2022-06-28T20:57:37.726Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 9,
+        "publishedAt": "2022-06-28T20:57:37.726Z",
+        "firstPublishedAt": "2022-06-28T20:01:21.019Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 10,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Pinecone unfired glb"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/6GypLrshpSe3fidszLWa6S/e5bcbc1ffe499f309af0b628a342f34f/pineconeVaseUNFIRED_v1.glb",
+            "details": {
+              "size": 9401396
+            },
+            "fileName": "pineconeVaseUNFIRED_v1.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "7vBw7fcEKKCSe9o4rlY3mN",
+        "type": "Asset",
+        "createdAt": "2022-06-28T20:01:34.369Z",
+        "updatedAt": "2022-06-28T20:58:03.055Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 9,
+        "publishedAt": "2022-06-28T20:58:03.055Z",
+        "firstPublishedAt": "2022-06-28T20:02:12.488Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 10,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Pinecone fired glb"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/7vBw7fcEKKCSe9o4rlY3mN/8eedd09917a14ce9853a6ff879e8f37e/pineconeVaseFIRED_v1.glb",
+            "details": {
+              "size": 9401332
+            },
+            "fileName": "pineconeVaseFIRED_v1.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "4dT8WtkO9jmUkLaKEcxokU",
+        "type": "Asset",
+        "createdAt": "2022-06-30T01:20:26.074Z",
+        "updatedAt": "2022-06-30T20:06:55.649Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 9,
+        "publishedAt": "2022-06-30T20:06:55.649Z",
+        "firstPublishedAt": "2022-06-30T01:21:07.263Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 10,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Pinecone vase thumbnail"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/4dT8WtkO9jmUkLaKEcxokU/3251ca3942d8cbffd833ce06a22573ae/PineConeThumb.png",
+            "details": {
+              "size": 328061,
+              "image": {
+                "width": 820,
+                "height": 1059
+              }
+            },
+            "fileName": "PineConeThumb.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "lu7t2OFQD9DMgTtWRR8ZX",
+        "type": "Asset",
+        "createdAt": "2022-06-30T01:21:49.213Z",
+        "updatedAt": "2022-06-30T20:07:14.071Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 8,
+        "publishedAt": "2022-06-30T20:07:14.071Z",
+        "firstPublishedAt": "2022-06-30T01:22:49.770Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 9,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Tree of life thumbnail"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/lu7t2OFQD9DMgTtWRR8ZX/792009292d2aa07fde24ad1c4c8b524b/TreeOLThumb.png",
+            "details": {
+              "size": 451182,
+              "image": {
+                "width": 820,
+                "height": 1059
+              }
+            },
+            "fileName": "TreeOLThumb.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "3z3cwAGUCigrzJsyckeSF9",
+        "type": "Asset",
+        "createdAt": "2022-06-30T01:23:08.750Z",
+        "updatedAt": "2022-06-30T20:07:33.073Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 8,
+        "publishedAt": "2022-06-30T20:07:33.073Z",
+        "firstPublishedAt": "2022-06-30T01:23:33.933Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 9,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Asbee tile thumbnail"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/3z3cwAGUCigrzJsyckeSF9/581b83eaf027a14ee9fee9c23f35c151/AshbeeThumb.png",
+            "details": {
+              "size": 242856,
+              "image": {
+                "width": 820,
+                "height": 1059
+              }
+            },
+            "fileName": "AshbeeThumb.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "5gPdW9dnkQKFjOudMznNDQ",
+        "type": "Asset",
+        "createdAt": "2022-06-30T17:07:34.737Z",
+        "updatedAt": "2022-06-30T17:13:42.695Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-06-30T17:13:42.695Z",
+        "firstPublishedAt": "2022-06-30T17:07:59.064Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Coming soon thumbnail"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/5gPdW9dnkQKFjOudMznNDQ/3b2cf488129dc5b97bb5bc0dd0ba4ceb/Screen_Shot_2022-06-30_at_12.07.03_PM.png",
+            "details": {
+              "size": 17687,
+              "image": {
+                "width": 392,
+                "height": 330
+              }
+            },
+            "fileName": "Screen_Shot_2022-06-30_at_12.07.03_PM.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "rG2KHDJzTTdYcy2Ym9rkV",
+        "type": "Asset",
+        "createdAt": "2022-07-18T21:52:09.607Z",
+        "updatedAt": "2022-07-26T15:14:27.511Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 16,
+        "publishedAt": "2022-07-26T15:14:27.511Z",
+        "firstPublishedAt": "2022-07-18T21:52:53.438Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 17,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Legacy vase unfired glb - 2022-07-18"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/rG2KHDJzTTdYcy2Ym9rkV/030bfe75a01accb9500a4a4d98c1e647/panelVaseUNFIRED_v6m.glb",
+            "details": {
+              "size": 6470820
+            },
+            "fileName": "panelVaseUNFIRED_v6m.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "7Ar04pSGZVu5Da3U7LAghW",
+        "type": "Asset",
+        "createdAt": "2022-07-18T21:53:17.944Z",
+        "updatedAt": "2022-07-26T15:14:58.356Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 13,
+        "publishedAt": "2022-07-26T15:14:58.356Z",
+        "firstPublishedAt": "2022-07-18T21:53:36.102Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 14,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Legacy panel fired glb - 2022-07-18"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/7Ar04pSGZVu5Da3U7LAghW/ed6acadeaf409182f1218134841bf5fa/panelVaseFIRED_v6m.glb",
+            "details": {
+              "size": 6470752
+            },
+            "fileName": "panelVaseFIRED_v6m.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "7mPlcETgNymwA98DZPaQtb",
+        "type": "Asset",
+        "createdAt": "2022-07-18T21:58:31.385Z",
+        "updatedAt": "2022-07-27T17:03:49.215Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 13,
+        "publishedAt": "2022-07-27T17:03:49.215Z",
+        "firstPublishedAt": "2022-07-18T21:59:48.277Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 14,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Emilia vase unfired - 2022-07-18"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/7mPlcETgNymwA98DZPaQtb/bbe83c5ccdf6610b51351c670d7699b2/emilaVaseUNFIRED_v5.glb",
+            "details": {
+              "size": 2312444
+            },
+            "fileName": "emilaVaseUNFIRED_v5.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6LI6dXL530f8aWrBZQVWY7",
+        "type": "Asset",
+        "createdAt": "2022-07-18T21:59:54.880Z",
+        "updatedAt": "2022-07-27T17:04:24.933Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 12,
+        "publishedAt": "2022-07-27T17:04:24.933Z",
+        "firstPublishedAt": "2022-07-18T22:00:10.860Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 13,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Emilia vase fired - 2022-07-18"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/6LI6dXL530f8aWrBZQVWY7/393e7633462e42f60d52694628d33863/emilaVaseFIRED_v5.glb",
+            "details": {
+              "size": 2312448
+            },
+            "fileName": "emilaVaseFIRED_v5.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6k1dP8c6ZRrj90ccxLlFNc",
+        "type": "Asset",
+        "createdAt": "2022-07-18T22:01:16.078Z",
+        "updatedAt": "2022-07-27T17:02:52.675Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 17,
+        "publishedAt": "2022-07-27T17:02:52.675Z",
+        "firstPublishedAt": "2022-07-18T22:01:38.318Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 4,
+        "version": 18,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Heritage mug unifred - 2022-07-18"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/6k1dP8c6ZRrj90ccxLlFNc/a73d57aade8f03a54bb3134f75986859/heritageMugUNFIRED_v6.glb",
+            "details": {
+              "size": 1532544
+            },
+            "fileName": "heritageMugUNFIRED_v6.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "5WG8W06oO67yX7mlPSQ1Y",
+        "type": "Asset",
+        "createdAt": "2022-07-18T22:01:43.077Z",
+        "updatedAt": "2022-07-27T17:03:10.118Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 17,
+        "publishedAt": "2022-07-27T17:03:10.118Z",
+        "firstPublishedAt": "2022-07-18T22:02:07.308Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 4,
+        "version": 18,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Heritage mug fired - 2022-07-18"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//assets.ctfassets.net/apklergx4ahv/5WG8W06oO67yX7mlPSQ1Y/d4b598345f291106aeb699494bb393b6/heritageMugFIRED_v6.glb",
+            "details": {
+              "size": 1532560
+            },
+            "fileName": "heritageMugFIRED_v6.glb",
+            "contentType": "model/gltf-binary"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "2uCnV3NWSTqXKemmQGSsl7",
+        "type": "Asset",
+        "createdAt": "2022-07-27T17:26:56.658Z",
+        "updatedAt": "2022-07-27T17:27:22.775Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 5,
+        "publishedAt": "2022-07-27T17:27:22.775Z",
+        "firstPublishedAt": "2022-07-27T17:27:22.775Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Pinecone IRL thumbnail"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/2uCnV3NWSTqXKemmQGSsl7/6cd7482f5159522aa87523bf7cf08de1/iO2bTeg_1024x1024_2x.webp",
+            "details": {
+              "size": 133086,
+              "image": {
+                "width": 2000,
+                "height": 2000
+              }
+            },
+            "fileName": "iO2bTeg_1024x1024@2x.webp",
+            "contentType": "image/webp"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "7wpO7nH3W4TW6mkHj3R7Zn",
+        "type": "Asset",
+        "createdAt": "2022-07-28T02:16:37.022Z",
+        "updatedAt": "2022-07-28T02:49:08.174Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 9,
+        "publishedAt": "2022-07-28T02:49:08.174Z",
+        "firstPublishedAt": "2022-07-28T02:16:59.698Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 10,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "TOL Thumb Real"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/7wpO7nH3W4TW6mkHj3R7Zn/155a1bd21a46080c2d958a1fbfbeee47/Oxford_TOL_Decorative_Tile_8x8_Product_Photography_05_2021-010_1-1_540x.png",
+            "details": {
+              "size": 198534,
+              "image": {
+                "width": 540,
+                "height": 598
+              }
+            },
+            "fileName": "Oxford_TOL_Decorative_Tile_8x8_Product_Photography_05_2021-010_1-1_540x.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "1vJVOP543yTxRC3M3mlAA7",
+        "type": "Asset",
+        "createdAt": "2022-07-28T02:17:14.377Z",
+        "updatedAt": "2022-07-28T02:48:15.374Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 8,
+        "publishedAt": "2022-07-28T02:48:15.374Z",
+        "firstPublishedAt": "2022-07-28T02:17:26.075Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 9,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Barberry Coast Heritage Mug 10 1 21 Product Photography-015 1-1 1024x1024@2x (1)Herit"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/1vJVOP543yTxRC3M3mlAA7/9e9208bd1a821626d629d5efaa2ddaa1/Barberry_Coast_Heritage_Mug_10_1_21_Product_Photography-015_1-1_1024x1024_2x__1_.png",
+            "details": {
+              "size": 2435999,
+              "image": {
+                "width": 2000,
+                "height": 2111
+              }
+            },
+            "fileName": "Barberry_Coast_Heritage_Mug_10_1_21_Product_Photography-015_1-1_1024x1024@2x (1).png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "2IvqKzGs8EdjYIPj4sAGSy",
+        "type": "Asset",
+        "createdAt": "2022-07-28T02:17:53.328Z",
+        "updatedAt": "2022-07-28T02:49:36.876Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-07-28T02:49:36.876Z",
+        "firstPublishedAt": "2022-07-28T02:18:01.371Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Emilia Vase Product Photography 09 2021-103 1-1 1024x1024@2x (1)"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/2IvqKzGs8EdjYIPj4sAGSy/7247944b7b9afe9e9f85524d700401dd/Emilia_Vase_Product_Photography_09_2021-103_1-1_1024x1024_2x.png",
+            "details": {
+              "size": 2127762,
+              "image": {
+                "width": 2000,
+                "height": 2222
+              }
+            },
+            "fileName": "Emilia_Vase_Product_Photography_09_2021-103_1-1_1024x1024@2x.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "7KhcT7pQxEm8z3C9e1m7cg",
+        "type": "Asset",
+        "createdAt": "2022-07-28T02:18:17.507Z",
+        "updatedAt": "2022-07-28T02:47:42.402Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 7,
+        "publishedAt": "2022-07-28T02:47:42.402Z",
+        "firstPublishedAt": "2022-07-28T02:18:55.736Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Golden Hour Legacy Panel Vase Product Photography 08 2021-103 1-1 1024x1024@2x"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/7KhcT7pQxEm8z3C9e1m7cg/b47085992afc2dc93ad1e2364fbf018c/Golden_Hour_Legacy_Panel_Vase_Product_Photography_08_2021-103_1-1_1024x1024_2x.png",
+            "details": {
+              "size": 1194667,
+              "image": {
+                "width": 2000,
+                "height": 2239
+              }
+            },
+            "fileName": "Golden_Hour_Legacy_Panel_Vase_Product_Photography_08_2021-103_1-1_1024x1024@2x.png",
+            "contentType": "image/png"
+          }
+        }
+      }
+    },
+    {
+      "metadata": {
+        "tags": [
+        ]
+      },
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "id": "6oPuUFpW3SC2mL8HOaLwuR",
+        "type": "Asset",
+        "createdAt": "2022-07-28T02:20:06.815Z",
+        "updatedAt": "2022-07-28T02:20:17.486Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "publishedVersion": 3,
+        "publishedAt": "2022-07-28T02:20:17.486Z",
+        "firstPublishedAt": "2022-07-28T02:20:17.486Z",
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        }
+      },
+      "fields": {
+        "title": {
+          "en-US": "Pixie Ashbee Blossom Decorative Tile 6x6 Product Photography 03 2021-315 1-1 1024x1024@2x"
+        },
+        "description": {
+          "en-US": ""
+        },
+        "file": {
+          "en-US": {
+            "url": "//images.ctfassets.net/apklergx4ahv/6oPuUFpW3SC2mL8HOaLwuR/1d02303910acb3f0347098930afbb9af/Pixie_Ashbee_Blossom_Decorative_Tile_6x6_Product_Photography_03_2021-315_1-1_1024x1024_2x.webp",
+            "details": {
+              "size": 163380,
+              "image": {
+                "width": 2000,
+                "height": 2000
+              }
+            },
+            "fileName": "Pixie_Ashbee_Blossom_Decorative_Tile_6x6_Product_Photography_03_2021-315_1-1_1024x1024@2x.webp",
+            "contentType": "image/webp"
+          }
+        }
+      }
+    }
+  ],
+  "locales": [
+    {
+      "name": "English (United States)",
+      "code": "en-US",
+      "fallbackCode": null,
+      "default": true,
+      "contentManagementApi": true,
+      "contentDeliveryApi": true,
+      "optional": false,
+      "sys": {
+        "type": "Locale",
+        "id": "06B1CFRv479aguRIFZFI31",
+        "version": 1,
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "apklergx4ahv"
+          }
+        },
+        "environment": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Environment",
+            "id": "master",
+            "uuid": "2b9d7cec-8ee3-41be-b10a-2b903b48e100"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "createdAt": "2022-06-09T20:31:06Z",
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "3NxvvQWQVLcWEDvPgKe5tu"
+          }
+        },
+        "updatedAt": "2022-06-09T20:31:06Z"
+      }
+    }
+  ]
+}

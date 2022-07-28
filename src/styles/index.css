@@ -339,28 +339,16 @@ button,
 
 .selection-button:nth-of-type(4) {
   left: calc(50% - 350px / 2 - 420px);
-
-  /* opacity: 0.8; */
-
-  /* pointer-events: none; */
   top: calc(50% - 459.89px / 2 + 264.95px);
 }
 
 .selection-button:nth-of-type(5) {
   left: calc(50% - 350px / 2 - 0px);
-
-  /* opacity: 0.8; */
-
-  /* pointer-events: none; */
   top: calc(50% - 459.89px / 2 + 264.95px);
 }
 
 .selection-button:nth-of-type(6) {
   left: calc(50% - 350px / 2 + 420px);
-
-  /* opacity: 0.8; */
-
-  /* pointer-events: none; */
   top: calc(50% - 459.89px / 2 + 264.95px);
 }
 
