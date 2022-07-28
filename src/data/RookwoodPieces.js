@@ -12,17 +12,18 @@ const FINISHED_PIECES = {
   },
   TREE_OF_LIFE_TILE: {
     colors: {
-      Tree_of_LifeBASE: COLOR_LOOKUP.Griege.after,
-      Tree_of_LifeBRANCHES: COLOR_LOOKUP.Light_brown_Tree_of_Life.after,
-      Tree_of_Life_LEAVES: COLOR_LOOKUP.Ivy.after,
-      TreeLife_SKY: COLOR_LOOKUP.Sargasso_Surf.after,
+      treeOfLifeBASE: COLOR_LOOKUP.Griege.after,
+      treeOfLifeTRUNK: COLOR_LOOKUP.Light_brown_Tree_of_Life.after,
+      treeOfLifeLEAVES: COLOR_LOOKUP.Ivy.after,
+      treeOfLifeBKGRND: COLOR_LOOKUP.Sargasso_Surf.after,
     },
   },
   ASHBEE_FLORA_TILE: {
     colors: {
-      ashbeeBASE: COLOR_LOOKUP.Aegean.after,
-      ashbeeFLOWERS: COLOR_LOOKUP.Serenade.after,
-      ashbeeLEAVES: COLOR_LOOKUP.Brown_green.after,
+      ashbeeBASE001: COLOR_LOOKUP.Serenade.after,
+      ashbeeFLOWERS001: COLOR_LOOKUP.Serenade.after,
+      ashbeeLEAVES001: COLOR_LOOKUP.Devon.after,
+      ashbeeBACKGROUND002: COLOR_LOOKUP.Aegean.after,
     },
   },
   HERITAGE_MUG: {

@@ -170,8 +170,8 @@ export function AtomizerModel({
       }
     });
 
-    // console.log('meshTargets', meshTargets);
-    // console.log('topLevelTargets', topLevelTargets);
+    console.log('meshTargets', meshTargets);
+    console.log('topLevelTargets', topLevelTargets);
 
     if (atomizerEnabled) {
       // Add canvas texture to existing material
