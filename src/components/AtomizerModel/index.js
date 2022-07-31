@@ -299,6 +299,18 @@ export function AtomizerModel({
     }
   }
 
+  function getMaterialClone(meshName, parentScene) {
+    let clonedMaterial = null;
+    parentScene.traverse((object) => {
+      if (object.isMesh && object.name === meshName) {
+        clonedMaterial = object.material.clone();
+        return clonedMaterial;
+      }
+    });
+    if (!clonedMaterial) console.log('[WARNING] No material clone found for:', meshName);
+    return clonedMaterial;
+  }
+
   function applySwatch(meshName, newColor, useClone) {
     
     // Note: incoming color is a string, not a THREE.Color object
@@ -307,11 +319,15 @@ export function AtomizerModel({
 
     let newMaterial;
     if (useClone) {
-      newMaterial = materials[Object.keys(materials)[0]].clone();
+      const mtlKeys = Object.keys(materials);
+      newMaterial = getMaterialClone(meshName, clonedScene);
+      // Fallback: if no material match available, use first material available
+      if (!newMaterial) newMaterial = materials[mtlKeys[0]].clone();
       currentMaterials.current[meshName] = newMaterial;
     } else {
       newMaterial = currentMaterials.current[meshName];
     }
+
     newMaterial.color = new THREE.Color(newColor);
 
     setMaterialByMeshName(meshName, newMaterial, clonedScene);
