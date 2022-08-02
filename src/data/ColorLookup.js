@@ -1,7 +1,7 @@
 const COLOR_LOOKUP = {
   Acanthus: { label: 'Acanthus', before: '#e3e4de', after: '#658d85' },
   Aegean: { label: 'Aegean', before: '#e7e3e0', after: '#011f5d' },
-  Barbary_Coast: { label: 'Barbary Coast', before: '#d6d6d6', after: '#616662' },
+  Barbary_Coast: { label: 'Barbary Coast', before: '#d6d6d6', after: '#232D33' }, // #616662 // (Heritage mug)
   Blue_green: { label: 'Blue Green', before: '#eee0d5', after: '#414431' },
   Brown_green: { label: 'Brown Green', before: '#ecd9ae', after: '#756c43' },
   Brunneous_brown: { label: 'Brunneous Brown', before: '#d28774', after: '#362d2e' },
@@ -9,16 +9,16 @@ const COLOR_LOOKUP = {
   Griege: { label: 'Griege', before: '#ebe0da', after: '#937865' },
   Ivy: { label: 'Ivy', before: '#ece4d9', after: '#aab17b' },
   Kahuto: { label: 'Kahuto', before: '#c9d0c0', after: '#34592d' },
-  Light_brown_Pinecone_vase: { label: 'Brown', before: '#ada8a4', after: '#140c0a' },
+  Light_brown_Pinecone_vase: { label: 'Brown', before: '#ada8a4', after: '#755645' }, // after: '#140c0a'
   Light_brown_Tree_of_Life: { label: 'Light Brown', before: '#d28573', after: '#675b4f' },
   Night_Tide: { label: 'Night Tide', before: '#b9c8cf', after: '#2e4d62' },
   Off_white: { label: 'Off-white', before: '#ede6e0', after: '#e2d6ca' },
   Sargasso_Surf: { label: 'Sargasso Surf', before: '#d3d3d3', after: '#4a7588' },
   Serenade: { label: 'Serenade', before: '#eee7e1', after: '#b2bbc2' },
   Spark: { label: 'Spark', before: '#ebe6e2', after: '#fcf0e4' },
-  Tuscan_Gold: { label: 'Tuscan Gold', before: '#c18a75', after: '#8c6433' },
+  Tuscan_Gold: { label: 'Tuscan Gold', before: '#c18a75', after: '#B27217' }, // #8c6433
   White: { label: 'White', before: '#ece5df', after: '#eae6e3' },
-  Woodland_green: { label: 'Woodland Green', before: '#e0e5de', after: '#727b66' },
+  Woodland_green: { label: 'Woodland Green', before: '#e0e5de', after: '#4F6058' }, // 727b66
 };
 
 const OBJECT_PALETTES = {

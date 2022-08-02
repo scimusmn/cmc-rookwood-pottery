@@ -186,9 +186,9 @@ function SpinnerGroup({
           console.log('[WARNING] No after color for atomizer', beforeColor);
         }
       })
-      console.log('================== ATOMIZER COPY/PASTE START ======================');
+      console.log('================== COPY/PASTE START ======================');
       console.log(JSON.stringify(clonedEditsObj));
-      console.log('================== ATOMIZER COPY/PASTE END ========================');
+      console.log('================== COPY/PASTE END ========================');
     }
     setPreFireEdits(clonedEditsObj);
   }
@@ -256,6 +256,7 @@ function SpinnerGroup({
     <group ref={spinGroupRef} position={(showFired && !showCompare) ? [0, 0, -9] : null}>
       <AtomizerModel 
         key="before-model"
+        pieceName={pieceName}
         modelPath={modelPathBefore} 
         activeColor={activeColor} 
         visible={!showFired}
@@ -265,6 +266,7 @@ function SpinnerGroup({
       />
       <AtomizerModel 
         key="after-model"
+        pieceName={pieceName}
         modelPath={modelPathAfter} 
         scale={scale} 
         visible={showFired}
@@ -276,6 +278,7 @@ function SpinnerGroup({
       />
       <AtomizerModel 
         key="after-ideal-model"
+        pieceName={pieceName}
         modelPath={modelPathAfter} 
         visible={showCompare}
         atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
@@ -302,6 +305,8 @@ function PotteryScene({
   showCompare
 }) { 
   const canvasRef = useRef();
+
+  console.log('PotteryScene', pieceName);
 
   return (
     <div className="scene-container">

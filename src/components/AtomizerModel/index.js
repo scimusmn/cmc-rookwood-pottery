@@ -9,6 +9,7 @@ import chroma from "chroma-js";
 import COLOR_LOOKUP, { PRE_GLAZE_DEFAULT_COLOR, ERASER_COLOR_ID } from '../../data/ColorLookup';
 
 export function AtomizerModel({
+  pieceName,
   modelPath, 
   activeColor, 
   visible, 
@@ -190,16 +191,23 @@ export function AtomizerModel({
       rgb = chroma(rgb).saturate(satVal);
       // Darken all colors
       rgb = rgb.darken(1.1).rgb();
+    } else {
+      // This isn't an ideal place to do this, but these
+      // are color adjustments to help the fired versions
+      // of atomizer colors look closer to real-life colors.
+      if (pieceName === 'Emilia vase' ) rgb = chroma(rgb).darken(1.4).rgb();
+      if (pieceName === '1926 Legacy Panel vase' ) rgb = chroma(rgb).saturate(2).darken(1).rgb();
     }
-    const colorStrInner = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.1)`;
+
+    const colorStrInner = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.05)`;
     const colorStrOuter = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.0)`;
     let colorGradient;
 
     // MULTI-CIRCLE SPRAY
-    const dropletCount = 7;
-    const sprayRadius = 150;
+    const dropletCount = 5;
+    const sprayRadius = 75;
     for (let i = 0; i < dropletCount; i++) {
-      const dropletRadius = 200 + Math.random() * 25;
+      const dropletRadius = 250 + Math.random() * 50;
       let r = sprayRadius * Math.sqrt(Math.random()); // Even distribution
       const theta = Math.random() * 2 * Math.PI;
       const xOffset = r * Math.cos(theta);
@@ -215,7 +223,7 @@ export function AtomizerModel({
         2 * Math.PI
       );
       colorGradient = context.createRadialGradient(drawX, drawY, 0, drawX, drawY, dropletRadius);
-      colorGradient.addColorStop(0.4, colorStrInner);
+      colorGradient.addColorStop(0.5, colorStrInner);
       colorGradient.addColorStop(1, colorStrOuter);
       context.fillStyle = colorGradient;
       context.fill();
@@ -374,8 +382,10 @@ export function AtomizerModel({
     if (visible && edits) {
       if (edits.colors && !atomizerEnabled) {
         Object.keys(edits.colors).forEach(meshName => {
-          applySwatch(meshName, edits.colors[meshName], true);
-          currentColors.current[meshName] = edits.colors[meshName];
+          // const editColor = chroma(edits.colors[meshName]).brighten(0.5).hex();
+          const editColor = edits.colors[meshName];
+          applySwatch(meshName, editColor, true);
+          currentColors.current[meshName] = editColor;
         });
       }
       if (edits.atomizerPoints && atomizerEnabled) {
