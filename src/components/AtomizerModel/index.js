@@ -17,7 +17,8 @@ export function AtomizerModel({
   position,
   rotation,
   atomizerEnabled,
-  spinSpeed
+  spinSpeed,
+  onUpdateReticle
 }) {
 
   const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
@@ -28,16 +29,6 @@ export function AtomizerModel({
   const SPRAY_FRAME_INTERVAL = 4;
 
   const textureRef = useRef(null);
-
-  // Add atomizer reticle
-  // let reticleRef;
-  // if (atomizerEnabled) {
-  //   console.log('add ret');
-  //   reticleRef = useRef(document.createElement('div'));
-  //   reticleRef.current.className = 'atomizer-reticle';
-  //   reticleRef.current.style.visibility = "hidden";
-  //   document.body.appendChild(reticleRef.current);
-  // }
 
   let canvasRef;
   if (atomizerEnabled) canvasRef = useRef(document.createElement("canvas"));
@@ -70,7 +61,8 @@ export function AtomizerModel({
       }
     }
 
-    if (dragging.current === true && atomizerEnabled ) {      
+    if (dragging.current === true && atomizerEnabled ) {     
+      if (onUpdateReticle) onUpdateReticle(mouseX.current, mouseY.current, true); 
       sprayTicker.current += 1;
       if (sprayTicker.current > SPRAY_FRAME_INTERVAL) {
         sprayTicker.current = 0;
@@ -117,8 +109,7 @@ export function AtomizerModel({
     dragging.current = false;
     sprayTicker.current = 0;
 
-    // Hide atomizer reticle
-    // reticleRef.current.style.visibility = "hidden";
+    if (onUpdateReticle) onUpdateReticle(-1, -1, false); 
 
     document.onmouseup = null;
     document.onmousemove = null;
@@ -134,10 +125,6 @@ export function AtomizerModel({
   function mouseMove(e) {
     mouseX.current = e.clientX;
     mouseY.current = e.clientY;
-
-    // Move atomizer reticle
-    // reticleRef.current.style.top = mouseY.current;
-    // reticleRef.current.style.left = mouseX.current;
   }
 
   useLayoutEffect(() => {
@@ -210,9 +197,9 @@ export function AtomizerModel({
 
     // MULTI-CIRCLE SPRAY
     const dropletCount = 7;
-    const sprayRadius = 250;
+    const sprayRadius = 150;
     for (let i = 0; i < dropletCount; i++) {
-      const dropletRadius = 250 + Math.random() * 50;
+      const dropletRadius = 200 + Math.random() * 25;
       let r = sprayRadius * Math.sqrt(Math.random()); // Even distribution
       const theta = Math.random() * 2 * Math.PI;
       const xOffset = r * Math.cos(theta);
@@ -269,10 +256,13 @@ export function AtomizerModel({
     drawToCanvas(sprayData);
   }
 
-  function onTouchDown(e) {
-    // console.log('onTouchDown', e);
+  function onPointerDown(e) {
+    // console.log('onPointerDown', e);
     dragging.current = true;
     latestRayEvt.current = e;
+
+    mouseX.current = e.clientX;
+    mouseY.current = e.clientY;
 
     if (visible) {
       document.onmouseup = releaseDrag;
@@ -280,9 +270,6 @@ export function AtomizerModel({
     }
 
     if (atomizerEnabled) {
-      // Show atomizer reticle
-      // reticleRef.current.style.visibility = "visible";
-
       sprayAtomizer(e);
     } else {
       paintByNumber(e);
@@ -409,7 +396,7 @@ export function AtomizerModel({
 
   return (
     <primitive
-      onPointerDown={(visible && !spinSpeed) ? onTouchDown : null}
+      onPointerDown={(visible && !spinSpeed) ? onPointerDown : null}
       object={clonedScene}
       visible={visible}
       position={position || [0, 0, 0]}
