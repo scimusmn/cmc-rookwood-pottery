@@ -89,17 +89,16 @@ function SpinnerGroup({
   const CAM_POSITION_COMPARE = new THREE.Vector3(-9, 1.75, 0);
   const CAM_LOOKAT_COMPARE = new THREE.Vector3(0, 0.6, 0);
 
-  // const CAM_POSITION_FLAT_COMPARE = new THREE.Vector3(-9, 1.75, 0);
-  // const CAM_LOOKAT_FLAT_COMPARE = new THREE.Vector3(0, 0.6, 0);
-
   const FLAT_ROTATION_COMPARE = [Math.PI/2, 0, Math.PI/2];
 
   const isFlat = PotteryScene.getIsFlatPiece(pieceName);
   const isAtomizer = PotteryScene.getIsAtomizerPiece(pieceName);
 
+  // Setup atomizer reticle
+  const reticleRef = useRef(document.getElementById('reticle'));
+
   useFrame((state, delta) => {
     if ( isAtomizer && !showCompare){
-      // spinGroupRef.current.rotateOnAxis(SPIN_AXIS, SPIN_SPEED);
       wheelTargetRotation.current += SPIN_SPEED;
     }
 
@@ -187,6 +186,9 @@ function SpinnerGroup({
           console.log('[WARNING] No after color for atomizer', beforeColor);
         }
       })
+      console.log('================== COPY/PASTE START ======================');
+      console.log(JSON.stringify(clonedEditsObj));
+      console.log('================== COPY/PASTE END ========================');
     }
     setPreFireEdits(clonedEditsObj);
   }
@@ -238,18 +240,33 @@ function SpinnerGroup({
 		document.ontouchend = null;
   }
 
+  function onUpdateReticle(x, y, visible) {
+
+    if (visible) {
+      reticleRef.current.style.visibility = "visible";
+      reticleRef.current.style.left = `${x}px`;
+      reticleRef.current.style.top = `${y}px`;
+    } else {
+      reticleRef.current.style.visibility = "hidden";
+    }
+    
+  }
+
   return (
     <group ref={spinGroupRef} position={(showFired && !showCompare) ? [0, 0, -9] : null}>
       <AtomizerModel 
         key="before-model"
+        pieceName={pieceName}
         modelPath={modelPathBefore} 
         activeColor={activeColor} 
         visible={!showFired}
         atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
         onUserEdits={(e) => onUserModelEdits(e)}
+        onUpdateReticle={onUpdateReticle}
       />
       <AtomizerModel 
         key="after-model"
+        pieceName={pieceName}
         modelPath={modelPathAfter} 
         scale={scale} 
         visible={showFired}
@@ -261,6 +278,7 @@ function SpinnerGroup({
       />
       <AtomizerModel 
         key="after-ideal-model"
+        pieceName={pieceName}
         modelPath={modelPathAfter} 
         visible={showCompare}
         atomizerEnabled={(PotteryScene.getIsAtomizerPiece(pieceName)) ? true : false}
@@ -287,6 +305,8 @@ function PotteryScene({
   showCompare
 }) { 
   const canvasRef = useRef();
+
+  console.log('PotteryScene', pieceName);
 
   return (
     <div className="scene-container">

@@ -247,7 +247,7 @@ function RookwoodPotteryInteractive({ data }) {
           image={getImage(selectedModel.thumbnail.localFile)}
           loading="eager"
           alt={selectedModel.shortDescription.shortDescription}
-          imgStyle={{ objectFit: 'contain' }}
+          // imgStyle={{ objectFit: 'contain' }}
           style={{
             width: '540px', height: '810px', margin: '0 auto', padding: '0',
           }}
@@ -465,6 +465,7 @@ function RookwoodPotteryInteractive({ data }) {
         { appState === APP_STATE.FIRING && renderFiring() }
         { appState === APP_STATE.RESULTS && renderResults() }
       </div>
+      <div id="reticle" className="atomizer-reticle" />
       <div className={`fade-black-overlay ${showFadeOut ? 'show' : ''}`} />
     </>
   );
