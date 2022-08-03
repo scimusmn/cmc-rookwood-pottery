@@ -112,7 +112,7 @@ export function AtomizerModel({
 
     if (onUpdateReticle) onUpdateReticle(-1, -1, false); 
 
-    console.log('AtomizerModel releaseDrag()');
+    console.log('Atomizer Model releaseDrag()');
     document.onmouseup = null;
     document.onmousemove = null;
     document.ontouchmove = null;
