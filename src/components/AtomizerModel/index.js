@@ -110,6 +110,7 @@ export function AtomizerModel({
     dragging.current = false;
     sprayTicker.current = 0;
 
+    // console.log('releaseDrag');
     if (onUpdateReticle) onUpdateReticle(-1, -1, false); 
 
     document.onmouseup = null;
@@ -124,6 +125,7 @@ export function AtomizerModel({
   }
 
   function mouseMove(e) {
+    // console.log('mouseMove', e);
     mouseX.current = e.clientX;
     mouseY.current = e.clientY;
   }

@@ -1,7 +1,7 @@
 const COLOR_LOOKUP = {
   Acanthus: { label: 'Acanthus', before: '#e3e4de', after: '#658d85' },
   Aegean: { label: 'Aegean', before: '#e7e3e0', after: '#011f5d' },
-  Barbary_Coast: { label: 'Barbary Coast', before: '#d6d6d6', after: '#232D33' }, // #616662 // (Heritage mug)
+  Barbary_Coast: { label: 'Barbary Coast', before: '#d6d6d6', after: '#0e1119' }, // #616662 // (Heritage mug)
   Blue_green: { label: 'Blue Green', before: '#eee0d5', after: '#414431' },
   Brown_green: { label: 'Brown Green', before: '#ecd9ae', after: '#756c43' },
   Brunneous_brown: { label: 'Brunneous Brown', before: '#d28774', after: '#362d2e' },

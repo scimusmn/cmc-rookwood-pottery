@@ -207,7 +207,7 @@ function SpinnerGroup({
 
   function onWheelDown (e) {
     if (showCompare) return;
-    console.log('onWheelDown', e);
+    // console.log('onWheelDown', e);
 
     document.ontouchmove = onWheelMove;
     document.ontouchend = onWheelUp;
@@ -234,6 +234,7 @@ function SpinnerGroup({
   }
 
   function onWheelUp (e) {
+    // console.log('PotteryScene onWheelUp', e);
     document.onmousemove = null;
 		document.onmouseup = null;
     document.ontouchmove = null;
@@ -247,6 +248,7 @@ function SpinnerGroup({
       reticleRef.current.style.left = `${x}px`;
       reticleRef.current.style.top = `${y}px`;
     } else {
+      // console.log('hide reticle');
       reticleRef.current.style.visibility = "hidden";
     }
     
@@ -305,8 +307,6 @@ function PotteryScene({
   showCompare
 }) { 
   const canvasRef = useRef();
-
-  console.log('PotteryScene', pieceName);
 
   return (
     <div className="scene-container">
