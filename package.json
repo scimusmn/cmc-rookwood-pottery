@@ -28,7 +28,8 @@
     "react-helmet": "^6.1.0",
     "react-idle-timer": "^5.4.0",
     "three": "^0.139.2",
-    "use-interval": "^1.4.0"
+    "use-interval": "^1.4.0",
+    "use-local-storage": "^2.3.6"
   },
   "devDependencies": {
     "chalk": "^4.1.2",
