@@ -110,11 +110,13 @@ export function AtomizerModel({
     dragging.current = false;
     sprayTicker.current = 0;
 
-    // console.log('releaseDrag');
+    console.log('releaseDrag');
     if (onUpdateReticle) onUpdateReticle(-1, -1, false); 
 
     document.onmouseup = null;
     document.onmousemove = null;
+    document.ontouchmove = null;
+		document.ontouchend = null;
 
     dragging.current = false;
     latestRayEvt.current = null;
@@ -125,9 +127,16 @@ export function AtomizerModel({
   }
 
   function mouseMove(e) {
-    // console.log('mouseMove', e);
-    mouseX.current = e.clientX;
-    mouseY.current = e.clientY;
+    console.log('mouseMove', e);
+
+    if (e.touches) {
+      mouseX.current = e.touches[0].clientX;
+      mouseY.current = e.touches[0].clientY;
+    } else {
+      mouseX.current = e.clientX;
+      mouseY.current = e.clientY;
+    }
+    
   }
 
   useLayoutEffect(() => {
@@ -275,6 +284,8 @@ export function AtomizerModel({
     mouseY.current = e.clientY;
 
     if (visible) {
+      document.ontouchend = releaseDrag;
+      document.ontouchmove = mouseMove;
       document.onmouseup = releaseDrag;
       document.onmousemove = mouseMove;
     }
