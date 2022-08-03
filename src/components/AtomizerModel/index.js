@@ -277,7 +277,7 @@ export function AtomizerModel({
   }
 
   function onPointerDown(e) {
-    // console.log('onPointerDown', e);
+    console.log('onPointerDown', e);
     dragging.current = true;
     latestRayEvt.current = e;
 
@@ -285,6 +285,7 @@ export function AtomizerModel({
     mouseY.current = e.clientY;
 
     if (visible) {
+      console.log('Atomizer Model adding all events');
       document.ontouchend = releaseDrag;
       document.ontouchmove = mouseMove;
       document.onmouseup = releaseDrag;
