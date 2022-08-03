@@ -110,9 +110,9 @@ export function AtomizerModel({
     dragging.current = false;
     sprayTicker.current = 0;
 
-    console.log('releaseDrag');
     if (onUpdateReticle) onUpdateReticle(-1, -1, false); 
 
+    console.log('AtomizerModel releaseDrag()');
     document.onmouseup = null;
     document.onmousemove = null;
     document.ontouchmove = null;
@@ -127,14 +127,15 @@ export function AtomizerModel({
   }
 
   function mouseMove(e) {
-    console.log('mouseMove', e);
 
     if (e.touches) {
       mouseX.current = e.touches[0].clientX;
       mouseY.current = e.touches[0].clientY;
+      console.log('Atomizer Model mouseMove touch', mouseX.current, mouseY.current);
     } else {
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
+      console.log('Atomizer Model mouseMove mouse', mouseX.current, mouseY.current);
     }
     
   }

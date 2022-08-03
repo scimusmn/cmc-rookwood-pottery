@@ -136,14 +136,14 @@ function RookwoodPotteryInteractive({ data }) {
 
   function filterMultiTouch(e) {
     if (e.touches.length > 1) {
-      console.log('Filtering multi-touch');
+      console.log('[WARNING] Preventing multi-touch');
       e.preventDefault();
     }
   }
 
   useEffect(() => {
-    window.ontouchstart = filterMultiTouch;
-    return () => { window.ontouchstart = null; };
+    document.ontouchstart = filterMultiTouch;
+    return () => { document.ontouchstart = null; };
   }, []);
 
   useEffect(() => {
