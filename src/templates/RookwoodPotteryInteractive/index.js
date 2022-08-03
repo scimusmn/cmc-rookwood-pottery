@@ -5,6 +5,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Modal } from 'react-bootstrap';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { useIdleTimer } from 'react-idle-timer';
+import useLocalStorage from 'use-local-storage';
 import PotteryScene from '../../components/PotteryScene';
 import MenuHUD from '../../components/MenuHUD';
 import Video from '../../components/Video';
@@ -120,7 +121,9 @@ function RookwoodPotteryInteractive({ data }) {
     resultsBgImage,
   } = contentfulRookwoodPotteryInteractive;
 
-  const [appState, setAppState] = useState(APP_STATE.ATTRACT);
+  const [reloadScreen, setReloadScreen] = useLocalStorage('reloadScreen', APP_STATE.ATTRACT);
+
+  const [appState, setAppState] = useState(reloadScreen);
   const [showFadeOut, setShowFadeOut] = useState(true);
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedTargetMesh, setSelectedTargetMesh] = useState(null);
@@ -170,9 +173,14 @@ function RookwoodPotteryInteractive({ data }) {
     if (selection.color) setSelectedColor(selection.color);
   };
 
-  const fadeToBlackReset = () => {
+  const fadeToBlackReset = (skipAttract) => {
     setShowAreYouSureModal(false);
     setShowFadeOut(true);
+    if (skipAttract) {
+      setReloadScreen(APP_STATE.SELECTION_GALLERY);
+    } else {
+      setReloadScreen(APP_STATE.ATTRACT);
+    }
     setTimeout(() => {
       window.location.reload();
     }, 1100);
@@ -191,7 +199,7 @@ function RookwoodPotteryInteractive({ data }) {
     timeout: INACTIVITY_TIMEOUT_SECS * 1000,
     debounce: 500,
     startOnMount: false,
-    onIdle: () => fadeToBlackReset(),
+    onIdle: () => fadeToBlackReset(false),
   });
 
   function renderAttract() {
@@ -362,7 +370,7 @@ function RookwoodPotteryInteractive({ data }) {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" className="btn primary" onClick={() => fadeToBlackReset()}>
+            <button type="button" className="btn primary" onClick={() => fadeToBlackReset(true)}>
               YES
             </button>
             <button type="button" className="btn primary" onClick={() => setShowAreYouSureModal(false)}>
@@ -433,7 +441,7 @@ function RookwoodPotteryInteractive({ data }) {
             imgStyle={{ objectFit: 'cover' }}
           />
         </div>
-        <button type="button" className="btn secondary home" onClick={() => fadeToBlackReset()}>
+        <button type="button" className="btn secondary home" onClick={() => fadeToBlackReset(true)}>
           <span className="icon-home" />
           <span className="label">HOME</span>
         </button>

@@ -179,6 +179,9 @@ button,
 
 .studio-screen .original-preview {
   background: #f1eee9;
+
+  /* Temp: Hiding because this feature was disabled for launch. */
+  display: none;
   height: 185px;
   left: 56px;
   position: absolute;
@@ -197,7 +200,7 @@ button,
 }
 
 .atomizer-reticle {
-  background-image: url(./icons/flame.svg);
+  background-image: url(./icons/ring.png);
   background-position: center;
   background-repeat: no-repeat;
   height: 200px;
