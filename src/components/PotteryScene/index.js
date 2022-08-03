@@ -209,10 +209,12 @@ function SpinnerGroup({
     if (showCompare) return;
     console.log('PotteryScene onWheelDown', e);
 
-    document.ontouchmove = onWheelMove;
-    document.ontouchend = onWheelUp;
-    document.onmousemove = onWheelMove;
-    document.onmouseup = onWheelUp;
+    // document.ontouchmove = onWheelMove;
+    // document.ontouchend = onWheelUp;
+    // document.onmousemove = onWheelMove;
+    // document.onmouseup = onWheelUp;
+    document.onpointermove = onWheelMove;
+    document.onpointerup = onWheelUp;
 
     wheelDragStartX.current = e.clientX - (1920 / 2);
 		wheelDragStartRotation.current = wheelTargetRotation.current;
@@ -236,10 +238,12 @@ function SpinnerGroup({
 
   function onWheelUp (e) {
     console.log('PotteryScene onWheelUp');
-    document.onmousemove = null;
-		document.onmouseup = null;
-    document.ontouchmove = null;
-		document.ontouchend = null;
+    // document.onmousemove = null;
+		// document.onmouseup = null;
+    // document.ontouchmove = null;
+		// document.ontouchend = null;
+    document.onpointermove = null;
+    document.onpointerup = null;
   }
 
   function onUpdateReticle(x, y, visible) {

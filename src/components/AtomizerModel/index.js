@@ -113,10 +113,12 @@ export function AtomizerModel({
     if (onUpdateReticle) onUpdateReticle(-1, -1, false); 
 
     console.log('Atomizer Model releaseDrag()');
-    document.onmouseup = null;
-    document.onmousemove = null;
-    document.ontouchmove = null;
-		document.ontouchend = null;
+    // document.onmouseup = null;
+    // document.onmousemove = null;
+    // document.ontouchmove = null;
+		// document.ontouchend = null;
+    document.onpointermove = mouseMove;
+    document.onpointerup = releaseDrag;
 
     dragging.current = false;
     latestRayEvt.current = null;
@@ -286,10 +288,12 @@ export function AtomizerModel({
 
     if (visible) {
       console.log('Atomizer Model adding all events');
-      document.ontouchend = releaseDrag;
-      document.ontouchmove = mouseMove;
-      document.onmouseup = releaseDrag;
-      document.onmousemove = mouseMove;
+      // document.ontouchend = releaseDrag;
+      // document.ontouchmove = mouseMove;
+      // document.onmouseup = releaseDrag;
+      // document.onmousemove = mouseMove;
+      document.onpointermove = mouseMove;
+      document.onpointerup = releaseDrag;
     }
 
     if (atomizerEnabled) {
