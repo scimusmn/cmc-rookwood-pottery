@@ -21,7 +21,7 @@ export function AtomizerModel({
   spinSpeed,
   onUpdateReticle
 }) {
-
+  console.log('Atomizer Model init');
   const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
   const SPIN_AXIS_FLAT = new THREE.Vector3(0, 0, 1);
 

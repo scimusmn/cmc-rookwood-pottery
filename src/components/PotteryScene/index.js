@@ -69,6 +69,7 @@ function SpinnerGroup({
   showFired,
   showCompare
 }) { 
+  console.log('SpinnerGroup init');
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
   const unfiredUserEdits = useRef();
