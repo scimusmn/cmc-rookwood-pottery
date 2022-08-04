@@ -21,7 +21,6 @@ export function AtomizerModel({
   spinSpeed,
   onUpdateReticle
 }) {
-  console.log('Atomizer Model init');
   const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
   const SPIN_AXIS_FLAT = new THREE.Vector3(0, 0, 1);
 
@@ -112,15 +111,8 @@ export function AtomizerModel({
 
     if (onUpdateReticle) onUpdateReticle(-1, -1, false); 
 
-    console.log('Atomizer Model releaseDrag()');
-    console.log(e);
-    // document.onmouseup = null;
-    // document.onmousemove = null;
-    // document.ontouchmove = null;
-		// document.ontouchend = null;
     document.onpointermove = null;
     document.onpointerup = null;
-
     document.onpointercancel = null;
     document.onpointerout = null;
     document.onpointerleave = null;
@@ -138,11 +130,9 @@ export function AtomizerModel({
     if (e.touches) {
       mouseX.current = e.touches[0].clientX;
       mouseY.current = e.touches[0].clientY;
-      console.log('Atomizer Model mouseMove touch', mouseX.current, mouseY.current);
     } else {
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
-      console.log('Atomizer Model mouseMove mouse', mouseX.current, mouseY.current);
     }
     
   }
@@ -179,7 +169,6 @@ export function AtomizerModel({
 
     console.log('model', pieceName, modelPath);
     console.log('meshTargets', meshTargets);
-    // console.log('topLevelTargets', topLevelTargets);
 
     if (atomizerEnabled) {
       // Add canvas texture to existing material
@@ -285,7 +274,6 @@ export function AtomizerModel({
   }
 
   function onPointerDown(e) {
-    console.log('Atomizer Model onPointerDown', e);
     dragging.current = true;
     latestRayEvt.current = e;
 
@@ -293,14 +281,8 @@ export function AtomizerModel({
     mouseY.current = e.clientY;
 
     if (visible) {
-      console.log('Atomizer Model adding all events');
-      // document.ontouchend = releaseDrag;
-      // document.ontouchmove = mouseMove;
-      // document.onmouseup = releaseDrag;
-      // document.onmousemove = mouseMove;
       document.onpointermove = mouseMove;
       document.onpointerup = releaseDrag;
-
       document.onpointercancel = releaseDrag;
       document.onpointerout = releaseDrag;
       document.onpointerleave = releaseDrag;

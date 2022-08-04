@@ -208,7 +208,7 @@ function RookwoodPotteryInteractive({ data }) {
         <div className="side-panel left">
           <h1>{homeTitle}</h1>
           <p>{homeSubhead.homeSubhead}</p>
-          <button type="button" className="btn primary begin" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
+          <button type="button" className="btn primary begin" onPointerDown={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
             BEGIN
           </button>
         </div>
@@ -225,7 +225,7 @@ function RookwoodPotteryInteractive({ data }) {
         </div>
         <div className="selections-container">
           {modelSelections.map((selection) => (
-            <button key={selection.id} type="button" className="selection-button" onClick={() => setSelectedModel(selection)}>
+            <button key={selection.id} type="button" className="selection-button" onPointerDown={() => setSelectedModel(selection)}>
               <GatsbyImage
                 image={getImage(selection.thumbnail.localFile)}
                 loading="eager"
@@ -248,7 +248,7 @@ function RookwoodPotteryInteractive({ data }) {
   function renderSelection() {
     return (
       <div className="selection-screen">
-        <button type="button" className="btn secondary back" onClick={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
+        <button type="button" className="btn secondary back" onPointerDown={() => setAppState(APP_STATE.SELECTION_GALLERY)}>
           BACK
         </button>
         <GatsbyImage
@@ -263,7 +263,7 @@ function RookwoodPotteryInteractive({ data }) {
         <h2>{selectedModel.name}</h2>
         <h3>{selectedModel.historicalTag}</h3>
         <p>{selectedModel.shortDescription.shortDescription}</p>
-        <button type="button" className="btn primary select" onClick={() => setAppState(APP_STATE.STUDIO)}>
+        <button type="button" className="btn primary select" onPointerDown={() => setAppState(APP_STATE.STUDIO)}>
           SELECT
         </button>
       </div>
@@ -298,7 +298,7 @@ function RookwoodPotteryInteractive({ data }) {
             </div>
           </div>
         </button>
-        <button type="button" className="btn secondary home" onClick={() => setShowAreYouSureModal(true)}>
+        <button type="button" className="btn secondary home" onPointerDown={() => setShowAreYouSureModal(true)}>
           <span className="icon-home" />
           <span className="label">HOME</span>
         </button>
@@ -328,7 +328,7 @@ function RookwoodPotteryInteractive({ data }) {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" className="btn primary select" onClick={() => setShowLoadingModal(false)}>
+            <button type="button" className="btn primary select" onPointerDown={() => setShowLoadingModal(false)}>
               LET&apos;S GO
             </button>
           </Modal.Footer>
@@ -348,10 +348,10 @@ function RookwoodPotteryInteractive({ data }) {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" className="btn primary" onClick={() => setShowReadyModal(false)}>
+            <button type="button" className="btn primary" onPointerDown={() => setShowReadyModal(false)}>
               NO
             </button>
-            <button type="button" className="btn primary" onClick={() => startFiringSequence()}>
+            <button type="button" className="btn primary" onPointerDown={() => startFiringSequence()}>
               YES
             </button>
           </Modal.Footer>
@@ -370,10 +370,10 @@ function RookwoodPotteryInteractive({ data }) {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" className="btn primary" onClick={() => fadeToBlackReset(true)}>
+            <button type="button" className="btn primary" onPointerDown={() => fadeToBlackReset(true)}>
               YES
             </button>
-            <button type="button" className="btn primary" onClick={() => setShowAreYouSureModal(false)}>
+            <button type="button" className="btn primary" onPointerDown={() => setShowAreYouSureModal(false)}>
               NO
             </button>
           </Modal.Footer>
