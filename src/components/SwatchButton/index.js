@@ -24,11 +24,13 @@ function SwatchButton({
           borderWidth: selected ? '4px' : '1.5px',
         }}
         onClick={() => handleSelection()}
+        onPointerDown={() => handleSelection()}
         type="button"
       />
       <br />
       <span
         onClick={() => handleSelection()}
+        onPointerDown={() => handleSelection()}
         style={{
           fontFamily: selected ? 'Merriweather-bold' : 'Merriweather',
         }}
