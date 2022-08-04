@@ -9,7 +9,7 @@ const COLOR_LOOKUP = {
   Griege: { label: 'Griege', before: '#ebe0da', after: '#937865' },
   Ivy: { label: 'Ivy', before: '#ece4d9', after: '#aab17b' },
   Kahuto: { label: 'Kahuto', before: '#c9d0c0', after: '#34592d' },
-  Light_brown_Pinecone_vase: { label: 'Brown', before: '#ada8a4', after: '#755645' }, // after: '#140c0a'
+  Light_brown_Pinecone_vase: { label: 'Brown', before: '#ada8a4', after: '#856655' }, // after: '#140c0a'
   Light_brown_Tree_of_Life: { label: 'Light Brown', before: '#d28573', after: '#675b4f' },
   Night_Tide: { label: 'Night Tide', before: '#b9c8cf', after: '#2e4d62' },
   Off_white: { label: 'Off-white', before: '#ede6e0', after: '#e2d6ca' },
