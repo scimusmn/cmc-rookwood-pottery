@@ -9,8 +9,12 @@ function IndexPage() {
   }
 
   useEffect(() => {
+    console.log('setting up touchmove');
     document.ontouchmove = touchMove;
-    return () => { document.ontouchmove = null; };
+    return () => {
+      console.log('removing touchmove');
+      document.ontouchmove = null;
+    };
   }, []);
 
   return (

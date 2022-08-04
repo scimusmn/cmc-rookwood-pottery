@@ -134,17 +134,17 @@ function RookwoodPotteryInteractive({ data }) {
   const [showReadyModal, setShowReadyModal] = useState(false);
   const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
 
-  function filterMultiTouch(e) {
-    if (e.touches.length > 1) {
-      console.log('[WARNING] Preventing multi-touch');
-      e.preventDefault();
-    }
-  }
+  // function filterMultiTouch(e) {
+  //   if (e.touches.length > 1) {
+  //     console.log('[WARNING] Preventing multi-touch');
+  //     e.preventDefault();
+  //   }
+  // }
 
-  useEffect(() => {
-    document.ontouchstart = filterMultiTouch;
-    return () => { document.ontouchstart = null; };
-  }, []);
+  // useEffect(() => {
+  //   document.ontouchstart = filterMultiTouch;
+  //   return () => { document.ontouchstart = null; };
+  // }, []);
 
   useEffect(() => {
     setShowFadeOut(false);

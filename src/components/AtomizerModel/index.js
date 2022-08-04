@@ -112,7 +112,7 @@ export function AtomizerModel({
 
     if (onUpdateReticle) onUpdateReticle(-1, -1, false); 
 
-    // console.log('Atomizer Model releaseDrag()');
+    console.log('Atomizer Model releaseDrag()');
     // document.onmouseup = null;
     // document.onmousemove = null;
     // document.ontouchmove = null;
@@ -133,11 +133,11 @@ export function AtomizerModel({
     if (e.touches) {
       mouseX.current = e.touches[0].clientX;
       mouseY.current = e.touches[0].clientY;
-      // console.log('Atomizer Model mouseMove touch', mouseX.current, mouseY.current);
+      console.log('Atomizer Model mouseMove touch', mouseX.current, mouseY.current);
     } else {
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
-      // console.log('Atomizer Model mouseMove mouse', mouseX.current, mouseY.current);
+      console.log('Atomizer Model mouseMove mouse', mouseX.current, mouseY.current);
     }
     
   }
@@ -280,7 +280,7 @@ export function AtomizerModel({
   }
 
   function onPointerDown(e) {
-    // console.log('onPointerDown', e);
+    console.log('Atomizer Model onPointerDown', e);
     dragging.current = true;
     latestRayEvt.current = e;
 
@@ -288,7 +288,7 @@ export function AtomizerModel({
     mouseY.current = e.clientY;
 
     if (visible) {
-      // console.log('Atomizer Model adding all events');
+      console.log('Atomizer Model adding all events');
       // document.ontouchend = releaseDrag;
       // document.ontouchmove = mouseMove;
       // document.onmouseup = releaseDrag;
