@@ -207,7 +207,7 @@ function SpinnerGroup({
 
   function onWheelDown (e) {
     if (showCompare) return;
-    console.log('PotteryScene onWheelDown', e);
+    // console.log('PotteryScene onWheelDown', e);
 
     // document.ontouchmove = onWheelMove;
     // document.ontouchend = onWheelUp;
@@ -226,10 +226,10 @@ function SpinnerGroup({
 
     if (e.touches) {
       pointerX = e.touches[0].clientX;
-      console.log('PotteryScene onWheelMove Touch', pointerX);
+      // console.log('PotteryScene onWheelMove Touch', pointerX);
     } else {
       pointerX = e.clientX;
-      console.log('PotteryScene onWheelMove Mouse', pointerX);
+      // console.log('PotteryScene onWheelMove Mouse', pointerX);
     }
 
     const wheelXOffset = ( pointerX - (1920/2) ) - wheelDragStartX.current;
@@ -237,7 +237,7 @@ function SpinnerGroup({
   }
 
   function onWheelUp (e) {
-    console.log('PotteryScene onWheelUp');
+    // console.log('PotteryScene onWheelUp');
     // document.onmousemove = null;
 		// document.onmouseup = null;
     // document.ontouchmove = null;
@@ -253,7 +253,7 @@ function SpinnerGroup({
       reticleRef.current.style.left = `${x}px`;
       reticleRef.current.style.top = `${y}px`;
     } else {
-      console.log('hide reticle');
+      // console.log('hide reticle');
       reticleRef.current.style.visibility = "hidden";
     }
     
