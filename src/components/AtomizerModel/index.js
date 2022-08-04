@@ -106,19 +106,24 @@ export function AtomizerModel({
 
   }
 
-  function releaseDrag() {
+  function releaseDrag(e) {
     dragging.current = false;
     sprayTicker.current = 0;
 
     if (onUpdateReticle) onUpdateReticle(-1, -1, false); 
 
     console.log('Atomizer Model releaseDrag()');
+    console.log(e);
     // document.onmouseup = null;
     // document.onmousemove = null;
     // document.ontouchmove = null;
 		// document.ontouchend = null;
     document.onpointermove = null;
     document.onpointerup = null;
+
+    document.onpointercancel = null;
+    document.onpointerout = null;
+    document.onpointerleave = null;
 
     dragging.current = false;
     latestRayEvt.current = null;
@@ -295,6 +300,10 @@ export function AtomizerModel({
       // document.onmousemove = mouseMove;
       document.onpointermove = mouseMove;
       document.onpointerup = releaseDrag;
+
+      document.onpointercancel = releaseDrag;
+      document.onpointerout = releaseDrag;
+      document.onpointerleave = releaseDrag;
     }
 
     if (atomizerEnabled) {

@@ -68,7 +68,7 @@ function SpinnerGroup({
   activeColor, 
   showFired,
   showCompare
-}) { 
+}) {
   console.log('SpinnerGroup init');
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
@@ -207,6 +207,7 @@ function SpinnerGroup({
   }
 
   function onWheelDown (e) {
+    return;// TEMP!!!
     if (showCompare) return;
     console.log('PotteryScene onWheelDown', e);
 
@@ -216,6 +217,9 @@ function SpinnerGroup({
     // document.onmouseup = onWheelUp;
     document.onpointermove = onWheelMove;
     document.onpointerup = onWheelUp;
+    document.onpointercancel = onWheelUp;
+    document.onpointerout = onWheelUp;
+    document.onpointerleave = onWheelUp;
 
     wheelDragStartX.current = e.clientX - (1920 / 2);
 		wheelDragStartRotation.current = wheelTargetRotation.current;
@@ -245,6 +249,9 @@ function SpinnerGroup({
 		// document.ontouchend = null;
     document.onpointermove = null;
     document.onpointerup = null;
+    document.onpointercancel = null;
+    document.onpointerout = null;
+    document.onpointerleave = null;
   }
 
   function onUpdateReticle(x, y, visible) {
