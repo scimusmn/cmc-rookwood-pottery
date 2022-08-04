@@ -207,7 +207,6 @@ function SpinnerGroup({
   }
 
   function onWheelDown (e) {
-    return;// TEMP!!!
     if (showCompare) return;
     console.log('PotteryScene onWheelDown', e);
 
