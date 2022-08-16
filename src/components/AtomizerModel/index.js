@@ -204,8 +204,8 @@ export function AtomizerModel({
       // This isn't an ideal place to do this, but these
       // are color adjustments to help the fired versions
       // of atomizer colors look closer to real-life colors.
-      if (pieceName === 'Emilia vase' && color === COLOR_LOOKUP.Woodland_green.after) rgb = chroma(rgb).darken(1.4).rgb();
-      if (pieceName === '1926 Legacy Panel vase' && color === COLOR_LOOKUP.Tuscan_Gold.after) rgb = chroma(rgb).saturate(2).darken(1).rgb();
+      if (color === COLOR_LOOKUP.Woodland_green.after) rgb = chroma(rgb).darken(1.4).rgb();
+      if (color === COLOR_LOOKUP.Tuscan_Gold.after) rgb = chroma(rgb).saturate(2).darken(1).rgb();
     }
 
     const colorStrInner = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.05)`;

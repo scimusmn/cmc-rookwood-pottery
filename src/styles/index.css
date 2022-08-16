@@ -179,9 +179,6 @@ button,
 
 .studio-screen .original-preview {
   background: #f1eee9;
-
-  /* Temp: Hiding because this feature was disabled for launch. */
-  display: none;
   height: 185px;
   left: 56px;
   position: absolute;
@@ -609,20 +606,37 @@ span.icon-home {
 }
 
 .results-screen .original-preview.your {
-  left: 500px;
+  left: 523px;
 }
 
 .results-screen .original-preview.orig {
-  left: 1220px;
+  left: 1208px;
 }
 
 .results-screen .original-preview p {
-  font-family: Merriweather, serif;
-  font-size: 20px;
+  font-family: Nord, sans-serif;
+  font-size: 22px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 800;
   line-height: 123%;
-  margin-top: 12px;
+  margin-top: 10px;
+}
+
+.results-screen .btn.start-over {
+  border: 1px solid #364015;
+  border-bottom: 5px solid #ffb600;
+  box-shadow: 0 4px 13px 1px rgb(54 64 21 / 22%);
+  height: 45px;
+  left: 84%;
+  position: fixed;
+  top: 90.5%;
+  width: 242px;
+  z-index: 5;
+}
+
+.results-screen .factoids-bar .fade-show-element {
+  left: 36%;
+  width: 615px;
 }
 
 .menu-hud {

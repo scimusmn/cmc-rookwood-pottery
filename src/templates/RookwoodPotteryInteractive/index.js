@@ -441,9 +441,8 @@ function RookwoodPotteryInteractive({ data }) {
             imgStyle={{ objectFit: 'cover' }}
           />
         </div>
-        <button type="button" className="btn secondary home" onClick={() => fadeToBlackReset(true)}>
-          <span className="icon-home" />
-          <span className="label">HOME</span>
+        <button type="button" className="btn primary start-over" onPointerDown={() => fadeToBlackReset(true)}>
+          START OVER
         </button>
         <div className="factoids-bar">
           <h2>{resultsTitle}</h2>
