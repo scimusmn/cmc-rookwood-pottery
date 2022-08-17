@@ -133,18 +133,7 @@ function RookwoodPotteryInteractive({ data }) {
   const [showLoadingModal, setShowLoadingModal] = useState(true);
   const [showReadyModal, setShowReadyModal] = useState(false);
   const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
-
-  // function filterMultiTouch(e) {
-  //   if (e.touches.length > 1) {
-  //     console.log('[WARNING] Preventing multi-touch');
-  //     e.preventDefault();
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   document.ontouchstart = filterMultiTouch;
-  //   return () => { document.ontouchstart = null; };
-  // }, []);
+  const [showOriginalModal, setShowOriginalModal] = useState(false);
 
   useEffect(() => {
     setShowFadeOut(false);
@@ -302,7 +291,7 @@ function RookwoodPotteryInteractive({ data }) {
           <span className="icon-home" />
           <span className="label">HOME</span>
         </button>
-        <div className="original-preview">
+        <div className="original-preview" onPointerDown={() => setShowOriginalModal(true)}>
           <GatsbyImage
             image={getImage(selectedModel.thumbnail.localFile)}
             loading="eager"
@@ -377,6 +366,25 @@ function RookwoodPotteryInteractive({ data }) {
               NO
             </button>
           </Modal.Footer>
+        </Modal>
+        <Modal
+          key="originalPreview"
+          className="full-bleed"
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={showOriginalModal}
+        >
+          <button type="button" className="x-close" onPointerDown={() => setShowOriginalModal(false)} />
+          <GatsbyImage
+            image={getImage(selectedModel.thumbnail.localFile)}
+            loading="eager"
+            alt={selectedModel.shortDescription.shortDescription}
+            imgStyle={{ objectFit: 'contain' }}
+            style={{
+              width: '100%', height: '100%', margin: '0 auto', padding: '0',
+            }}
+          />
         </Modal>
       </div>
     );

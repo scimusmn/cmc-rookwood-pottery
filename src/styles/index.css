@@ -185,6 +185,7 @@ button,
   text-align: center;
   top: 895px;
   width: 119px;
+  z-index: 9;
 }
 
 .studio-screen .original-preview p {
@@ -194,6 +195,25 @@ button,
   font-weight: 400;
   line-height: 123%;
   margin-top: 30px;
+}
+
+.full-bleed .modal-content {
+  padding: 0;
+}
+
+.full-bleed .x-close {
+  background: url(./icons/x-close.svg) no-repeat top left;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  height: 43px;
+  outline: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 43px;
+  z-index: 9;
 }
 
 .atomizer-reticle {
