@@ -189,7 +189,8 @@ button,
 }
 
 .studio-screen .original-preview p {
-  font-family: Merriweather, serif;
+  /* font-family: Merriweather, serif; */
+  font-family: Nord, sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;

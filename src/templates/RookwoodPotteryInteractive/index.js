@@ -309,6 +309,7 @@ function RookwoodPotteryInteractive({ data }) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showLoadingModal}
+          onHide={() => setShowLoadingModal(false)}
         >
           <Modal.Body>
             <h4>ALMOST READY</h4>
@@ -328,6 +329,7 @@ function RookwoodPotteryInteractive({ data }) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showReadyModal}
+          onHide={() => setShowReadyModal(false)}
         >
           <Modal.Body>
             <h4>ARE YOU READY?</h4>
@@ -351,6 +353,7 @@ function RookwoodPotteryInteractive({ data }) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showAreYouSureModal}
+          onHide={() => setShowAreYouSureModal(false)}
         >
           <Modal.Body>
             <h4>ARE YOU SURE?</h4>
@@ -374,6 +377,7 @@ function RookwoodPotteryInteractive({ data }) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showOriginalModal}
+          onHide={() => setShowOriginalModal(false)}
         >
           <button type="button" className="x-close" onPointerDown={() => setShowOriginalModal(false)} />
           <GatsbyImage
