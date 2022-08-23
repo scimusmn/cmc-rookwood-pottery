@@ -8,7 +8,7 @@ const COLOR_LOOKUP = {
   Devon: { label: 'Devon', before: '#ecd8ae', after: '#706843' },
   Griege: { label: 'Griege', before: '#ebe0da', after: '#937865' },
   Ivy: { label: 'Ivy', before: '#ece4d9', after: '#aab17b' },
-  Kahuto: { label: 'Kahuto', before: '#c9d0c0', after: '#34592d' },
+  Kahuto: { label: 'Kahuto', before: '#c9d0c0', after: '#4A6C40' }, // 34592d
   Light_brown_Pinecone_vase: { label: 'Brown', before: '#ada8a4', after: '#856655' }, // after: '#140c0a'
   Light_brown_Tree_of_Life: { label: 'Light Brown', before: '#d28573', after: '#675b4f' },
   Night_Tide: { label: 'Night Tide', before: '#b9c8cf', after: '#2e4d62' },
@@ -48,7 +48,7 @@ const OBJECT_PALETTES = {
     'Night_Tide',
     'Serenade',
     'Brunneous_brown',
-    'Off_white',
+    'Woodland_green',
   ],
   ASHBEE_FLORA_TILE: [
     'Aegean',

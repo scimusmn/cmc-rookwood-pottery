@@ -69,7 +69,6 @@ function SpinnerGroup({
   showFired,
   showCompare
 }) {
-  console.log('SpinnerGroup init');
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
   const unfiredUserEdits = useRef();
@@ -187,9 +186,9 @@ function SpinnerGroup({
           console.log('[WARNING] No after color for atomizer', beforeColor);
         }
       })
-      console.log('================== COPY/PASTE START ======================');
-      console.log(JSON.stringify(clonedEditsObj));
-      console.log('================== COPY/PASTE END ========================');
+      // console.log('================== COPY/PASTE START ======================');
+      // console.log(JSON.stringify(clonedEditsObj));
+      // console.log('================== COPY/PASTE END ========================');
     }
     setPreFireEdits(clonedEditsObj);
   }
@@ -208,12 +207,6 @@ function SpinnerGroup({
 
   function onWheelDown (e) {
     if (showCompare) return;
-    console.log('PotteryScene onWheelDown', e);
-
-    // document.ontouchmove = onWheelMove;
-    // document.ontouchend = onWheelUp;
-    // document.onmousemove = onWheelMove;
-    // document.onmouseup = onWheelUp;
     document.onpointermove = onWheelMove;
     document.onpointerup = onWheelUp;
     document.onpointercancel = onWheelUp;
@@ -230,10 +223,8 @@ function SpinnerGroup({
 
     if (e.touches) {
       pointerX = e.touches[0].clientX;
-      console.log('PotteryScene onWheelMove Touch', pointerX);
     } else {
       pointerX = e.clientX;
-      console.log('PotteryScene onWheelMove Mouse', pointerX);
     }
 
     const wheelXOffset = ( pointerX - (1920/2) ) - wheelDragStartX.current;
@@ -241,11 +232,7 @@ function SpinnerGroup({
   }
 
   function onWheelUp (e) {
-    console.log('PotteryScene onWheelUp');
-    // document.onmousemove = null;
-		// document.onmouseup = null;
-    // document.ontouchmove = null;
-		// document.ontouchend = null;
+
     document.onpointermove = null;
     document.onpointerup = null;
     document.onpointercancel = null;
@@ -260,7 +247,6 @@ function SpinnerGroup({
       reticleRef.current.style.left = `${x}px`;
       reticleRef.current.style.top = `${y}px`;
     } else {
-      console.log('hide reticle');
       reticleRef.current.style.visibility = "hidden";
     }
     
