@@ -187,7 +187,7 @@ function RookwoodPotteryInteractive({ data }) {
   useIdleTimer({
     timeout: INACTIVITY_TIMEOUT_SECS * 1000,
     debounce: 500,
-    startOnMount: false,
+    startOnMount: (reloadScreen === APP_STATE.SELECTION_GALLERY),
     onIdle: () => fadeToBlackReset(false),
   });
 
