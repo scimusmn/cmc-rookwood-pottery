@@ -12,7 +12,7 @@ import FINISHED_PIECES from '../../data/RookwoodPieces';
 
 const SCENE_DEBUG_MODE = false;
 const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
-const SPIN_SPEED = 0.01;
+const SPIN_SPEED = 0.006;
 
 function ProgressLoader() {
   const { progress } = useProgress();
@@ -228,7 +228,7 @@ function SpinnerGroup({
     }
 
     const wheelXOffset = ( pointerX - (1920/2) ) - wheelDragStartX.current;
-    wheelTargetRotation.current = wheelDragStartRotation.current + wheelXOffset * 0.02;
+    wheelTargetRotation.current = wheelDragStartRotation.current + wheelXOffset * 0.0035;
   }
 
   function onWheelUp (e) {

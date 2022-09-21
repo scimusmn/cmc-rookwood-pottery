@@ -14,6 +14,7 @@ const FINISHED_PIECES = {
     colors: {
       treeOfLifeBASE002: COLOR_LOOKUP.Griege.after,
       treeOfLifeTRUNK003: COLOR_LOOKUP.Light_brown_Tree_of_Life.after,
+      treeOfLifeLEAVES003: COLOR_LOOKUP.Ivy.after,
       treeOfLifeLEAVEScolor1003: COLOR_LOOKUP.Acanthus.after,
       treeOfLifeLEAVEScolor2004: COLOR_LOOKUP.Kahuto.after,
       treeOfLifeLEAVEScolor3001: COLOR_LOOKUP.Ivy.after,

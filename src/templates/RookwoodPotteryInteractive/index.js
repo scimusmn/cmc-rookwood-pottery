@@ -134,6 +134,7 @@ function RookwoodPotteryInteractive({ data }) {
   const [showReadyModal, setShowReadyModal] = useState(false);
   const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
   const [showOriginalModal, setShowOriginalModal] = useState(false);
+  const [modalTransitioning, setModalTransitioning] = useState(false);
 
   useEffect(() => {
     setShowFadeOut(false);
@@ -190,6 +191,13 @@ function RookwoodPotteryInteractive({ data }) {
     startOnMount: (reloadScreen === APP_STATE.SELECTION_GALLERY),
     onIdle: () => fadeToBlackReset(false),
   });
+
+  function timedModalTransition() {
+    setModalTransitioning(true);
+    setTimeout(() => {
+      setModalTransitioning(false);
+    }, 700);
+  }
 
   function renderAttract() {
     return (
@@ -279,7 +287,7 @@ function RookwoodPotteryInteractive({ data }) {
         <button
           type="button"
           className="btn fire"
-          onClick={() => setShowReadyModal(true)}
+          onPointerDown={() => setShowReadyModal(true)}
         >
           <div className="outer">
             <div className="inner">
@@ -309,7 +317,8 @@ function RookwoodPotteryInteractive({ data }) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showLoadingModal}
-          onHide={() => setShowLoadingModal(false)}
+          onEnter={() => timedModalTransition()}
+          onHide={() => { if (!modalTransitioning) setShowLoadingModal(false); }}
         >
           <Modal.Body>
             <h4>ALMOST READY</h4>
@@ -329,7 +338,8 @@ function RookwoodPotteryInteractive({ data }) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showReadyModal}
-          onHide={() => setShowReadyModal(false)}
+          onEnter={() => timedModalTransition()}
+          onHide={() => { if (!modalTransitioning) setShowReadyModal(false); }}
         >
           <Modal.Body>
             <h4>ARE YOU READY?</h4>
@@ -353,7 +363,8 @@ function RookwoodPotteryInteractive({ data }) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showAreYouSureModal}
-          onHide={() => setShowAreYouSureModal(false)}
+          onEnter={() => timedModalTransition()}
+          onHide={() => { if (!modalTransitioning) setShowAreYouSureModal(false); }}
         >
           <Modal.Body>
             <h4>ARE YOU SURE?</h4>
@@ -377,7 +388,8 @@ function RookwoodPotteryInteractive({ data }) {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={showOriginalModal}
-          onHide={() => setShowOriginalModal(false)}
+          onEnter={() => timedModalTransition()}
+          onHide={() => { if (!modalTransitioning) setShowOriginalModal(false); }}
         >
           <button type="button" className="x-close" onPointerDown={() => setShowOriginalModal(false)} />
           <GatsbyImage
