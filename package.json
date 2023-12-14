@@ -63,6 +63,7 @@
     "build": "gatsby clean && gatsby build",
     "clean": "gatsby clean",
     "depcheck": "node -r esm scripts/depcheck.js",
+    "deploy:preview": "yarn build && gsutil -m cp -r ./public/* gs://cmc-rookwood-preview.smm.org",
     "develop": "gatsby develop --port 3000",
     "export-space": "node scripts/contentful/export-space.js",
     "populate-space": "node scripts/contentful/populate-space.js",
