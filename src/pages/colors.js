@@ -9,9 +9,9 @@ function ColorsPage() {
       </h3>
       <table>
         <tbody>
-          <tr>
+          <tr style={{ backgroundColor: 'white' }}>
             <th>NAME</th>
-            <th>PRE</th>
+            <th>UNFIRED</th>
             <th>FIRED</th>
           </tr>
           {Object.values(COLOR_LOOKUP).map(({ label, before, after }) => (
@@ -19,8 +19,12 @@ function ColorsPage() {
               <td>
                 {label}
               </td>
-              <td style={{ backgroundColor: before, width: '50px', height: '20px' }} />
-              <td style={{ backgroundColor: after, width: '50px', height: '20px' }} />
+              <td style={{ backgroundColor: before, width: '120px', height: '20px' }}>
+                {before}
+              </td>
+              <td style={{ backgroundColor: after, width: '120px', height: '20px' }}>
+                {after}
+              </td>
             </tr>
           ))}
         </tbody>

@@ -67,7 +67,8 @@ function SpinnerGroup({
   scale, 
   activeColor, 
   showFired,
-  showCompare
+  showCompare,
+  overrideColor
 }) {
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
@@ -275,6 +276,7 @@ function SpinnerGroup({
         position={showCompare ? [0, (showCompare && PotteryScene.getIsFlatPiece(pieceName) ? 0.82 : 0), -0.75] : null}
         rotation={(showCompare && PotteryScene.getIsFlatPiece(pieceName)) ? FLAT_ROTATION_COMPARE : null}
         spinSpeed={showCompare ? SPIN_SPEED : 0}
+        overrideColor={overrideColor}
       />
       <AtomizerModel 
         key="after-ideal-model"
@@ -306,6 +308,11 @@ function PotteryScene({
 }) { 
   const canvasRef = useRef();
 
+  const [overrideColor, setOverrideColor] = useState("#a0a");
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const DEBUG_MODE = urlParams.get('debug') === 'true';
+
   return (
     <div className="scene-container">
       <Canvas ref={canvasRef} 
@@ -329,10 +336,21 @@ function PotteryScene({
               onMeshTargetsReady={onMeshTargetsReady} 
               showFired={showFired}  
               showCompare={showCompare}
+              overrideColor={overrideColor}
             />
             <Lighting />
         </Suspense>
       </Canvas>
+      {DEBUG_MODE && (
+        <div className='debug-panel'>
+          <span>Override color:</span>
+          <input 
+            type="color" 
+            value={overrideColor} 
+            onChange={(e) => setOverrideColor(e.target.value)}
+          />
+        </div>
+      )}
     </div>
   );
 }

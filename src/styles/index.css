@@ -922,3 +922,16 @@ body.modal-open > :not(.modal) {
   margin: 0 auto;
   width: 250px;
 }
+
+/* Dev/Debug tools */
+.debug-panel {
+  background-color: rgb(238 237 231 / 90%);
+  top: 0;
+  box-shadow: 0 0 15px -3px rgb(54 64 21 / 55%);
+  height: 100%;
+  position: absolute;
+  left: 60%;
+  width: 120px;
+  height: 70px;
+  z-index: 99;
+}

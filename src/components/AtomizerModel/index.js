@@ -19,7 +19,8 @@ export function AtomizerModel({
   rotation,
   atomizerEnabled,
   spinSpeed,
-  onUpdateReticle
+  onUpdateReticle,
+  overrideColor
 }) {
   const SPIN_AXIS = new THREE.Vector3(0, 1, 0);
   const SPIN_AXIS_FLAT = new THREE.Vector3(0, 0, 1);
@@ -414,6 +415,15 @@ export function AtomizerModel({
     if (newColor === ERASER_COLOR_ID) newColor = PRE_GLAZE_DEFAULT_COLOR.before;
     currentDragColor.current = newColor;
   }, [activeColor]);
+
+  // Dev: update override color when it changes
+  useEffect(() => {
+    if (visible && overrideColor && edits && edits.colors) {
+      Object.keys(edits.colors).forEach(meshName => {
+        applySwatch(meshName, overrideColor, true); 
+      });
+    }
+  }, [overrideColor, visible]);
 
   return (
     <primitive
