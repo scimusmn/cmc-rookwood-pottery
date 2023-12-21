@@ -928,7 +928,7 @@ body.modal-open > :not(.modal) {
 .debug-panel {
   background-color: rgb(238 237 231 / 90%);
   box-shadow: 0 0 15px -3px rgb(54 64 21 / 55%);
-  height: 190px;
+  height: 220px;
   left: 56%;
   position: absolute;
   top: 0;

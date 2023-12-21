@@ -12,11 +12,12 @@ function ColorsPage() {
           <tr style={{ backgroundColor: 'white' }}>
             <th>NAME</th>
             <th>UNFIRED</th>
-            <th>FIRED</th>
+            <th>PBN.FIRED</th>
+            <th>ATM.FIRED</th>
             <th>ROOKWOOD</th>
           </tr>
           {Object.values(COLOR_LOOKUP).map(({
-            label, before, after, rookwoodTarget,
+            label, before, after, atomizerAfter, rookwoodTarget,
           }) => (
             <tr key={label}>
               <td>
@@ -33,6 +34,12 @@ function ColorsPage() {
               }}
               >
                 {after}
+              </td>
+              <td style={{
+                backgroundColor: atomizerAfter, width: '120px', height: '20px', userSelect: 'text',
+              }}
+              >
+                {atomizerAfter}
               </td>
               <td style={{
                 backgroundColor: rookwoodTarget, width: '120px', height: '20px', userSelect: 'text',

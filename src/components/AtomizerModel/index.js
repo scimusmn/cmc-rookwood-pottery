@@ -205,12 +205,14 @@ export function AtomizerModel({
       // This isn't an ideal place to do this, but these
       // are color adjustments to help the fired versions
       // of atomizer colors look closer to real-life colors.
-      if (color === COLOR_LOOKUP.Woodland_green.after) rgb = chroma(rgb).darken(1.4).rgb();
-      if (color === COLOR_LOOKUP.Tuscan_Gold.after) rgb = chroma(rgb).saturate(2).darken(1).rgb();
+      // 12/2023 - tn - disabling this exception in favor of full color matching pass
+      // if (color === COLOR_LOOKUP.Woodland_green.after) rgb = chroma(rgb).darken(1.4).rgb();
+      // if (color === COLOR_LOOKUP.Tuscan_Gold.after) rgb = chroma(rgb).saturate(2).darken(1).rgb();
     }
 
-    const colorStrInner = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.05)`;
+    const colorStrInner = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
     const colorStrOuter = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.0)`;
+
     let colorGradient;
 
     // MULTI-CIRCLE SPRAY
@@ -423,25 +425,25 @@ export function AtomizerModel({
         applySwatch(meshName, overrideColor, true); 
       });
     }
-    // if (overrideColor && edits && edits.atomizerPoints && atomizerEnabled) {
-    //   console.log('overriding atomizer points');
-    //   console.log(edits.atomizerPoints);
+    if (overrideColor && edits && edits.atomizerPoints && atomizerEnabled) {
+      console.log('overriding atomizer points');
+      console.log(edits.atomizerPoints);
 
-    //   const canvas = canvasRef.current;
-    //   canvas.width = 4096;
-    //   canvas.height = 4096;
-    //   const context = canvas.getContext("2d");
-    //   if (context) {
-    //     context.rect(0, 0, canvas.width, canvas.height);
-    //     context.fillStyle = PRE_GLAZE_DEFAULT_COLOR.before;
-    //     context.fill();
-    //   }
-    //   console.log('canvas cleared');
+      const canvas = canvasRef.current;
+      canvas.width = 4096;
+      canvas.height = 4096;
+      const context = canvas.getContext("2d");
+      if (context) {
+        context.rect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = PRE_GLAZE_DEFAULT_COLOR.before;
+        context.fill();
+      }
+      console.log('canvas cleared');
 
-    //   edits.atomizerPoints.forEach(drawData => {
-    //     drawToCanvas({ x: drawData.x, y: drawData.y, color: overrideColor });
-    //   });
-    // }
+      edits.atomizerPoints.forEach(drawData => {
+        drawToCanvas({ x: drawData.x, y: drawData.y, color: overrideColor });
+      });
+    }
   }, [overrideColor, visible]);
 
   return (

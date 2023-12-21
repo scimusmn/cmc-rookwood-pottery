@@ -178,7 +178,7 @@ function SpinnerGroup({
         let afterColor = null;
         Object.keys(COLOR_LOOKUP).forEach(k => {
           if (COLOR_LOOKUP[k].before === beforeColor) {
-            afterColor = COLOR_LOOKUP[k].after;
+            afterColor = COLOR_LOOKUP[k].atomizerAfter;
           }
         })
         if (afterColor) {
@@ -356,6 +356,17 @@ function PotteryScene({
           <br/>
           <span>Target color: {targetColor}</span>
           <br/>
+          <select
+                value={targetColor}
+                onChange={(e) => setTargetColor(e.target.value)}
+              >
+                {Object.values(COLOR_LOOKUP).map((color) => (
+                  <option key={color.label} value={color.rookwoodTarget}>
+                    {color.label}
+                  </option>
+                ))}
+              </select>
+              <br/>
           <input 
             type="color" 
             value={targetColor} 
