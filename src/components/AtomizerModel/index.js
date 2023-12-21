@@ -423,6 +423,25 @@ export function AtomizerModel({
         applySwatch(meshName, overrideColor, true); 
       });
     }
+    // if (overrideColor && edits && edits.atomizerPoints && atomizerEnabled) {
+    //   console.log('overriding atomizer points');
+    //   console.log(edits.atomizerPoints);
+
+    //   const canvas = canvasRef.current;
+    //   canvas.width = 4096;
+    //   canvas.height = 4096;
+    //   const context = canvas.getContext("2d");
+    //   if (context) {
+    //     context.rect(0, 0, canvas.width, canvas.height);
+    //     context.fillStyle = PRE_GLAZE_DEFAULT_COLOR.before;
+    //     context.fill();
+    //   }
+    //   console.log('canvas cleared');
+
+    //   edits.atomizerPoints.forEach(drawData => {
+    //     drawToCanvas({ x: drawData.x, y: drawData.y, color: overrideColor });
+    //   });
+    // }
   }, [overrideColor, visible]);
 
   return (
