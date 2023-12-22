@@ -187,9 +187,9 @@ function SpinnerGroup({
           console.log('[WARNING] No after color for atomizer', beforeColor);
         }
       })
-      // console.log('================== COPY/PASTE START ======================');
-      // console.log(JSON.stringify(clonedEditsObj));
-      // console.log('================== COPY/PASTE END ========================');
+      console.log('================== COPY/PASTE START ======================');
+      console.log(JSON.stringify(clonedEditsObj));
+      console.log('================== COPY/PASTE END ========================');
     }
     setPreFireEdits(clonedEditsObj);
   }

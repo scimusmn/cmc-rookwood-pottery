@@ -210,6 +210,7 @@ export function AtomizerModel({
       // if (color === COLOR_LOOKUP.Tuscan_Gold.after) rgb = chroma(rgb).saturate(2).darken(1).rgb();
     }
 
+    // const colorStrInner = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.05)`;
     const colorStrInner = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.2)`;
     const colorStrOuter = `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, 0.0)`;
 
@@ -426,8 +427,6 @@ export function AtomizerModel({
       });
     }
     if (overrideColor && edits && edits.atomizerPoints && atomizerEnabled) {
-      console.log('overriding atomizer points');
-      console.log(edits.atomizerPoints);
 
       const canvas = canvasRef.current;
       canvas.width = 4096;
@@ -438,7 +437,6 @@ export function AtomizerModel({
         context.fillStyle = PRE_GLAZE_DEFAULT_COLOR.before;
         context.fill();
       }
-      console.log('canvas cleared');
 
       edits.atomizerPoints.forEach(drawData => {
         drawToCanvas({ x: drawData.x, y: drawData.y, color: overrideColor });
