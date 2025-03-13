@@ -67,7 +67,8 @@ function SpinnerGroup({
   scale, 
   activeColor, 
   showFired,
-  showCompare
+  showCompare,
+  overrideColor
 }) {
   const [preFireEdits, setPreFireEdits] = useState(null);
   const spinGroupRef = useRef();
@@ -177,7 +178,7 @@ function SpinnerGroup({
         let afterColor = null;
         Object.keys(COLOR_LOOKUP).forEach(k => {
           if (COLOR_LOOKUP[k].before === beforeColor) {
-            afterColor = COLOR_LOOKUP[k].after;
+            afterColor = COLOR_LOOKUP[k].atomizerAfter;
           }
         })
         if (afterColor) {
@@ -186,9 +187,9 @@ function SpinnerGroup({
           console.log('[WARNING] No after color for atomizer', beforeColor);
         }
       })
-      // console.log('================== COPY/PASTE START ======================');
-      // console.log(JSON.stringify(clonedEditsObj));
-      // console.log('================== COPY/PASTE END ========================');
+      console.log('================== COPY/PASTE START ======================');
+      console.log(JSON.stringify(clonedEditsObj));
+      console.log('================== COPY/PASTE END ========================');
     }
     setPreFireEdits(clonedEditsObj);
   }
@@ -274,7 +275,8 @@ function SpinnerGroup({
         edits={preFireEdits}
         position={showCompare ? [0, (showCompare && PotteryScene.getIsFlatPiece(pieceName) ? 0.82 : 0), -0.75] : null}
         rotation={(showCompare && PotteryScene.getIsFlatPiece(pieceName)) ? FLAT_ROTATION_COMPARE : null}
-        spinSpeed={showCompare ? SPIN_SPEED : 0}
+        spinSpeed={(showCompare && overrideColor === "#000000") ? SPIN_SPEED : 0}
+        overrideColor={overrideColor}
       />
       <AtomizerModel 
         key="after-ideal-model"
@@ -306,6 +308,12 @@ function PotteryScene({
 }) { 
   const canvasRef = useRef();
 
+  const [overrideColor, setOverrideColor] = useState("#000000");
+  const [targetColor, setTargetColor] = useState("#000000");
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const DEBUG_MODE = urlParams.get('debug') === 'true';
+
   return (
     <div className="scene-container">
       <Canvas ref={canvasRef} 
@@ -329,10 +337,48 @@ function PotteryScene({
               onMeshTargetsReady={onMeshTargetsReady} 
               showFired={showFired}  
               showCompare={showCompare}
+              overrideColor={overrideColor}
             />
             <Lighting />
         </Suspense>
       </Canvas>
+      {DEBUG_MODE && (
+        <>
+        <div className='debug-panel'>
+          <span>Override color: {overrideColor}</span>
+          <br/>
+          <input 
+            type="color" 
+            value={overrideColor} 
+            onChange={(e) => setOverrideColor(e.target.value)}
+          />
+          <br/>
+          <br/>
+          <span>Target color: {targetColor}</span>
+          <br/>
+          <select
+                value={targetColor}
+                onChange={(e) => setTargetColor(e.target.value)}
+              >
+                {Object.values(COLOR_LOOKUP).map((color) => (
+                  <option key={color.label} value={color.rookwoodTarget}>
+                    {color.label}
+                  </option>
+                ))}
+              </select>
+              <br/>
+          <input 
+            type="color" 
+            value={targetColor} 
+            onChange={(e) => setTargetColor(e.target.value)}
+          />
+        </div>
+        {(targetColor !== "#000000") && (
+          <div className='debug-target-color' style={{backgroundColor: targetColor }}>
+          </div>
+        )}
+        </>
+      )}
     </div>
   );
 }

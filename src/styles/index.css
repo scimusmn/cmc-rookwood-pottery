@@ -38,7 +38,7 @@ textarea,
 button,
 select,
 a {
-  -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%) !important;
 }
 
 body {
@@ -499,31 +499,31 @@ span.icon-home {
 
 .btn.fire {
   background: none;
+  border: none !important;
+  cursor: default;
   height: 90px;
+  outline: none !important;
   position: absolute;
   right: 145px;
+  -webkit-tap-highlight-color: transparent !important;
   top: 997px;
   width: 250px;
   z-index: 99;
-  border: none !important;
-  outline: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-  cursor: default;
 }
 
 button.fire:active,
 button.fire:focus,
 button.fire:focus:active {
   background-image: none;
-  outline: 0;
   box-shadow: none;
+  outline: 0;
 }
 
 button.fire div {
   outline: none !important;
 }
 
-.btn.fire:focus {outline:0;}
+.btn.fire:focus { outline: 0; }
 
 .btn.fire .outer {
   background: #ff2626;
@@ -532,14 +532,15 @@ button.fire div {
   bottom: 35.13px;
   box-shadow: 0 4px 4px rgb(0 0 0 / 25%), inset 0 0 8px rgb(160 8 8 / 67%);
   box-sizing: border-box;
+  cursor: default;
   height: 90px;
   left: calc(50% - 250px / 2);
-  position: absolute;
-  width: 250px;
-  -webkit-tap-highlight-color: transparent !important;
+
   /* border: none !important; */
   outline: none !important;
-  cursor: default;
+  position: absolute;
+  -webkit-tap-highlight-color: transparent !important;
+  width: 250px;
 }
 
 .btn.fire .inner {
@@ -921,4 +922,26 @@ body.modal-open > :not(.modal) {
   height: 45px;
   margin: 0 auto;
   width: 250px;
+}
+
+/* Dev/Debug tools */
+.debug-panel {
+  background-color: rgb(238 237 231 / 90%);
+  box-shadow: 0 0 15px -3px rgb(54 64 21 / 55%);
+  height: 220px;
+  left: 56%;
+  position: absolute;
+  top: 0;
+  user-select: text;
+  width: 130px;
+  z-index: 99;
+}
+
+.debug-target-color {
+  height: 820px;
+  left: 620px;
+  position: absolute;
+  top: 30px;
+  width: 15px;
+  z-index: 98;
 }

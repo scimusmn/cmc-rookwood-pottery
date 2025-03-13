@@ -1,24 +1,64 @@
 const COLOR_LOOKUP = {
-  Acanthus: { label: 'Acanthus', before: '#e3e4de', after: '#658d85' },
-  Aegean: { label: 'Aegean', before: '#e7e3e0', after: '#011f5d' },
-  Barbary_Coast: { label: 'Barbary Coast', before: '#d6d6d6', after: '#879c9f' },
-  Blue_green: { label: 'Blue Green', before: '#eee0d5', after: '#4a4e42' },
-  Brown_green: { label: 'Brown Green', before: '#ecd9ae', after: '#998049' },
-  Brunneous_brown: { label: 'Brunneous Brown', before: '#d28774', after: '#362d2e' },
-  Devon: { label: 'Devon', before: '#ecd8ae', after: '#706843' },
-  Griege: { label: 'Griege', before: '#ebe0da', after: '#937865' },
-  Ivy: { label: 'Ivy', before: '#ece4d9', after: '#aab17b' },
-  Kahuto: { label: 'Kahuto', before: '#c9d0c0', after: '#4A6C40' },
-  Light_brown_Pinecone_vase: { label: 'Brown', before: '#ada8a4', after: '#502e23' },
-  Light_brown_Tree_of_Life: { label: 'Light Brown', before: '#d28573', after: '#675b4f' },
-  Night_Tide: { label: 'Night Tide', before: '#b9c8cf', after: '#334D5A' },
-  Off_white: { label: 'Off-white', before: '#ede6e0', after: '#efe6d6' },
-  Sargasso_Surf: { label: 'Sargasso Surf', before: '#d3d3d3', after: '#59747d' },
-  Serenade: { label: 'Serenade', before: '#eee7e1', after: '#b2bbc2' },
-  Spark: { label: 'Spark', before: '#ebe6e2', after: '#f8e7d1' },
-  Tuscan_Gold: { label: 'Tuscan Gold', before: '#c18a75', after: '#C7A24B' },
-  White: { label: 'White', before: '#ece5df', after: '#f7efe9' },
-  Woodland_green: { label: 'Woodland Green', before: '#e0e5de', after: '#4F6058' },
+  Acanthus: {
+    label: 'Acanthus', before: '#e3e4de', after: '#658d85', atomizerAfter: '#3a694d', rookwoodTarget: '#8FB29D',
+  },
+  Aegean: {
+    label: 'Aegean', before: '#e7e3e0', after: '#011f5d', atomizerAfter: '#000b24', rookwoodTarget: '#00296D',
+  },
+  Barbary_Coast: {
+    label: 'Barbary Coast', before: '#d6d6d6', after: '#88a1a5', atomizerAfter: '#35484b', rookwoodTarget: '#879c9f',
+  },
+  Blue_green: {
+    label: 'Blue Green', before: '#eee0d5', after: '#546357', atomizerAfter: '#151712', rookwoodTarget: '#4a4e42',
+  },
+  Brown_green: {
+    label: 'Brown Green', before: '#ecd9ae', after: '#a2874e', atomizerAfter: '#3e2d0e', rookwoodTarget: '#998049',
+  },
+  Brunneous_brown: {
+    label: 'Brunneous Brown', before: '#d28774', after: '#362d2e', atomizerAfter: '#0e0b0c', rookwoodTarget: '#362d2e',
+  },
+  Devon: {
+    label: 'Devon', before: '#ecd8ae', after: '#706843', atomizerAfter: '#706843', rookwoodTarget: '#706843',
+  },
+  Griege: {
+    label: 'Griege', before: '#ebe0da', after: '#937865', atomizerAfter: '#372a20', rookwoodTarget: '#837162',
+  },
+  Ivy: {
+    label: 'Ivy', before: '#ece4d9', after: '#aab17b', atomizerAfter: '#5b6e2b', rookwoodTarget: '#ABBA7E',
+  },
+  Kahuto: {
+    label: 'Kahuto', before: '#c9d0c0', after: '#4A6C40', atomizerAfter: '#1c2617', rookwoodTarget: '#586d4d',
+  },
+  Light_brown_Pinecone_vase: {
+    label: 'Brown', before: '#ada8a4', after: '#7e5244', atomizerAfter: '#190a06', rookwoodTarget: '#502e23',
+  },
+  Light_brown_Tree_of_Life: {
+    label: 'Light Brown', before: '#d28573', after: '#675b4f', atomizerAfter: '#221c16', rookwoodTarget: '#675b4f',
+  },
+  Night_Tide: {
+    label: 'Night Tide', before: '#b9c8cf', after: '#3f5b69', atomizerAfter: '#0c171d', rookwoodTarget: '#334D5A',
+  },
+  Off_white: {
+    label: 'Off-white', before: '#ede6e0', after: '#ffe9c2', atomizerAfter: '#ffd68f', rookwoodTarget: '#efe6d6',
+  },
+  Sargasso_Surf: {
+    label: 'Sargasso Surf', before: '#d3d3d3', after: '#566e76', atomizerAfter: '#18292f', rookwoodTarget: '#59747d',
+  },
+  Serenade: {
+    label: 'Serenade', before: '#eee7e1', after: '#b2bbc2', atomizerAfter: '#3d4352', rookwoodTarget: '#8D929E',
+  },
+  Spark: {
+    label: 'Spark', before: '#ebe6e2', after: '#ffe1b8', atomizerAfter: '#ffb980', rookwoodTarget: '#f8e7d1',
+  },
+  Tuscan_Gold: {
+    label: 'Tuscan Gold', before: '#c18a75', after: '#c59c44', atomizerAfter: '#91530d', rookwoodTarget: '#C7A24B',
+  },
+  White: {
+    label: 'White', before: '#ece5df', after: '#ffe6d1', atomizerAfter: '#ffe6c2', rookwoodTarget: '#f7efe9',
+  },
+  Woodland_green: {
+    label: 'Woodland Green', before: '#e0e5de', after: '#4F6058', atomizerAfter: '#1b271d', rookwoodTarget: '#576f5c',
+  },
 };
 
 const OBJECT_PALETTES = {
