@@ -1,6 +1,6 @@
 const COLOR_LOOKUP = {
   Acanthus: {
-    label: 'Acanthus', before: '#e3e4de', after: '#658d85', atomizerAfter: '#3a694d', rookwoodTarget: '#8FB29D',
+    label: 'Acanthus', before: '#e3e4de', after: '#658d85', atomizerAfter: '#3d5c3e', rookwoodTarget: '#ACC4AA',
   },
   Aegean: {
     label: 'Aegean', before: '#e7e3e0', after: '#011f5d', atomizerAfter: '#000b24', rookwoodTarget: '#00296D',
@@ -29,6 +29,9 @@ const COLOR_LOOKUP = {
   Kahuto: {
     label: 'Kahuto', before: '#c9d0c0', after: '#4A6C40', atomizerAfter: '#1c2617', rookwoodTarget: '#586d4d',
   },
+  Kahuto_Tree_of_Life: {
+    label: 'Kahuto', before: '#c9d0c0', after: '#6e795d', atomizerAfter: '#1c2617', rookwoodTarget: '#586d4d',
+  },
   Light_brown_Pinecone_vase: {
     label: 'Brown', before: '#ada8a4', after: '#7e5244', atomizerAfter: '#190a06', rookwoodTarget: '#502e23',
   },
@@ -45,7 +48,7 @@ const COLOR_LOOKUP = {
     label: 'Sargasso Surf', before: '#d3d3d3', after: '#566e76', atomizerAfter: '#18292f', rookwoodTarget: '#59747d',
   },
   Serenade: {
-    label: 'Serenade', before: '#eee7e1', after: '#b2bbc2', atomizerAfter: '#3d4352', rookwoodTarget: '#8D929E',
+    label: 'Serenade', before: '#eee7e1', after: '#8d929e', atomizerAfter: '#3d4352', rookwoodTarget: '#8D929E',
   },
   Spark: {
     label: 'Spark', before: '#ebe6e2', after: '#ffe1b8', atomizerAfter: '#ffb980', rookwoodTarget: '#f8e7d1',
@@ -80,7 +83,7 @@ const OBJECT_PALETTES = {
     'Acanthus',
     'Griege',
     'Ivy',
-    'Kahuto',
+    'Kahuto_Tree_of_Life',
     'Light_brown_Tree_of_Life',
     'Sargasso_Surf',
     'Aegean',
